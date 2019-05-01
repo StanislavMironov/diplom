@@ -1,0 +1,53 @@
+.knowledge {
+	&__block {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__title {
+		padding: 15px;
+	    background-color: white;
+	    margin-bottom: 35px;
+	    box-shadow: 0px 10px 8px;
+	    word-break: break-all;
+	    outline: 4px solid #666;
+	}
+
+	&__info {
+		width: 100%;
+	}
+
+	&__accordion {
+		background-color: #e8e8e8;
+		color: #444;
+		cursor: pointer;
+		padding: 15px;
+		width: 100%;
+		text-align: center;
+		border: none;
+		outline: none;
+		transition: 0.4s;
+		border-bottom: 2px solid darkgray;
+		box-shadow: none;
+
+		&.active, &:hover {
+			background-color: #ddd;
+		}
+	}
+
+	.panel {
+		padding: 0 15px;
+		background-color: white;
+		display: none;
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height 0.2s ease-out;
+
+		&.show {
+			display: block;
+		}
+	}
+
+	
+
+}

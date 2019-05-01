@@ -1,0 +1,6 @@
+.auth-login {
+  background-image: url("../img/auth.jpg");
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+          background-size: cover;
+  position: relative; }

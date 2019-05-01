@@ -1,0 +1,249 @@
+.application {
+    display: flex;
+
+
+@media screen and (max-width: 1024px) {
+  flex-direction: column-reverse;
+}
+
+&__field {
+	display: flex;
+	flex-direction: column;
+
+	&:not(:last-child) {
+		margin-bottom: 15px;
+	};
+
+	textarea {
+      overflow: auto;
+      resize: none;
+      min-width: 450px;
+      height: 50px;
+      background: #fff;
+      border: 1px solid #cecece;
+      border-radius: 8px 0 0 0;
+      padding: 8px 0 8px 10px;
+
+      @media screen and (max-width: 500px) {
+        min-width: 100%;
+        width: 100%;
+      }
+
+      &:hover, &:focus {
+      outline:none;
+     };
+		}
+
+	input[type = "text"] {
+		min-width: 450px;
+    font-size: 13px;
+    padding: 6px 0 4px 10px;
+    border: 1px solid #cecece;
+    background: #FFF;
+    border-radius: 8px;
+
+    @media screen and (max-width: 500px) {
+      min-width: 100%;
+      width: 100%;
+    }
+
+    &:hover, &:focus {
+      outline:none;
+    };
+	}
+
+	label {
+		padding-bottom: 10px;
+	}
+}
+
+&__tabcontent {
+  padding: 50px 0px;
+
+  @media screen and (max-width: 1024px){
+      padding: 38px 0px;
+  }
+}
+
+&__option {
+
+	&:not(:last-child) {
+		margin-bottom: 15px;
+    margin-top: 10px;
+	}
+
+  &:first-child {
+    margin-top: 55px;
+
+    @media screen and (max-width: 1024px){
+      margin-top: 0px;
+     }
+  }
+
+     .fileload__title {
+        display: flex;
+        align-items: baseline;
+
+      .helper {
+          margin-left: 10px;
+      }  
+    }
+
+	input {
+		&:not(&:last-child){
+	      margin-bottom: 15px;
+		}
+	}
+}
+
+&__left {
+	width: 50%;
+  position: relative;
+	margin-right: 10px;
+
+	@media screen and (max-width: 1024px) {
+	  max-width: 100%;
+	  width: 100%;
+	}
+
+	@media screen and (max-width: 500px) {
+         padding: 0px;
+			 margin: 0px;
+    }
+
+
+input[type = "submit"], input[type = "reset"] {
+  align-self:center;
+  background:transparent;
+  padding:10px;
+  transition:all .5s ease;
+  color:#41403E;
+  font-size:14px;
+  letter-spacing:1px;
+  outline:none;
+  box-shadow: 20px 38px 34px -26px hsla(0,0%,0%,.2);
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  border-bottom-left-radius:15px 255px;
+
+@media screen and (max-width: 768px) {
+  padding:10px 50px;
+}
+
+@media screen and (max-width: 500px) {
+  max-width: 100%;
+  width: 100%;
+}
+
+       &:hover{
+         box-shadow:2px 8px 4px -6px hsla(0,0%,0%,.3);
+      } 
+  }
+}
+
+.form-select {
+background: #ffffff;
+overflow: hidden;
+border: 1px solid #cbcbcb;
+border-radius: 3px;
+box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), inset 0 0 10px rgba(0, 0, 0, 0.07);
+
+&:focus,
+&:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+&:after {
+   
+    position: absolute;
+    top: 0;
+    right: 12px;
+    z-index: 1;
+    color: #bbbbbb;
+    line-height: 40px;
+    font-size: 14px;
+
+    .ie & {
+        display: none;
+    }
+}
+}
+
+.drop {
+  min-width: 300px;
+  width: 300px;
+
+   @media screen and (max-width: 1024px) {
+        width: 100%;
+        max-width: 100%;
+  }
+}
+
+.slct {
+   @media screen and (max-width: 1024px) {
+        width: 100%;
+        max-width: 100%;
+  }
+}
+select {
+    position: relative;
+    background: transparent;
+    background-image: none;
+    display: block;
+    width: 100%;
+    outline: none;
+    color: #888888;
+    cursor: pointer;
+    z-index: 2;
+    border: none;
+    padding: 10px 10px 10px 5px;
+    text-overflow: '';
+    text-indent: 5px;
+
+    &[multiple=multiple] {
+        height: auto;
+        border: 1px solid #cbcbcb;
+        border-radius: 3px;
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), inset 0 0 10px rgba(0, 0, 0, 0.07);
+
+        &:hover {
+            border-color: #cccccc;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    option[disabled] {
+        color: #eeeeee;
+        text-shadow: none;
+        border: none;
+    }
+}
+
+select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #888888;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+.column-6 {
+	 margin-bottom: 30px;
+	 max-width: 300px;
+
+     @media screen and (max-width: 1024px) {
+      width: 100%;
+      max-width: 100%;
+    }
+}
+
+
+.main-right {
+  @media screen and (max-width: 1024px) {
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 70px;
+
+}
+}
+}

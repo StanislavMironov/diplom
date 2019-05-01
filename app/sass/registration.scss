@@ -1,0 +1,124 @@
+.registration {
+	float: left;
+	width: 100%;
+	
+	&__func {
+		display: flex;
+	}
+
+	&__select {
+		position: relative;
+		margin-top: 35px;
+   		margin-bottom: 25px;
+	}
+
+	&__list {
+		list-style: none;
+
+		li {
+			&:not(:last-child) {
+				margin-bottom: 10px;
+			};
+
+			&:last-child {
+				margin-bottom: 35px !important;
+			};
+		}
+	}
+
+	&__btn {
+		display: flex;
+
+		&:first-child {
+				margin-right: 15px;
+			};
+	}
+
+	.field {
+		input {
+			    width: 300px;
+			    font-size: 13px;
+			    padding: 6px 0 4px 10px;
+			    border: 1px solid #cecece;
+			    background: #F6F6f6;
+			    border-radius: 5px;
+			    margin-right: 20px;
+		}
+
+		input:focus {
+			outline: none;
+ 			box-shadow: 0 0 1px 1px #4d90f0;}
+		}
+
+
+.slct {
+	display: block;
+	border-radius: 5px;
+	border: 1px solid #cecece;
+	background-color: #F6F6f6;
+	width: 285px;
+	padding: 4px 15px 4px 10px;
+	color: #444;
+	background-position: 290px -145px;
+	overflow: hidden;
+	white-space:nowrap;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;	
+
+}
+.slct.active {
+	border-radius: 5px 5px 0 0;
+	border-bottom: none;
+}
+.drop {
+	margin: 0;
+	padding: 0;
+	width: 310px;
+	border: 1px solid #cecece;
+	border-top: none;
+	display: none;
+	position: absolute;
+	background: #fff;
+}
+.drop li {
+	list-style: none;
+	border-top: 1px dotted #e8e8e8;
+	cursor: pointer;
+	display: block;
+	color: #444;
+	padding: 4px 15px 4px 25px;
+	background-position: 10px -119px;
+}
+.drop li:hover {
+	background-color: #e8e8e8;
+	color: #222;
+}
+
+
+input[type = "submit"], input[type = "reset"] {
+  align-self:center;
+  background:transparent;
+  padding:10px;
+  transition:all .5s ease;
+  color:#41403E;
+  font-size:14px;
+  letter-spacing:1px;
+  outline:none;
+  box-shadow: 20px 38px 34px -26px hsla(0,0%,0%,.2);
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  border-bottom-left-radius:15px 255px;
+
+@media screen and (max-width: 768px) {
+  padding:10px 50px;
+}
+
+@media screen and (max-width: 500px) {
+  max-width: 100%;
+  width: 100%;
+}
+
+       &:hover{
+         box-shadow:2px 8px 4px -6px hsla(0,0%,0%,.3);
+      } 
+  }
+}

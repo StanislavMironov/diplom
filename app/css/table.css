@@ -1,0 +1,40 @@
+.table {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 30px; }
+  .table__row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; }
+    .table__row:first-child {
+      border-bottom: 3px solid #B9B29F;
+      text-align: left;
+      font-weight: bold; }
+    .table__row:nth-child(even) {
+      background: #E8E6D1; }
+  .table__column {
+    padding: 10px 40px 10px 10px; }
+    .table__column:last-child {
+      padding-right: 25px;
+      margin-left: auto; }
+  .table__func {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; }
+    .table__func a:not(:last-child) {
+      margin-right: 15px; }
+    .table__func svg.icon {
+      width: 17px;
+      height: 20px;
+      fill: black; }
+      .table__func svg.icon:hover {
+        fill: red; }

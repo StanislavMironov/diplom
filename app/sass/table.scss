@@ -1,0 +1,51 @@
+.table {
+	display: flex;
+	flex-direction: column;
+	margin-top: 30px;
+
+	&__row {
+		display: flex;
+
+		&:first-child {
+			border-bottom: 3px solid #B9B29F;
+    		text-align: left;
+    		font-weight: bold;
+		}
+
+		&:nth-child(even) {
+			background: #E8E6D1;
+		}
+	}
+
+	&__column {
+		padding: 10px 40px 10px 10px;
+
+		&:last-child {
+			padding-right: 25px;
+			margin-left: auto;
+		}
+	}
+
+	&__func {
+		display: flex;
+
+		a {
+			&:not(:last-child) {
+				margin-right: 15px;
+			};
+		}
+
+		svg {
+			&.icon {
+  				width: 17px;
+  				height: 20px;
+ 				fill: black;
+
+ 				&:hover {
+ 					fill: red;
+ 				}
+				}
+
+		}
+	}
+}

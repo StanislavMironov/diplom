@@ -1,0 +1,21 @@
+.auth {
+	height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__form {
+	    width: 300px;
+	    display: flex;
+	    flex-direction: column;
+
+	    input {
+	    	margin-bottom: 15px;
+	    	
+	    	&:last-child
+	    		{
+	    			margin-bottom: 0px;
+	    		}
+	    }
+    }
+}
