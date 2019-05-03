@@ -10,20 +10,51 @@
 			border-bottom: 3px solid #B9B29F;
     		text-align: left;
     		font-weight: bold;
+    		.table__column{
+    			&:nth-child(1) {
+    			padding-right: 10px;
+    		}
+    			&:nth-child(2) {
+    			padding-right: 9px;
+    		}
+	    		&:nth-child(3) {
+	    			padding-right: 10px;
+	    		}
+
+    		}
+    		
 		}
 
 		&:nth-child(even) {
 			background: #E8E6D1;
 		}
+
+		&:not(:first-child) {
+			&:hover {
+			background-color: rgba(0,0,0,0.2);
+			transition: .3s;
+			color: white;
+			cursor: pointer;
+		}
+		}
 	}
 
 	&__column {
-		padding: 10px 40px 10px 10px;
+		width: 20%;
+	    max-width: 20%;
+	    min-width: 20%;
+	    padding: 10px;
 
-		&:last-child {
-			padding-right: 25px;
-			margin-left: auto;
+	    &:nth-child(2) {
+			padding-right: 9px;
+			overflow: hidden;
+		    white-space: nowrap;
+		    text-overflow: ellipsis;
 		}
+
+	    &:first-child {
+	    	min-width: 10%;
+	    }
 	}
 
 	&__func {

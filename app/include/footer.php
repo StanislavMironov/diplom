@@ -6,6 +6,6 @@
 	    </h2>
 	</div>
 </footer>
-<script src="./js/script.js"></script>
+<script async src="./js/script.js"></script>
 </body>
 </html>

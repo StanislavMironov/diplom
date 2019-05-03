@@ -309,6 +309,41 @@
 #rez {
   display: none; }
 
+.error {
+  padding: 15px;
+  background-color: white;
+  margin-bottom: 35px;
+  -webkit-box-shadow: 0px 10px 8px;
+  box-shadow: 0px 10px 8px;
+  word-break: break-all;
+  outline: 4px solid #666;
+  margin-top: 30px; }
+
+.delApp {
+  position: relative;
+  width: 15px;
+  height: 15px; }
+  .delApp:after, .delApp:before {
+    content: "";
+    height: 2px;
+    width: 16px;
+    position: absolute;
+    left: 0;
+    top: 5px;
+    z-index: 99999999;
+    bottom: 0;
+    background-color: black; }
+  .delApp:hover:after, .delApp:hover:before {
+    background-color: red; }
+  .delApp:after {
+    -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+            transform: rotate(45deg); }
+  .delApp:before {
+    -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg); }
+
 .info-header {
   display: -webkit-box;
   display: -webkit-flex;
@@ -1778,13 +1813,34 @@ select::-ms-expand {
       border-bottom: 3px solid #B9B29F;
       text-align: left;
       font-weight: bold; }
+      .table__row:first-child .table__column:nth-child(1) {
+        padding-right: 10px; }
+      .table__row:first-child .table__column:nth-child(2) {
+        padding-right: 9px; }
+      .table__row:first-child .table__column:nth-child(3) {
+        padding-right: 10px; }
     .table__row:nth-child(even) {
       background: #E8E6D1; }
+    .table__row:not(:first-child):hover {
+      background-color: rgba(0, 0, 0, 0.2);
+      -webkit-transition: .3s;
+      -o-transition: .3s;
+      transition: .3s;
+      color: white;
+      cursor: pointer; }
   .table__column {
-    padding: 10px 40px 10px 10px; }
-    .table__column:last-child {
-      padding-right: 25px;
-      margin-left: auto; }
+    width: 20%;
+    max-width: 20%;
+    min-width: 20%;
+    padding: 10px; }
+    .table__column:nth-child(2) {
+      padding-right: 9px;
+      overflow: hidden;
+      white-space: nowrap;
+      -o-text-overflow: ellipsis;
+         text-overflow: ellipsis; }
+    .table__column:first-child {
+      min-width: 10%; }
   .table__func {
     display: -webkit-box;
     display: -webkit-flex;

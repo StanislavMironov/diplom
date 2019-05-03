@@ -14,9 +14,9 @@ include ("db_connect.php");
     <meta name="description" content="Боковая панель с элементами меню, выдвигающаяся по клику, на чистом css, без использлвания javascript" />
     <meta name="keywords" content="боковое меню, выдвижное меню, выдвигающееся по клику, боковая панеь, css3, html, css" />
     <link rel="shortcut icon" href="favicon.ico" />
-	<script src="./js/jquery.min.js"></script>
-<script src="./js/jquery.form.js"></script>
-<script src="./js/jquery.validate.js"></script>
+	<script async src="./js/jquery.min.js"></script>
+	<script async src="./js/jquery.form.js"></script>
+	<script async src="./js/jquery.validate.js"></script>
 
 </head>
 <body>

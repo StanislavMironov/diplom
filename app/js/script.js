@@ -4,8 +4,46 @@ let prBtn = document.getElementById("tool");
 let prMenu = document.getElementById("prMenu");
 let parObj = document.querySelector('.info-header');
 
+
+$(".appCreate").on("click", function(){
+		$.ajax({
+		type: "POST",
+		url: "./include/update_app.php",
+		dataType: "html",
+		cache: false,
+		success: function(html) {
+		$("#myApp").html(html);
+		}
+	});
+});
+
+
+
+$(document).on('click','.delApp', function(e){
+e.preventDefault();
+let aHref = $(this).attr('href');
+	$.ajax({
+		type: "POST",
+		url: "./include/delete_app.php",
+		data: {aD:aHref},
+		dataType: "html",
+		cache: false,
+		success: function(data) {
+			if(data == 'ok')
+			{
+			var target, elParent, elGr;
+			target = e.target;
+			elParent = target.parentNode.parentNode.parentNode;
+			elGr = elParent;
+			elParent.style="display:none";
+			}
+		}
+	});
+});
+
+
+
 $("#clear_submit").on("click", function(){
-console.log(5);
 	$("#description").val("");
 	$("#full-description").val("");
 	$("#file").val("");
@@ -26,17 +64,18 @@ $('#create_submit').click(function(){
 	  {
 		  if(data == 'create')
 			{
-				console.log(data);
+				$("#form_error").attr('id', 'form-success');
 				$("#form-success").html("Заявка успешно создана!");
 				$("#form-success").slideDown(400);
+				setTimeout(function() { $("#form-success").slideUp(); }, 4000);
 			}else
 			{
 				$("#form-success").attr('id', 'form_error')
 				$("#form_error").html(data);
 				$("#form_error").slideDown(400);
+				setTimeout(function() { $("#form_error").slideUp(); }, 4000);
 			}	
 	  }
-
 		});
 });
 
@@ -63,6 +102,7 @@ $(".custom-select").each(function() {
   $(this).hide();
   $(this).after(template);
 });
+
 $(".custom-option:first-of-type").hover(function() {
   $(this).parents(".custom-options").addClass("option-hover");
 }, function() {
@@ -75,6 +115,7 @@ $(".custom-select-trigger").on("click", function() {
   $(this).parents(".custom-select").toggleClass("opened");
   event.stopPropagation();
 });
+
 $(".custom-option").on("click", function() {
   $(this).parents(".custom-select-wrapper").find("select").val($(this).data("value"));
   $(this).parents(".custom-options").find(".custom-option").removeClass("selection");
@@ -82,8 +123,6 @@ $(".custom-option").on("click", function() {
   $(this).parents(".custom-select").removeClass("opened");
   $(this).parents(".custom-select").find(".custom-select-trigger").text($(this).text());
 });
-
-
 
 $('#logout').click(function(){
 	$.ajax({
@@ -94,7 +133,6 @@ $('#logout').click(function(){
 		success: function(data) {
 			if(data == 'logout')
 			{
-			console.log(data);
 				var url = "auth/login.php";
 				$(location).attr('href',url);
 			}
@@ -227,57 +265,6 @@ prMenu.classList.toggle('active');
             }
             });
         
-     
-
-
-
-
-
-
-
-
-
-
-/*
-function hideAccContent(a) {
-        for (let i = a; i < acc.length; i++) {
-            acc[i].nextElementSibling.classList.remove('show');
-            acc[i].nextElementSibling.classList.add('hide');
-        }
-    }
-	
-function showAccContent(b) {
-	if (acc[b].nextElementSibling.classList.contains('hide')) {
-		acc[b].nextElementSibling.classList.remove('hide');
-		acc[b].nextElementSibling.classList.add('show');
-	}
-}
-
-for (let i = 0; i < acc.length; i++) {
-	acc[i].onclick = function(event) {
-	let target = event.target;
-	for(let i = 0; i < acc.length; i++) {
-                if (target == acc[i]) {
-                    hideAccContent(0);
-                    showAccContent(i);
-					target.nextElementSibling.classList.toggle('click1');
-					
-					if (target.nextElementSibling.classList.contains('click1')){
-						target.nextElementSibling.classList.add('show');
-					} else {
-				
-					target.nextElementSibling.classList.remove('show');
-			}
-                    break;
-                }
-            }
-	}
-}
-*/
-
-
-
-
 for (i = 0; i < acc.length; i++) {
   acc[i].addEventListener("click", function() {
     this.classList.toggle("active");
@@ -295,39 +282,35 @@ for (i = 0; i < acc.length; i++) {
   });
 }
 
+$(".slct").click(function(){
+/* Заносим выпадающий список в переменную */
+var dropBlock = $(this).parent().find('.drop');
+	
+/* Делаем проверку: Если выпадающий блок скрыт то делаем его видимым*/
+if( dropBlock.is(':hidden') ) {
+	dropBlock.slideDown();
 
+	/* Выделяем ссылку открывающую select */
+	$(this).addClass('active');
 
+	/* Работаем с событием клика по элементам выпадающего списка */
+	$('.drop').find('li').click(function(){
 
-
- $(".slct").click(function(){console.log(1);
-	/* Заносим выпадающий список в переменную */
-	var dropBlock = $(this).parent().find('.drop');
+		/* Заносим в переменную HTML код элемента
+		списка по которому кликнули */
+		var selectResult = $(this).html();
 		
-	/* Делаем проверку: Если выпадающий блок скрыт то делаем его видимым*/
-	if( dropBlock.is(':hidden') ) {
-		dropBlock.slideDown();
+		
+		/* Находим наш скрытый инпут и передаем в него
+		значение из переменной selectResult */
+		$(this).parent().parent().find('input').val(selectResult);
+		/* Передаем значение переменной selectResult в ссылку которая
+		открывает наш выпадающий список и удаляем активность */
+		$(this).parent().parent().find('.slct').removeClass('active').html(selectResult);
 
-		/* Выделяем ссылку открывающую select */
-		$(this).addClass('active');
-
-		/* Работаем с событием клика по элементам выпадающего списка */
-		$('.drop').find('li').click(function(){
-
-			/* Заносим в переменную HTML код элемента
-			списка по которому кликнули */
-			var selectResult = $(this).html();
-			
-			
-			/* Находим наш скрытый инпут и передаем в него
-			значение из переменной selectResult */
-			$(this).parent().parent().find('input').val(selectResult);
-			/* Передаем значение переменной selectResult в ссылку которая
-			открывает наш выпадающий список и удаляем активность */
-			$(this).parent().parent().find('.slct').removeClass('active').html(selectResult);
-
-			/* Скрываем выпадающий блок */
-			dropBlock.slideUp();
-		});
+		/* Скрываем выпадающий блок */
+		dropBlock.slideUp();
+	});
 
 	/* Продолжаем проверку: Если выпадающий блок не скрыт то скрываем его */
 	} else {
@@ -355,40 +338,37 @@ $('#file').hover(function(){
 	$(this).parent().find('button').removeClass('button-hover');
 });
 
+let tab = document.querySelectorAll('.info-header__tab'),
+info = document.querySelector('.info-header'),
+tabContent = document.querySelectorAll('.application__tabcontent');
+       
+function hideTabContent(a) {
+	for (let i = a; i < tabContent.length; i++) {
+		tabContent[i].classList.remove('show');
+		tabContent[i].classList.add('hide');
+	}
+}
 
+hideTabContent(1);
 
-	 let tab = document.querySelectorAll('.info-header__tab'),
-        info = document.querySelector('.info-header'),
-        tabContent = document.querySelectorAll('.application__tabcontent');
-        //description = document.querySelector('.description');
-    function hideTabContent(a) {
-        for (let i = a; i < tabContent.length; i++) {
-            tabContent[i].classList.remove('show');
-            tabContent[i].classList.add('hide');
-        }
-    }
+function showTabContent(b) {
+	if (tabContent[b].classList.contains('hide')) {
+		tabContent[b].classList.remove('hide');
+		tabContent[b].classList.add('show');
+	}
+}
 
-    hideTabContent(1);
-
-    function showTabContent(b) {
-        if (tabContent[b].classList.contains('hide')) {
-            tabContent[b].classList.remove('hide');
-            tabContent[b].classList.add('show');
-        }
-    }
-
-    info.addEventListener('click', function(event) {
-        let target = event.target;
-        if (target && target.classList.contains('info-header__tab')) {
-		for(let i = 0; i < tab.length; i++) {
-                if (target == tab[i]) {
-                    hideTabContent(0);
-                    showTabContent(i);
-                    break;
-                }
-            }
-        }
-    });
-	
+info.addEventListener('click', function(event) {
+	let target = event.target;
+	if (target && target.classList.contains('info-header__tab')) {
+	for(let i = 0; i < tab.length; i++) {
+			if (target == tab[i]) {
+				hideTabContent(0);
+				showTabContent(i);
+				break;
+			}
+		}
+	}
+});
 });	
 	

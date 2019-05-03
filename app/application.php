@@ -24,13 +24,14 @@
 				<div class="info-header__tab">
 					Заявки в работе
 				</div>
-				<div class="info-header__tab">
+				<div class="info-header__tab appCreate">
 					Созданные мною
 				</div>
 				<div class="info-header__tab">
 					Архив
 				</div>
 			</div>	
+			<div style="display:none" class="error">Заявок пока нет!</div>
 			<div class="application__tabcontent fade">
 				<form id="createApp" enctype="multipart/form-data" method="post">
 				<div class="application__option">
@@ -62,7 +63,7 @@
 								<button>Выберите файл</button>
 							</div>
 						</div>
-</div>
+					</div>
 				</div>
 
 				<div class="application__field">
@@ -182,56 +183,12 @@
 			</div>
 			</div>
 			<div class="application__tabcontent fade">
-			
-			
-				<div class="table">
-			    <div class="table__row">
-			        <div class="table__column">Номер</div>
-			        <div class="table__column">Название</div>
-			        <div class="table__column">Автор</div>
-			        <div class="table__column">Время</div>
-			        <div class="table__column"></div>
-			    </div>
-
-				
-				
-				<?php
-				$sql = mysqli_query($link, "SELECT * FROM application WHERE user = '{$_SESSION['auth_id']}' ") or die("Ошибка вывода заявки");
-				$row = mysqli_fetch_array($sql);
-				if (mysqli_num_rows($sql) > 0)
-				{
-					do {
-					echo '
-					 <div class="table__row">
-			        <div class="table__column">'.$row["id_application"].'</div>
-			        <div class="table__column">'.$row["title"].'</div>
-			        <div class="table__column">'.$_SESSION['auth_name'].'</div>
-			        <div class="table__column">00.00.00</div>
-			        <div class="table__column table__column--function">
-			        	<div class="table__func">
-				        	<a href="#">
-				        		<svg class="icon">
-	                              <use xlink:href="#my-first-icon" />
-	                            </svg>
-	                        </a>
-				        	<a href="#">
-				        		<svg class="icon">
-                                  <use xlink:href="#my-second-icon" />
-                                </svg>
-							</a>
-			        	</div>
-			        </div>
-			    </div>';
-				}	
-					while($row = mysqli_fetch_array($sql));
-				}
-				else
-				{
-					echo "Ошибка!";
-					echo $_SESSION['auth_id'];
-				}
-			?>
+			<script>
+		
+			</script>
+			<div class="table" id="myApp">
 			</div>
+			
 			</div>
 
 			<div class="application__tabcontent fade">
