@@ -96,7 +96,7 @@
   position: relative;
   width: 15px;
   height: 15px;
-  
+
   &:after,&:before {
     content: "";
     height: 2px;
@@ -104,7 +104,7 @@
     position: absolute;
     left: 0;
     top: 5px;
-    z-index: 99999999;
+    z-index: 1;
     bottom: 0;
     background-color: black;
   }
@@ -121,3 +121,58 @@
     transform: rotate(-45deg);
   }
 }
+
+.podlogka {
+    background: rgba(102, 102, 102, 0.5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    display: none;
+}
+
+.form-success {
+    background-color: rgba(78, 139, 55, 0.2);
+    padding: 10px;
+    color: #41403e;
+    font-weight: bold;
+}
+
+.form-error {
+    background-color: rgba(240, 10, 10, 0.5) !important;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+#popup-close {
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    cursor: pointer;
+
+    &:after, &:before {
+      content: "";
+      height: 20px;
+      background-color: black;
+      width: 2px;
+      position: absolute;
+      right: 0px;
+      left: 9px;
+      top: 1px;
+      bottom: 0;
+    }
+
+    &:after {
+      transform: rotate(-45deg);
+    }
+
+    &:before {
+      transform: rotate(45deg);
+    }
+    }

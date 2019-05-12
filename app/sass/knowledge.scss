@@ -1,4 +1,39 @@
 .knowledge {
+
+	&__popup {
+	  	width: 575px;
+	  	padding: 30px 10px 10px;
+	    height: calc(100% - 350px);
+	    position: absolute;
+	    z-index: 999999;
+	    outline: 5px solid #495057;
+	    background-color: white;
+	    margin: auto;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+	    top: 0;
+	}
+
+	&__container {
+		display: flex;
+    	flex-direction: column;
+
+	h3 {
+		justify-content: center;
+	    align-items: center;
+	    text-align: center;
+	    border-bottom: 3px solid;
+	    margin-top: 0px;
+	}
+
+	p {
+		margin-top: 0;
+	    line-height: 1.6;
+	    overflow-y: scroll;
+	}
+	}
+
 	&__block {
 		display: flex;
 		flex-direction: column;
@@ -39,7 +74,7 @@
 		padding: 0 15px;
 		background-color: white;
 		display: none;
-		max-height: 0;
+		//max-height: 0;
 		overflow: hidden;
 		transition: max-height 0.2s ease-out;
 
@@ -47,7 +82,4 @@
 			display: block;
 		}
 	}
-
-	
-
 }

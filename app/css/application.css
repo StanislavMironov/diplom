@@ -121,6 +121,133 @@
       .application__left input[type="submit"]:hover, .application__left input[type="reset"]:hover {
         -webkit-box-shadow: 2px 8px 4px -6px rgba(0, 0, 0, 0.3);
                 box-shadow: 2px 8px 4px -6px rgba(0, 0, 0, 0.3); }
+  .application__popup {
+    width: 500px;
+    height: -webkit-calc(100% - 35px);
+    height: calc(100% - 35px);
+    position: absolute;
+    z-index: 999999;
+    outline: 5px solid #495057;
+    background-color: white;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0; }
+    .application__popup :-moz-placeholder {
+      color: blue; }
+    .application__popup ::-webkit-input-placeholder {
+      color: blue; }
+    .application__popup :-moz-placeholder {
+      color: blue; }
+    .application__popup ::-webkit-input-placeholder {
+      color: blue; }
+    .application__popup *:focus {
+      outline: none; }
+    .application__popup .editApp_form label {
+      font-family: Georgia, Times, "Times New Roman", serif; }
+    .application__popup .required_notification {
+      font-size: 11px; }
+    .application__popup .editApp_form ul {
+      width: 100%;
+      height: 400px;
+      list-style-type: none;
+      list-style-position: outside;
+      margin: 0px;
+      padding: 0px;
+      overflow-y: scroll; }
+    .application__popup .editApp_form li {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      position: relative; }
+    .application__popup .editApp_form li:first-child, .application__popup .contact_form li:last-child {
+      border-bottom: 1px solid #777; }
+    .application__popup .editApp_form li:nth-of-type(1), .application__popup .editApp_form li:nth-of-type(2) {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex; }
+    .application__popup .editApp_form li:nth-of-type(2) span {
+      margin-right: 86px; }
+    .application__popup .editApp_form h2 {
+      margin: 0;
+      display: inline; }
+    .application__popup .required_notification {
+      color: #d45252;
+      margin: 20px 0 0 0;
+      display: inline;
+      float: right; }
+    .application__popup .editApp_form label {
+      width: 115px;
+      margin-top: 3px;
+      display: inline-block;
+      float: left;
+      padding: 3px;
+      font-weight: bold;
+      margin-right: 20px; }
+    .application__popup .editApp_form input {
+      height: 20px;
+      width: 220px;
+      padding: 5px 8px; }
+    .application__popup .editApp_form textarea {
+      padding: 8px;
+      width: 300px; }
+    .application__popup .editApp_form button {
+      margin-left: 156px; }
+    .application__popup .editApp_form .form_hint {
+      font-size: 11px;
+      padding-left: 3px; }
+    .application__popup .editApp_form input, .application__popup .editApp_form textarea {
+      border: 1px solid #aaa;
+      -webkit-box-shadow: 0px 0px 3px #ccc, 0 10px 15px #eee inset;
+              box-shadow: 0px 0px 3px #ccc, 0 10px 15px #eee inset;
+      -webkit-border-radius: 2px;
+              border-radius: 2px; }
+    .application__popup .editApp_form input:focus, .application__popup .editApp_form textarea:focus {
+      background: #fff;
+      border: 1px solid #555;
+      -webkit-box-shadow: 0 0 3px #aaa;
+              box-shadow: 0 0 3px #aaa; }
+    .application__popup .editApp_form input[type=text]:focus {
+      /* add this to the already existing style */
+      padding-right: 70px; }
+    .application__popup .editApp_form input {
+      /* add this to the already existing style */
+      -webkit-transition: padding .25s;
+      -o-transition: padding .25s;
+      transition: padding .25s; }
+    .application__popup .Btn {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      margin: 0 auto;
+      -webkit-align-self: center;
+          -ms-flex-item-align: center;
+              align-self: center;
+      max-width: 90px;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center; }
+    .application__popup textarea {
+      resize: none; }
+    .application__popup span {
+      font-weight: bold;
+      margin-right: 91px; }
+    .application__popup #resStatus {
+      border-bottom: 1px solid #777;
+      padding: 12px; }
+    .application__popup .saveApp {
+      border-bottom: 1px solid #777;
+      padding: 12px; }
+    .application__popup .changeStatus {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      background-color: rgba(78, 139, 55, 0.2);
+      font-weight: bold;
+      display: none; }
   .application .form-select {
     background: #ffffff;
     overflow: hidden;

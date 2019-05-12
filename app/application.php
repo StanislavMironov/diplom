@@ -11,16 +11,32 @@
 	}
 	include ("include/header.php");
 	include ("functions/functions.php");
+	include ('/include/rule.php');
 ?>
 
 	<div class="application">
-	
 		<div class="application__left">
 		<p style="display:none;" align='left' id='form-success'></p>
 			<div class="info-header">
-				<div class="info-header__tab active">
+			<?php 
+				switch($temp){
+				case "Пользователь":
+				echo '
+					<div class="info-header__tab active">
 					Создать
-				</div>
+					</div>
+					<div class="info-header__tab appCreate">
+					Созданные мною
+					</div>
+					<div class="info-header__tab">
+						Архив
+					</div>
+					';
+				break;
+				}
+			
+			?>
+				<!--
 				<div class="info-header__tab">
 					Заявки в работе
 				</div>
@@ -29,9 +45,9 @@
 				</div>
 				<div class="info-header__tab">
 					Архив
-				</div>
+				</div>-->
 			</div>	
-			<div style="display:none" class="error">Заявок пока нет!</div>
+			
 			<div class="application__tabcontent fade">
 				<form id="createApp" enctype="multipart/form-data" method="post">
 				<div class="application__option">
@@ -108,7 +124,10 @@
 				</form>
 				
 			</div>
-			<div class="application__tabcontent fade">
+			<?php
+			if ($temp != "Пользователь")
+			{
+				echo '<div class="application__tabcontent fade">
 			<div class="table">
 			    <div class="table__row">
 			        <div class="table__column">Номер</div>
@@ -181,7 +200,10 @@
 			        </div>
 			    </div>
 			</div>
-			</div>
+			</div>';
+			}
+			?>
+			
 			<div class="application__tabcontent fade">
 			<script>
 		
@@ -269,8 +291,73 @@
 
 	<?php
 		include ("include/b-aside.php");
+		$sql = mysqli_query($link, "SELECT * FROM application WHERE user = '{$_SESSION['auth_id']}' ") or die("Ошибка вывода заявки");
+		$row = mysqli_fetch_array($sql);
 	?>
-	</div>		
+<div class="podlogka" id="appPopup">	
+<div class="application__popup">
+<div class="application__popup-Container">
+<form class="editApp_form"  method="post" name="application__form" id="formEditApp">
+<div id="resStatus">
+	 <h2 id="num_app"></h2>
+	 <span class="required_notification">* Поля обязательные для заполнения</span>
+</div>
+<ul>
+<div class="changeStatus">
+</div>
+	<li>
+	<div>
+		<span>Отдел:</span>
+	</div>	
+	
+	<div>
+		Отдел кадров
+	</div>
+    </li>
+	
+	<li>
+		<span>Статус:</span> <div><?php echo $_SESSION["statusApp"];?></div>
+	</li>
+	
+    <li>
+	<div>
+        <label for="title_app">Название:*</label>
+        <input id="title_app" type="text" name="title_app"  />
+	</div>	
+    </li>
+	<li>
+		<label for="description">Подробное описание:</label>
+		<textarea id="description_app" name="description_app" cols="40" rows="6" >
+		</textarea>
+	</li>
+	<li>
+		<label for="date">Дата создания: </label>
+		<input type="date" id="date" name="date_app"/>
+	</li>
+	<li>
+    <label for="comment">Комментарии:</label>
+    <textarea name="comment" cols="40" rows="6" id="comment_app" >
+	</textarea>
+	</li>
+	<li>
+	<div>
+        <label for="add_app">Добавить комментарий:</label>
+        <input id="add_app" type="text" name="add_app" />
+	</div>	
+    </li>
+</ul>
+<div class="saveApp">
+<a href="javascript:void(0);" id="save_app" class="Btn" type="submit">Сохранить</a>
+</div>
+</form>
+</div>
+<div id="popup-close">
+</div>
+</div>
+</div>	
+
+</div>	
+</div>		
 <?php
 	include ("include/footer.php");
 ?>
@@ -287,6 +374,10 @@
     <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.151 17.943l-4.143-4.102-4.117 4.159-1.833-1.833 4.104-4.157-4.162-4.119 1.833-1.833 4.155 4.102 4.106-4.16 1.849 1.849-4.1 4.141 4.157 4.104-1.849 1.849z" />
   </symbol>
 </svg>
+
+
+
+
 </body>
 </html>
 

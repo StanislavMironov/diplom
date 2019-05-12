@@ -3,6 +3,7 @@ $_SESSION['auth'] = 'no_auth';
 include ("db_connect.php");
 include ("../functions/functions.php");
 
+global $temp;
 $login = clear_string($link, $_POST["login"]);
 $pass = md5($_POST["pass"]);
 $pass = strrev($pass);
@@ -27,6 +28,9 @@ $row = mysqli_fetch_array($result);
 			$_SESSION['auth_access'] = $row["access"];
 			$_SESSION['auth_img'] = $row["img"];
 			echo 'yes_auth';
+			
+		
+			
 			
 }else
 {

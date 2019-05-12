@@ -1,5 +1,6 @@
 <?php 
 include ("db_connect.php");
+include ('rule.php');
 ?>
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -14,9 +15,9 @@ include ("db_connect.php");
     <meta name="description" content="Боковая панель с элементами меню, выдвигающаяся по клику, на чистом css, без использлвания javascript" />
     <meta name="keywords" content="боковое меню, выдвижное меню, выдвигающееся по клику, боковая панеь, css3, html, css" />
     <link rel="shortcut icon" href="favicon.ico" />
-	<script async src="./js/jquery.min.js"></script>
-	<script async src="./js/jquery.form.js"></script>
-	<script async src="./js/jquery.validate.js"></script>
+	<script src="./js/jquery.min.js"></script>
+	<script src="./js/jquery.form.js"></script>
+	<script src="./js/jquery.validate.js"></script>
 
 </head>
 <body>
@@ -50,27 +51,109 @@ include ("db_connect.php");
             <a class="link link--orange" href="./index.php">Smart Assistent</a> 
         </h2>
         <ul>
-			<li>
-				<a href="./application.php">Пользователи</a>
-			</li>
-            <li>
+		<?php
+			switch($temp){
+			case "Пользователь":
+			echo '
+				<li>
 				<a href="./application.php">Заявки</a>
-			</li>	
-			<li>
-				<a href="#">Отчёты</a>
-			</li>
-			<li>
+				</li>	
+				<li>
 				<a href="./knowledge.php">База знаний</a>
-			</li>
-			<li>
-				<a href="#">Настройки</a>
-			</li>
-			<li>
+				</li>
+				';
+			break;
+			
+			case "Исполнитель":
+			echo '
+				<li>
+				<a href="./application.php">Заявки</a>
+				</li>	
+				<li>
+				<a href="./knowledge.php">База знаний</a>
+				</li>
+				<li>
 				<a href="#">Документы</a>
-			</li>
-			<li>
+				</li>
+				<li>
 				<a href="#">Оргструктура</a>
-			</li>
+				</li>
+				';
+			break;
+			
+			case "Диспетчер":
+			echo '
+				<li>
+				<a href="./application.php">Заявки</a>
+				</li>	
+				<li>
+				<a href="./knowledge.php">База знаний</a>
+				</li>
+				<li>
+				<a href="#">Документы</a>
+				</li>
+				<li>
+				<a href="#">Оргструктура</a>
+				</li>
+				<li>
+				<a href="#">Отчёты</a>
+				</li>
+				';
+			break;
+			
+			case "Руководитель":
+			echo '
+				<li>
+				<a href="#">Пользователи</a>
+				</li>
+				<li>
+				<a href="./application.php">Заявки</a>
+				</li>	
+				<li>
+				<a href="./knowledge.php">База знаний</a>
+				</li>
+				<li>
+				<a href="#">Документы</a>
+				</li>
+				<li>
+				<a href="#">Оргструктура</a>
+				</li>
+				<li>
+				<a href="#">Отчёты</a>
+				</li>
+				';
+			break;
+			
+			case "Администратор":
+			echo '
+				<li>
+				<a href="#">Пользователи</a>
+				</li>
+				<li>
+				<a href="#">Новости</a>
+				</li>
+				<li>
+				<a href="./application.php">Заявки</a>
+				</li>	
+				<li>
+				<a href="./knowledge.php">База знаний</a>
+				</li>
+				<li>
+				<a href="#">Документы</a>
+				</li>
+				<li>
+				<a href="#">Оргструктура</a>
+				</li>
+				<li>
+				<a href="#">Отчёты</a>
+				</li>
+				<li>
+				<a href="#">Настройки</a>
+				</li>
+				';
+			break;
+			}
+		?>
         </ul>
     </nav>
     <main class="container">

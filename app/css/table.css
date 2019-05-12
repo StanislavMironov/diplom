@@ -34,9 +34,9 @@
       color: white;
       cursor: pointer; }
   .table__column {
-    width: 20%;
-    max-width: 20%;
-    min-width: 20%;
+    width: 15%;
+    max-width: 15%;
+    min-width: 15%;
     padding: 10px; }
     .table__column:nth-child(2) {
       padding-right: 9px;

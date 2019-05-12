@@ -1,3 +1,6 @@
+<?php
+	include ('rule.php');
+?>
 		<div class="main-right">
 			<div class="main__title">
 				Ваша роль:
@@ -13,17 +16,6 @@
 			<div class="main-right__item">
 				<div>
 					<?php
-					switch ($_SESSION['auth_access']) {
-					case '1':
-					  $temp = "Пользователь";
-					  break;
-					case '2':
-					  $temp = "Исполнитель";
-					  break;
-					case '3':
-					  $temp = "Диспетчер";
-					  break;
-  }
 						if(@$_SESSION['auth'] == 'yes_auth'){
 							echo '<p id="main-right__title"><img class="test" src="./img/icons/avatar.png" /><span>'.$temp.'</span></p>';
 						}else 
@@ -46,9 +38,24 @@
 				</div>
 			</div>
 			<div class="main-right__item">
-				<div>
-					<div><a href="#">Заявка № 266 : Проверка работы техники</a></div>
-				</div>
+			<?php 
+				if($temp == "Пользователь")
+				{
+					echo '
+						<div>
+						<div><a href="#">Заявок нет.</a></div>
+						</div>
+					';
+				}
+				else
+				{
+					echo '<div>
+						 <div><a href="#">Заявка № 266 : Проверка работы техники</a></div>
+						 </div>
+						 ';
+				
+				}
+			?>
 			</div>
 
 			<div class="main__title" data-tooltip="Всплывающая подсказка">
@@ -63,8 +70,23 @@
 				</div>
 			</div>
 			<div class="main-right__item">
-				<div>
-					<div><a href="#">Задач нет</a></div>
-				</div>
+				<?php 
+				if($temp == "Пользователь")
+				{
+					echo '
+						<div>
+						<div><a href="#">Задач нет.</a></div>
+						</div>
+					';
+				}
+				else
+				{
+					echo '<div>
+						 <div><a href="#">Заявка № 266 : Проверка работы техники</a></div>
+						 </div>
+						 ';
+				
+				}
+			?>
 			</div>				
 		</div>

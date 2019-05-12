@@ -1,15 +1,16 @@
 <?php
-	session_start();
-	define( '_JEXEC', 1 );
+session_start();
+define( '_JEXEC', 1 );
+
 if($_SESSION['auth'] == "yes_auth"){	
-	if(isset($_GET["logout"]))
-	{
-		unset($_SESSION['auth']);
-		unset($_SESSION['auth_name']);
-		header("Location: auth/login.php");
-	}
-	include ("include/header.php");
-	include ("include/db_connect.php");
+if(isset($_GET["logout"]))
+{
+	unset($_SESSION['auth']);
+	unset($_SESSION['auth_name']);
+	header("Location: auth/login.php");
+}
+include ("include/header.php");
+include ("include/db_connect.php");
 ?>
 	<div class="main">
 		<div class="main-left">

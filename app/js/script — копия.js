@@ -5,7 +5,29 @@ let prMenu = document.getElementById("prMenu");
 let parObj = document.querySelector('.info-header');  
 
 
-/* */
+/* $(".knowledge__link").on("click", function(e){
+	$("#appPopup").fadeIn("slow");
+	let target = e.target;
+	let num = $(this).attr('href');
+	alert(num);
+	let parent = target.parentNode.parentNode;
+
+		$.ajax({
+		type: "POST",
+		url: "./include/view_knowledge.php",
+		dataType: "json",
+		cache: false,
+		data: {num:num},
+		success: function(result) {
+		var res = result;
+		alert(result);
+		
+		$(".knowTitle").html(res[0].title);
+		$(".knowDescription").html(res[0].description);
+		}
+		});
+	
+}); */
 
 
 $(document).on('click','#popup-close', function(e){
@@ -320,11 +342,17 @@ for (i = 0; i < acc.length; i++) {
   
   this.classList.toggle("active");
     var panel = this.nextElementSibling;
-     if (panel.style.display === "block") {
+	console.log(panel);
+   /*   if (panel.style.display === "block") {
       panel.style.display = "none";
     } else {
       panel.style.display = "block";
     }
+	 if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else { */
+      panel.style.maxHeight = panel.scrollHeight + "px";
+   // }  
 	
 	
   let idBlock = $(this).attr('id');
@@ -338,38 +366,15 @@ for (i = 0; i < acc.length; i++) {
 	cache: false,
 	data: {idBlock:idBlock},
 		success: function(html) {
+		alert(html);
 		let cBlock = Content.nextElementSibling;
 		jQuery(cBlock).html(html);
 		}
 	});
-	
-	let panelHref = this.nextElementSibling;
-	
-	let num = $(panelHref).on("click", function(e){
+/*   let panel2 = this.nextElementSibling;
+  let num = $(panel2).on("click", function(e){
 	var target = e.target.parentNode;
-	console.log(target);
-	
-	
-	$(document).on('click','.knowledge__link', function(e){
-	$("#appPopup").fadeIn("slow");
-	let target = e.target;
-	let num = $(this).attr('href');
-	alert(num);
-		$.ajax({
-		type: "POST",
-		url: "./include/view_knowledge.php",
-		dataType: "json",
-		cache: false,
-		data: {num:num},
-		success: function(result) {
-		var res = result;
-		console.log(result);
-		$(".knowTitle").html(res[0].title);
-		$(".knowDescription").html(res[0].description);
-		}
-		});
-}); 
-});
+  }); */
   
 
     

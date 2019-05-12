@@ -1,6 +1,6 @@
 .application {
-    display: flex;
 
+display: flex;
 
 @media screen and (max-width: 1024px) {
   flex-direction: column-reverse;
@@ -138,6 +138,166 @@ input[type = "submit"], input[type = "reset"] {
          box-shadow:2px 8px 4px -6px hsla(0,0%,0%,.3);
       } 
   }
+}
+
+
+&__popup {
+  width: 500px;
+  height: calc(100% - 35px);
+  position: absolute;
+  z-index: 999999;
+  outline: 5px solid #495057;
+  background-color: white;
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+
+:-moz-placeholder {
+ color: blue;
+}
+::-webkit-input-placeholder {
+ color: blue;
+}
+
+:-moz-placeholder {
+    color: blue;
+}
+::-webkit-input-placeholder {
+    color: blue;
+}
+
+*:focus {outline: none;}
+
+.editApp_form label {font-family:Georgia, Times, "Times New Roman", serif;}
+.required_notification {font-size: 11px;}
+
+.editApp_form ul {
+    width:100%;
+    height: 400px;
+    list-style-type:none;
+    list-style-position:outside;
+    margin:0px;
+    padding:0px;
+    overflow-y: scroll;
+}
+
+.editApp_form li{
+    padding:12px;
+    border-bottom:1px solid #eee;
+    position:relative;
+}
+
+.editApp_form li:first-child, .contact_form li:last-child {
+    border-bottom:1px solid #777;
+}
+
+.editApp_form li:nth-of-type(1), .editApp_form li:nth-of-type(2) {
+  display: flex;
+}
+
+.editApp_form li:nth-of-type(2) {
+  span {
+    margin-right: 86px;
+  }
+}
+
+.editApp_form h2 {
+    margin:0;
+    display: inline;
+}
+
+.required_notification {
+    color:#d45252;
+    margin:20px 0 0 0;
+    display:inline;
+    float:right;
+}
+
+.editApp_form label {
+    width:115px;
+    margin-top: 3px;
+    display:inline-block;
+    float:left;
+    padding:3px;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.editApp_form input {
+    height:20px;
+    width:220px;
+    padding:5px 8px;
+}
+
+.editApp_form textarea {padding:8px; width:300px;}
+.editApp_form button {margin-left:156px;}
+
+.editApp_form .form_hint {
+  font-size: 11px;
+  padding-left: 3px;
+}
+
+.editApp_form input, .editApp_form textarea {
+    border:1px solid #aaa;
+    box-shadow: 0px 0px 3px #ccc, 0 10px 15px #eee inset;
+    border-radius:2px;
+}
+.editApp_form input:focus, .editApp_form textarea:focus {
+    background: #fff;
+    border:1px solid #555;
+    box-shadow: 0 0 3px #aaa;
+}
+
+.editApp_form input[type=text]:focus{ /* add this to the already existing style */
+    padding-right:70px;
+}
+
+.editApp_form input { /* add this to the already existing style */
+    -moz-transition: padding .25s;
+    -webkit-transition: padding .25s;
+    -o-transition: padding .25s;
+    transition: padding .25s;
+}
+
+
+.Btn {
+    display: flex;
+    margin: 0 auto;
+    align-self: center;
+    max-width: 90px;
+    justify-content: center;
+}
+
+textarea {
+  resize: none;
+}
+
+span {
+  font-weight: bold;
+  margin-right: 91px;
+}
+
+#resStatus {
+    border-bottom: 1px solid #777;
+    padding: 12px;
+}
+
+.saveApp {
+    border-bottom: 1px solid #777;
+    padding: 12px;
+}
+
+
+.changeStatus {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  background-color: rgba(78, 139, 55, 0.2);
+  font-weight: bold;
+  display: none;
+}
 }
 
 .form-select {
