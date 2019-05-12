@@ -15,7 +15,7 @@ if(isset($_POST["idBlock"]))
 			}	
 	while($row = mysqli_fetch_array($sql));
 		}else {
-			echo '<div class="error">Вопросов пока нет!</div>';
+			echo '<div class="error">Заявок пока нет!</div>';
 		}
 }
 ?>

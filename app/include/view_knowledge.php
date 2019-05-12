@@ -6,8 +6,8 @@ if(isset($_POST["num"]))
 	$id_app = $_POST["num"];
 	$num = (string)(preg_replace('|[^0-9]*|','',$id_app));
 	
-	$idApp = num[0];
-	$idCat = num[1];
+	$idApp = $num[0];
+	$idCat = $num[1];
 	$sql = mysqli_query($link, "SELECT * FROM knowledge WHERE id = '$idApp' AND category = '$idCat' ") or die("Ошибка вывода справки");
 	while($row = mysqli_fetch_assoc($sql)){
 		$arr[]=$row;

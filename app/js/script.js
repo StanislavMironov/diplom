@@ -5,7 +5,24 @@ let prMenu = document.getElementById("prMenu");
 let parObj = document.querySelector('.info-header');  
 
 
-/* */
+$(document).on('click','.knowledge__link', function(e){
+	$("#appPopup").fadeIn("slow");
+	let target = e.target;
+	let num = $(this).attr('href');
+
+	$.ajax({
+	type: 'POST',
+	url: './include/view_knowledge.php',
+	dataType: "json",
+	cache: false,
+	data: {num:num},
+	success: function(result) {
+	var res = result;
+	$(".knowTitle").html(res[0].title);
+	$(".knowDescription").html(res[0].description);
+	}
+	});
+});
 
 
 $(document).on('click','#popup-close', function(e){
@@ -326,11 +343,9 @@ for (i = 0; i < acc.length; i++) {
       panel.style.display = "block";
     }
 	
+	let idBlock = $(this).attr('id');
+	var Content = this;
 	
-  let idBlock = $(this).attr('id');
-  var Content = this;
- 
-
   $.ajax({
 	type: "POST",
 	url: "./include/view_question.php",
@@ -338,8 +353,8 @@ for (i = 0; i < acc.length; i++) {
 	cache: false,
 	data: {idBlock:idBlock},
 		success: function(html) {
-		let cBlock = Content.nextElementSibling;
-		jQuery(cBlock).html(html);
+			let cBlock = Content.nextElementSibling;
+			jQuery(cBlock).html(html);
 		}
 	});
 	
@@ -347,32 +362,7 @@ for (i = 0; i < acc.length; i++) {
 	
 	let num = $(panelHref).on("click", function(e){
 	var target = e.target.parentNode;
-	console.log(target);
-	
-	
-	$(document).on('click','.knowledge__link', function(e){
-	$("#appPopup").fadeIn("slow");
-	let target = e.target;
-	let num = $(this).attr('href');
-	alert(num);
-		$.ajax({
-		type: "POST",
-		url: "./include/view_knowledge.php",
-		dataType: "json",
-		cache: false,
-		data: {num:num},
-		success: function(result) {
-		var res = result;
-		console.log(result);
-		$(".knowTitle").html(res[0].title);
-		$(".knowDescription").html(res[0].description);
-		}
-		});
-}); 
-});
-  
-
-    
+	});   
   });
 }
 
