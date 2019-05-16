@@ -37,13 +37,26 @@
 			cursor: pointer;
 		}
 		}
+
+
+		@media screen and (max-width: 600px){
+			flex-direction: column;
+
+			&:first-child {
+				display: none;
+			}
+		}
 	}
 
 	&__column {
-		width: 15%;
-	    max-width: 15%;
-	    min-width: 15%;
+		width: 12%;
+	    max-width: 12%;
+	    min-width: 12%;
 	    padding: 10px;
+
+	    &--function {
+	    	margin-left: auto;
+	    }
 
 	    &:nth-child(2) {
 			padding-right: 9px;
@@ -54,6 +67,22 @@
 
 	    &:first-child {
 	    	min-width: 10%;
+	    }
+
+	    @media screen and (max-width: 600px){
+	    	width: 70%;
+		    max-width: 70%;
+		    min-width: 70%;
+	    }
+
+
+	    span {
+	    	display: none;
+
+	    	@media screen and (max-width: 600px){
+		    	display: inline-block;
+		    	padding-right: 10px;
+	    	}
 	    }
 	}
 

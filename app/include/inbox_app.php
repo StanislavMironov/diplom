@@ -1,8 +1,8 @@
 <?php
 session_start();
-include ("db_connect.php");	
 include ('rule.php');
-$sql = mysqli_query($link, "SELECT * FROM application WHERE user = '{$_SESSION['auth_id']}' ") or die("Ошибка вывода заявки");
+include ("db_connect.php");	
+$sql = mysqli_query($link, "SELECT * FROM application WHERE status = 0 ") or die("Ошибка вывода заявки");
 $row = mysqli_fetch_array($sql);
 $statusApp = $row["status"];
 

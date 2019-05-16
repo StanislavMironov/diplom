@@ -151,3 +151,30 @@
     -webkit-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
             transform: rotate(45deg); }
+
+#PerformClose {
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  cursor: pointer; }
+  #PerformClose:after, #PerformClose:before {
+    content: "";
+    height: 20px;
+    background-color: black;
+    width: 2px;
+    position: absolute;
+    right: 0px;
+    left: 9px;
+    top: 1px;
+    bottom: 0; }
+  #PerformClose:after {
+    -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg); }
+  #PerformClose:before {
+    -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+            transform: rotate(45deg); }

@@ -33,19 +33,27 @@
 					</div>
 					';
 				break;
+				
+				case "Диспетчер":
+					echo '
+					<div class="info-header__tab active">
+					Создать
+					</div>
+					<div class="info-header__tab appCreate">
+					Созданные мною
+					</div>
+					<div class="info-header__tab appInbox">
+						Входящие
+					</div>
+					<div class="info-header__tab">
+						В работе
+					</div>
+					';
+				break;
 				}
 			
 			?>
-				<!--
-				<div class="info-header__tab">
-					Заявки в работе
-				</div>
-				<div class="info-header__tab appCreate">
-					Созданные мною
-				</div>
-				<div class="info-header__tab">
-					Архив
-				</div>-->
+		
 			</div>	
 			
 			<div class="application__tabcontent fade">
@@ -119,174 +127,20 @@
 					</select>
 				  </div>
 				</div>
-
 				<input type='text' id='rez' name='rez'/>
 				</form>
-				
 			</div>
-			<?php
-			if ($temp != "Пользователь")
-			{
-				echo '<div class="application__tabcontent fade">
-			<div class="table">
-			    <div class="table__row">
-			        <div class="table__column">Номер</div>
-			        <div class="table__column">Название</div>
-			        <div class="table__column">Автор</div>
-			        <div class="table__column">Время</div>
-			        <div class="table__column"></div>
-			    </div>
-
-			    <div class="table__row">
-			        <div class="table__column">Center 1</div>
-			        <div class="table__column">Center 2</div>
-			        <div class="table__column">Center 3</div>
-			        <div class="table__column">00.00.00</div>
-			        <div class="table__column table__column--function">
-			        	<div class="table__func">
-				        	<a href="#">
-				        		<svg class="icon">
-	                              <use xlink:href="#my-first-icon" />
-	                            </svg>
-	                        </a>
-				        	<a href="#">
-				        		<svg class="icon">
-                                  <use xlink:href="#my-second-icon" />
-                                </svg>
-							</a>
-			        	</div>
-			        </div>
-			    </div>
-
-			    <div class="table__row">
-			        <div class="table__column">Center 1</div>
-			        <div class="table__column">Center 2</div>
-			        <div class="table__column">Center 3</div>
-			        <div class="table__column">00.00.00</div>
-			        <div class="table__column table__column--function">
-			        	<div class="table__func">
-				        	<a href="#">
-				        		<svg class="icon">
-	                              <use xlink:href="#my-first-icon" />
-	                            </svg>
-	                        </a>
-				        	<a href="#">
-				        		<svg class="icon">
-                                  <use xlink:href="#my-second-icon" />
-                                </svg>
-							</a>
-			        	</div>
-			        </div>
-			    </div>
-
-			    <div class="table__row">
-			        <div class="table__column">Center 1</div>
-			        <div class="table__column">Center 2</div>
-			        <div class="table__column">Center 3</div>
-			        <div class="table__column">00.00.00</div>
-			        <div class="table__column table__column--function">
-			        	<div class="table__func">
-				        	<a href="#">
-				        		<svg class="icon">
-	                              <use xlink:href="#my-first-icon" />
-	                            </svg>
-	                        </a>
-				        	<a href="#">
-				        		<svg class="icon">
-                                  <use xlink:href="#my-second-icon" />
-                                </svg>
-							</a>
-			        	</div>
-			        </div>
-			    </div>
-			</div>
-			</div>';
-			}
-			?>
 			
 			<div class="application__tabcontent fade">
-			<script>
-		
-			</script>
 			<div class="table" id="myApp">
 			</div>
-			
 			</div>
 
 			<div class="application__tabcontent fade">
-				<div class="table">
-			    <div class="table__row">
-			        <div class="table__column">Номер</div>
-			        <div class="table__column">Название</div>
-			        <div class="table__column">Автор</div>
-			        <div class="table__column">Время</div>
-			        <div class="table__column"></div>
-			    </div>
-
-			    <div class="table__row">
-			        <div class="table__column">Center 1</div>
-			        <div class="table__column">Center 2</div>
-			        <div class="table__column">Center 3</div>
-			        <div class="table__column">00.00.00</div>
-			        <div class="table__column table__column--function">
-			        	<div class="table__func">
-				        	<a href="#">
-				        		<svg class="icon">
-	                              <use xlink:href="#my-first-icon" />
-	                            </svg>
-	                        </a>
-				        	<a href="#">
-				        		<svg class="icon">
-                                  <use xlink:href="#my-second-icon" />
-                                </svg>
-							</a>
-			        	</div>
-			        </div>
-			    </div>
-
-			    <div class="table__row">
-			        <div class="table__column">Center 1</div>
-			        <div class="table__column">Center 2</div>
-			        <div class="table__column">Center 3</div>
-			        <div class="table__column">00.00.00</div>
-			        <div class="table__column table__column--function">
-			        	<div class="table__func">
-				        	<a href="#">
-				        		<svg class="icon">
-	                              <use xlink:href="#my-first-icon" />
-	                            </svg>
-	                        </a>
-				        	<a href="#">
-				        		<svg class="icon">
-                                  <use xlink:href="#my-second-icon" />
-                                </svg>
-							</a>
-			        	</div>
-			        </div>
-			    </div>
-
-			    <div class="table__row">
-			        <div class="table__column">Center 1</div>
-			        <div class="table__column">Center 2</div>
-			        <div class="table__column">Center 3</div>
-			        <div class="table__column">00.00.00</div>
-			        <div class="table__column table__column--function">
-			        	<div class="table__func">
-				        	<a href="#">
-				        		<svg class="icon">
-	                              <use xlink:href="#my-first-icon" />
-	                            </svg>
-	                        </a>
-				        	<a href="#">
-				        		<svg class="icon">
-                                  <use xlink:href="#my-second-icon" />
-                                </svg>
-							</a>
-			        	</div>
-			        </div>
-			    </div>
+			<div class="table" id="inboxApp">
 			</div>
 			</div>
+		
 		</div>	
 
 	<?php
@@ -297,6 +151,42 @@
 <div class="podlogka" id="appPopup">	
 <div class="application__popup">
 <div class="application__popup-Container">
+<div id="viewPerform">
+<div class="viewPerforms">
+<div class="table">
+<div class="table__row">
+<div class="table__column">Исполнители</div>
+<div class="table__column">Задачи</div>
+<div class="table__column">Действия</div>
+</div>
+
+<?php
+$sqlPerf = mysqli_query($link, "SELECT * FROM performer") or die("Ошибка вывода исполнителей!");
+$rowPerf = mysqli_fetch_array($sqlPerf);
+
+do {
+echo '
+<div class="table__row">
+<div class="table__column">
+'.$rowPerf["first_name"].'
+</div>
+<div class="table__column">
+10
+</div>
+<div class="table__column">
+<a href="#">Ок</a>
+</div>
+</div>';
+}
+while($rowPerf = mysqli_fetch_array($sqlPerf));
+
+?>
+</div>
+
+</div>
+<div id="PerformClose">
+</div>
+</div>
 <form class="editApp_form"  method="post" name="application__form" id="formEditApp">
 <div id="resStatus">
 	 <h2 id="num_app"></h2>
@@ -318,7 +208,57 @@
 	<li>
 		<span>Статус:</span> <div><?php echo $_SESSION["statusApp"];?></div>
 	</li>
-	
+	<?php
+		
+		$result = mysqli_query($link, "SELECT * FROM application WHERE id_application= '{$_SESSION["id_app"]}'") or die("Ошибка вывода исполнителей!");
+	$IssetPerf = mysqli_fetch_array($result);
+	if($temp == "Диспетчер"){
+	echo 	'<li>
+			<span>
+				Исполнитель:
+			</span><div>
+			
+			';
+			
+			if(mysqli_num_rows($result) > 0){
+				echo "Назначен исполнитель: <a id='addPerformer' href='javascript:void(0);'>" . $IssetPerf["performers"] . "</a>";
+				
+			}
+			else
+			{
+				echo '<a id="addPerformer" href="javascript:void(0);">Назначить</a>';
+			}
+			
+			echo	'
+					</div>
+					<div>
+			
+		
+			
+			<div class="center-on-page">
+			  <div class="select">
+				<select name="sitetime" id="sitetime" onchange="document.getElementById(\'rezP\').value=value">
+			'; 
+			if(mysqli_num_rows($sqlPerf) > 0){
+			do {	
+				echo   '<option value="" >Выберите шаблон</option>
+						<option value="'.$rowPerf["id_performer"].'" >'.$rowPerf["first_name"].'</option>';
+				}
+			while($rowPerf = mysqli_fetch_array($sql));
+			}else
+			{
+				echo '<option value="" >Исполнителей нет!</option>';
+			}
+				echo '  
+			</select>
+			</div>
+			</div>
+			<input type="text" id="rezP" name="rezP"/>
+			</div>
+			</li>			
+			';
+	}		
+	?>
     <li>
 	<div>
         <label for="title_app">Название:*</label>
@@ -332,8 +272,35 @@
 	</li>
 	<li>
 		<label for="date">Дата создания: </label>
-		<input type="date" id="date" name="date_app"/>
+		<input type="datetime-local" id="date" name="date_app"/>
 	</li>
+	<?php
+		if($temp == "Диспетчер"){
+			echo '
+				<li>
+				<label for="date">Дата завершения: </label>
+				<input type="datetime-local" id="date" name="lastDate"/>
+				</li>
+				
+				<li>
+				<span>Категория сложности:</span>
+				<div class="center-on-page">
+				  <div class="select">
+					<select name="sitetime" id="sitetime" onchange="document.getElementById(\'rez\').value=value">
+					  <option value="" >Выберите роль</option>
+					  <option value="1" >Пользователь</option>
+					  <option value="2" >Исполнитель</option>
+					  <option value="3" >Диспетчер</option>
+					</select>
+				  </div>
+				</div>
+				
+<input type=\'text\' id=\'rez\' name=\'rez\'/>
+				</li>
+			
+			';
+		}
+	?>
 	<li>
     <label for="comment">Комментарии:</label>
     <textarea name="comment" cols="40" rows="6" id="comment_app" >

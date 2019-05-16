@@ -97,7 +97,7 @@ display: flex;
 }
 
 &__left {
-	width: 50%;
+	width: 60%;
   position: relative;
 	margin-right: 10px;
 
@@ -154,6 +154,10 @@ input[type = "submit"], input[type = "reset"] {
   bottom: 0;
   top: 0;
 
+  @media screen and (max-width: 600px){
+    width: 300px;
+  }
+
 :-moz-placeholder {
  color: blue;
 }
@@ -193,7 +197,7 @@ input[type = "submit"], input[type = "reset"] {
     border-bottom:1px solid #777;
 }
 
-.editApp_form li:nth-of-type(1), .editApp_form li:nth-of-type(2) {
+.editApp_form li:nth-of-type(1), .editApp_form li:nth-of-type(2) , .editApp_form li:nth-of-type(3) {
   display: flex;
 }
 
@@ -202,6 +206,15 @@ input[type = "submit"], input[type = "reset"] {
     margin-right: 86px;
   }
 }
+
+.editApp_form li:nth-of-type(3) {
+  align-items: center;
+
+  span {
+    margin-right: 39px;
+  }
+}
+
 
 .editApp_form h2 {
     margin:0;
@@ -227,7 +240,7 @@ input[type = "submit"], input[type = "reset"] {
 
 .editApp_form input {
     height:20px;
-    width:220px;
+    width:300px;
     padding:5px 8px;
 }
 
@@ -298,6 +311,58 @@ span {
   font-weight: bold;
   display: none;
 }
+
+.select {
+  width: 230px
+}
+
+#addPerformer {
+  margin-right: 15px;
+  transition: .3s;
+
+  &:hover {
+    color: red;
+    text-decoration: underline;
+  }
+}
+
+#rezP {
+  display: none;
+}
+
+.center-on-page {
+  display: none;
+}
+
+
+#viewPerform {
+    padding: 25px;
+    display: none;
+    margin: auto;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 640px;
+    height: 300px;
+    position: absolute;
+    z-index: 4;
+    left: calc(100% - 570px);
+    outline: 5px solid #495057;
+    background-color: #eee;
+    background-image: url(../img/bg3.png);
+
+
+.table__column {
+  width: 20%;
+  max-width: 20%;
+  min-width: 20%;
+  padding: 10px;
+}
+
+
+
+}
+
 }
 
 .form-select {
