@@ -178,3 +178,16 @@
     -webkit-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
             transform: rotate(45deg); }
+
+.statusMF {
+  display: block !important; }
+  .statusMF select {
+    color: white; }
+  .statusMF option {
+    background-color: #333; }
+
+.statusCH {
+  margin-right: 28px; }
+
+#rezStatus {
+  display: none; }

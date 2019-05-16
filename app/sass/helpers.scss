@@ -207,3 +207,23 @@
       transform: rotate(45deg);
     }
     }
+
+    .statusMF {
+      display: block !important;
+
+      select {
+        color: white;
+      }
+
+      option {
+        background-color: #333;
+      }
+    }
+
+    .statusCH {
+      margin-right: 28px;
+    }
+
+    #rezStatus {
+      display: none;
+    }

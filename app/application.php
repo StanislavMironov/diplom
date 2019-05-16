@@ -206,11 +206,26 @@ while($rowPerf = mysqli_fetch_array($sqlPerf));
     </li>
 	
 	<li>
-		<span>Статус:</span> <div><?php echo $_SESSION["statusApp"];?></div>
+		<span>Статус:</span> <div class="statusCH"><?php echo $_SESSION["statusApp"];?></div>
+		<div>
+			<div class="center-on-page statusMF">
+			  <div class="select">
+				<select name="sitetime" id="sitetime" onchange="document.getElementById('rezStatus').value=value">
+				  <option value="" >Выберите статус</option>
+				  <option value="0" >Открыта</option>
+				  <option value="1" >Назначен исполнитель</option>
+				  <option value="2" >Исполняется</option>
+				  <option value="3" >На проверке</option>
+				  <option value="4" >Закрыта</option>
+				</select>
+			  </div>
+			</div>
+		<input type='text' id='rezStatus' name='rezStatus'/>
+		</div>
 	</li>
 	<?php
 		
-		$result = mysqli_query($link, "SELECT * FROM application WHERE id_application= '{$_SESSION["id_app"]}'") or die("Ошибка вывода исполнителей!");
+	$result = mysqli_query($link, "SELECT * FROM application WHERE id_application= '{$_SESSION["id_app"]}'") or die("Ошибка вывода исполнителей!");
 	$IssetPerf = mysqli_fetch_array($result);
 	if($temp == "Диспетчер"){
 	echo 	'<li>
@@ -221,13 +236,14 @@ while($rowPerf = mysqli_fetch_array($sqlPerf));
 			';
 			
 			if(mysqli_num_rows($result) > 0){
-				echo "Назначен исполнитель: <a id='addPerformer' href='javascript:void(0);'>" . $IssetPerf["performers"] . "</a>";
-				
-			}
-			else
+				if($IssetPerf["performers"] != null){
+					echo "Назначен исполнитель: <a id='addPerformer' href='javascript:void(0);'>" . $IssetPerf["performers"] . "</a>";
+				}	else
 			{
 				echo '<a id="addPerformer" href="javascript:void(0);">Назначить</a>';
 			}
+			}
+			
 			
 			echo	'
 					</div>
@@ -279,7 +295,7 @@ while($rowPerf = mysqli_fetch_array($sqlPerf));
 			echo '
 				<li>
 				<label for="date">Дата завершения: </label>
-				<input type="datetime-local" id="date" name="lastDate"/>
+				<input type="datetime-local" id="lastDate" name="lastDate"/>
 				</li>
 				
 				<li>

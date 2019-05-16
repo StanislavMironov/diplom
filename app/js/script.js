@@ -30,7 +30,8 @@ $(document).on('click','.editApp', function(e){
 		$("#num_app").html("Заявка №: " + res[0].id_application);
 		$("#title_app").val(res[0].title);
 		$("#description_app").val(res[0].description);
-		$("#date").val(res[0].start_date);
+		$("#date").val(res[0].start_date); 
+		$("#lastDate").val(res[0].deadline); 
 		$("#comment_app").val(res[0].comment);
 		}
 		});
@@ -67,7 +68,7 @@ $(document).on('click','#save_app', function(e){
 	url: './include/edit_app.php',
 	data: app,
 	success: function(data) {
-	alert(data);
+	
 	if(data == "ok")
 	{
 		$('.changeStatus').addClass('form-success').removeClass('form-error');
@@ -115,6 +116,7 @@ $(".appCreate").on("click", function(){
 $(document).on('click','.delApp', function(e){
 e.preventDefault();
 let aHref = $(this).attr('href');
+alert(aHref);
 	$.ajax({
 		type: "POST",
 		url: "./include/delete_app.php",
@@ -122,6 +124,7 @@ let aHref = $(this).attr('href');
 		dataType: "html",
 		cache: false,
 		success: function(data) {
+		alert(data);
 			if(data == 'ok')
 			{
 			var target, elParent, elGr;
@@ -129,6 +132,16 @@ let aHref = $(this).attr('href');
 			elParent = target.parentNode.parentNode.parentNode;
 			elGr = elParent;
 			elParent.style="display:none";
+			
+			$.ajax({
+				type: "POST",
+				url: "./include/update_app.php",
+				dataType: "html",
+				cache: false,
+				success: function(html) {
+				$("#myApp").html(html);
+			}
+			});
 			}
 		}
 	});

@@ -4,26 +4,6 @@ include ("db_connect.php");
 include ('rule.php');
 $sql = mysqli_query($link, "SELECT * FROM application WHERE user = '{$_SESSION['auth_id']}' ") or die("Ошибка вывода заявки");
 $row = mysqli_fetch_array($sql);
-$statusApp = $row["status"];
-
-switch($statusApp){
-	case 0:
-		$_SESSION["statusApp"] = "Открыта";
-	break;
-	case 1:
-		$_SESSION["statusApp"] = "Назначен исполнитель";
-	break;
-	case 2:
-		$_SESSION["statusApp"] = "На исполнении";
-	break;
-	case 3:
-		$_SESSION["statusApp"] = "На проверке";
-	break;
-	case 4:
-		$_SESSION["statusApp"] = "Закрыта";
-	break;
-}
-
 
 if (mysqli_num_rows($sql) > 0)
 {
@@ -47,6 +27,23 @@ echo	'
 		<div class="table__column"></div>
 		</div>';
 	do {
+	switch($row["status"]){
+	case 0:
+		$_SESSION["statusApp"] = "Открыта";
+	break;
+	case 1:
+		$_SESSION["statusApp"] = "Назначен исполнитель";
+	break;
+	case 2:
+		$_SESSION["statusApp"] = "Исполняется";
+	break;
+	case 3:
+		$_SESSION["statusApp"] = "На проверке";
+	break;
+	case 4:
+		$_SESSION["statusApp"] = "Закрыта";
+	break;
+}
 	echo '
 	 <div class="table__row">
 	<div class="table__column"><span>Номер: </span>'.$row["id_application"].'</div>

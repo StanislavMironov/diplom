@@ -170,8 +170,13 @@
       display: -webkit-flex;
       display: -ms-flexbox;
       display: flex; }
-    .application__popup .editApp_form li:nth-of-type(2) span {
-      margin-right: 86px; }
+    .application__popup .editApp_form li:nth-of-type(2) {
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center; }
+      .application__popup .editApp_form li:nth-of-type(2) span {
+        margin-right: 86px; }
     .application__popup .editApp_form li:nth-of-type(3) {
       -webkit-box-align: center;
       -webkit-align-items: center;
@@ -591,6 +596,19 @@
     -webkit-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
             transform: rotate(45deg); }
+
+.statusMF {
+  display: block !important; }
+  .statusMF select {
+    color: white; }
+  .statusMF option {
+    background-color: #333; }
+
+.statusCH {
+  margin-right: 28px; }
+
+#rezStatus {
+  display: none; }
 
 .info-header {
   display: -webkit-box;
