@@ -182,7 +182,8 @@
 .statusMF {
   display: block !important; }
   .statusMF select {
-    color: white; }
+    color: white;
+    padding: 5px 10px 5px 5px; }
   .statusMF option {
     background-color: #333; }
 

@@ -217,7 +217,6 @@ input[type = "submit"], input[type = "reset"] {
   }
 }
 
-
 .editApp_form h2 {
     margin:0;
     display: inline;
@@ -265,18 +264,6 @@ input[type = "submit"], input[type = "reset"] {
     box-shadow: 0 0 3px #aaa;
 }
 
-.editApp_form input[type=text]:focus{ /* add this to the already existing style */
-    padding-right:70px;
-}
-
-.editApp_form input { /* add this to the already existing style */
-    -moz-transition: padding .25s;
-    -webkit-transition: padding .25s;
-    -o-transition: padding .25s;
-    transition: padding .25s;
-}
-
-
 .Btn {
     display: flex;
     margin: 0 auto;
@@ -303,7 +290,6 @@ span {
     border-bottom: 1px solid #777;
     padding: 12px;
 }
-
 
 .changeStatus {
   padding: 12px;
@@ -336,7 +322,6 @@ span {
   display: none;
 }
 
-
 #viewPerform {
     padding: 25px;
     display: none;
@@ -353,18 +338,29 @@ span {
     background-color: #eee;
     background-image: url(../img/bg3.png);
 
+ .table {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 190px;
 
-.table__column {
+  &__column {
   width: 20%;
   max-width: 20%;
   min-width: 20%;
   padding: 10px;
+  }
+ }   
 }
 
-
-
+h2 {
+    padding: 10px;
+    background-color: white;
+    margin-bottom: 0px;
+    -webkit-box-shadow: 0px 10px 8px;
+    box-shadow: 0px 10px 8px;
+    word-break: break-all;
+    outline: 4px solid #666;
 }
-
 }
 
 .form-select {

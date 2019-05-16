@@ -223,14 +223,6 @@
       border: 1px solid #555;
       -webkit-box-shadow: 0 0 3px #aaa;
               box-shadow: 0 0 3px #aaa; }
-    .application__popup .editApp_form input[type=text]:focus {
-      /* add this to the already existing style */
-      padding-right: 70px; }
-    .application__popup .editApp_form input {
-      /* add this to the already existing style */
-      -webkit-transition: padding .25s;
-      -o-transition: padding .25s;
-      transition: padding .25s; }
     .application__popup .Btn {
       display: -webkit-box;
       display: -webkit-flex;
@@ -293,11 +285,23 @@
       outline: 5px solid #495057;
       background-color: #eee;
       background-image: url(../img/bg3.png); }
-      .application__popup #viewPerform .table__column {
-        width: 20%;
-        max-width: 20%;
-        min-width: 20%;
-        padding: 10px; }
+      .application__popup #viewPerform .table {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        height: 190px; }
+        .application__popup #viewPerform .table__column {
+          width: 20%;
+          max-width: 20%;
+          min-width: 20%;
+          padding: 10px; }
+    .application__popup h2 {
+      padding: 10px;
+      background-color: white;
+      margin-bottom: 0px;
+      -webkit-box-shadow: 0px 10px 8px;
+      box-shadow: 0px 10px 8px;
+      word-break: break-all;
+      outline: 4px solid #666; }
   .application .form-select {
     background: #ffffff;
     overflow: hidden;

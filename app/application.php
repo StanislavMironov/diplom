@@ -152,6 +152,7 @@
 <div class="application__popup">
 <div class="application__popup-Container">
 <div id="viewPerform">
+<h2>Список исполнителей</h2>
 <div class="viewPerforms">
 <div class="table">
 <div class="table__row">
@@ -164,6 +165,10 @@
 $sqlPerf = mysqli_query($link, "SELECT * FROM performer") or die("Ошибка вывода исполнителей!");
 $rowPerf = mysqli_fetch_array($sqlPerf);
 
+$qtyTask = mysqli_query($link, "SELECT COUNT(id_application) FROM application WHERE performers = '{$rowPerf["first_name"]}'") or die("Ошибка вывода количества задач!");
+$rowQty = mysqli_fetch_array($qtyTask);
+
+
 do {
 echo '
 <div class="table__row">
@@ -171,10 +176,10 @@ echo '
 '.$rowPerf["first_name"].'
 </div>
 <div class="table__column">
-10
+'.$rowQty["COUNT(id_application)"].'
 </div>
 <div class="table__column">
-<a href="#">Ок</a>
+<a id = "hPerform" onclick="return false;" href="'.$rowPerf["first_name"].'">Выбрать</a>
 </div>
 </div>';
 }

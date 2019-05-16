@@ -5,6 +5,40 @@ let prMenu = document.getElementById("prMenu");
 let parObj = document.querySelector('.info-header');  
 
 
+$(document).on('click','#hPerform', function(e){  
+	let num = $(this).attr('href');
+	alert(num);
+	
+	$.ajax({
+		type: "POST",
+		url: "./include/add_perform.php",
+		cache: false,
+		data: {num:num},
+		success: function(result) {
+		if(result == "ok"){
+			$.ajax({
+		type: "POST",
+		url: "./include/view_app.php",
+		dataType: "json",
+		cache: false,
+		data: {num:num},
+		success: function(result) {
+		console.log(result);
+		var res = result;
+		$("#appPopup").fadeIn("slow");
+		$("#num_app").html("Заявка №: " + res[0].id_application);
+		$("#title_app").val(res[0].title);
+		$("#description_app").val(res[0].description);
+		$("#date").val(res[0].start_date); 
+		$("#lastDate").val(res[0].deadline); 
+		$("#comment_app").val(res[0].comment);
+		}
+		});
+		}
+		}
+	});
+});
+
 
 $(document).on('click','#addPerformer', function(){  
 	$("#viewPerform").fadeIn("slow");
@@ -75,6 +109,15 @@ $(document).on('click','#save_app', function(e){
 		$('.changeStatus').html("Изменения успешно сохранены!");
 		$('.changeStatus').slideDown();
 		setTimeout(function() { $(".changeStatus").slideUp(); }, 2000);
+			$.ajax({
+		type: "POST",
+		url: "./include/inbox_app.php",
+		dataType: "html",
+		cache: false,
+		success: function(html) {
+		$("#inboxApp").html(html);
+		}
+	});
 	}
 	else
 	{
@@ -140,6 +183,7 @@ alert(aHref);
 				cache: false,
 				success: function(html) {
 				$("#myApp").html(html);
+				$("#inboxApp").html(html);
 			}
 			});
 			}
