@@ -108,7 +108,6 @@
 					function vT(){
 						var valueInput = document.getElementById("sitetime").options.selectedIndex;
 						console.log(valueInput);
-
 						switch(valueInput){
 							case 1: 
 								$('#description').val('Установить \"Программу\" для учёта бухгалтерии.');
@@ -154,38 +153,9 @@
 <div id="viewPerform">
 <h2>Список исполнителей</h2>
 <div class="viewPerforms">
-<div class="table">
-<div class="table__row">
-<div class="table__column">Исполнители</div>
-<div class="table__column">Задачи</div>
-<div class="table__column">Действия</div>
-</div>
-
-<?php
-$sqlPerf = mysqli_query($link, "SELECT * FROM performer") or die("Ошибка вывода исполнителей!");
-$rowPerf = mysqli_fetch_array($sqlPerf);
-
-$qtyTask = mysqli_query($link, "SELECT COUNT(id_application) FROM application WHERE performers = '{$rowPerf["first_name"]}'") or die("Ошибка вывода количества задач!");
-$rowQty = mysqli_fetch_array($qtyTask);
+<div class="table" id="perfTable">
 
 
-do {
-echo '
-<div class="table__row">
-<div class="table__column">
-'.$rowPerf["first_name"].'
-</div>
-<div class="table__column">
-'.$rowQty["COUNT(id_application)"].'
-</div>
-<div class="table__column">
-<a id = "hPerform" onclick="return false;" href="'.$rowPerf["first_name"].'">Выбрать</a>
-</div>
-</div>';
-}
-while($rowPerf = mysqli_fetch_array($sqlPerf));
-
-?>
 </div>
 
 </div>
@@ -236,19 +206,9 @@ while($rowPerf = mysqli_fetch_array($sqlPerf));
 	echo 	'<li>
 			<span>
 				Исполнитель:
-			</span><div>
-			
+			</span>
+			<div id="newPerf">
 			';
-			
-			if(mysqli_num_rows($result) > 0){
-				if($IssetPerf["performers"] != null){
-					echo "Назначен исполнитель: <a id='addPerformer' href='javascript:void(0);'>" . $IssetPerf["performers"] . "</a>";
-				}	else
-			{
-				echo '<a id="addPerformer" href="javascript:void(0);">Назначить</a>';
-			}
-			}
-			
 			
 			echo	'
 					</div>
@@ -362,10 +322,6 @@ while($rowPerf = mysqli_fetch_array($sqlPerf));
     <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.151 17.943l-4.143-4.102-4.117 4.159-1.833-1.833 4.104-4.157-4.162-4.119 1.833-1.833 4.155 4.102 4.106-4.16 1.849 1.849-4.1 4.141 4.157 4.104-1.849 1.849z" />
   </symbol>
 </svg>
-
-
-
-
 </body>
 </html>
 

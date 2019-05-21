@@ -3,45 +3,38 @@ let acc = document.querySelectorAll(".knowledge__accordion");
 let prBtn = document.getElementById("tool");
 let prMenu = document.getElementById("prMenu");
 let parObj = document.querySelector('.info-header');  
+let parent = document.getElementById("newPerf");
+let newObj = document.createElement('a')
+newObj.classList.add("t");
+newObj.setAttribute('id', 'addPerformer');
+parent.appendChild(newObj);
 
 
-$(document).on('click','#hPerform', function(e){  
-	let num = $(this).attr('href');
-	alert(num);
-	
-	$.ajax({
-		type: "POST",
-		url: "./include/add_perform.php",
-		cache: false,
-		data: {num:num},
-		success: function(result) {
-		if(result == "ok"){
-			$.ajax({
-		type: "POST",
-		url: "./include/view_app.php",
-		dataType: "json",
-		cache: false,
-		data: {num:num},
-		success: function(result) {
-		console.log(result);
-		var res = result;
-		$("#appPopup").fadeIn("slow");
-		$("#num_app").html("Заявка №: " + res[0].id_application);
-		$("#title_app").val(res[0].title);
-		$("#description_app").val(res[0].description);
-		$("#date").val(res[0].start_date); 
-		$("#lastDate").val(res[0].deadline); 
-		$("#comment_app").val(res[0].comment);
-		}
-		});
-		}
-		}
-	});
-});
 
 
 $(document).on('click','#addPerformer', function(){  
 	$("#viewPerform").fadeIn("slow");
+	$.ajax({
+		type: "POST",
+		url: "./include/view_perform.php",
+		dataType: "html",
+		cache: false,
+		success: function(data) {
+			$("#perfTable").html(data);
+			
+			$.ajax({
+				type: "POST",
+				url: "./include/view_perform.php",
+				dataType: "json",
+				cache: false,
+				success: function(result) {
+				console.log(result);
+				var qtyTasks = result;
+				}
+			});
+		}
+	});
+	
 });
 
 
@@ -51,6 +44,9 @@ $(document).on('click','#PerformClose', function(){
 
 $(document).on('click','.editApp', function(e){  
 	let num = $(this).attr('href');
+	console.log(num);
+	
+		
 	$.ajax({
 		type: "POST",
 		url: "./include/view_app.php",
@@ -58,7 +54,6 @@ $(document).on('click','.editApp', function(e){
 		cache: false,
 		data: {num:num},
 		success: function(result) {
-		console.log(result);
 		var res = result;
 		$("#appPopup").fadeIn("slow");
 		$("#num_app").html("Заявка №: " + res[0].id_application);
@@ -67,9 +62,39 @@ $(document).on('click','.editApp', function(e){
 		$("#date").val(res[0].start_date); 
 		$("#lastDate").val(res[0].deadline); 
 		$("#comment_app").val(res[0].comment);
+		
+		if(res[0].performers != null)
+			{
+				newObj.innerHTML = '';
+				let name = (res[0].performers);
+				newObj.textContent = res[0].performers;
+			}else {
+				newObj.innerHTML = '';
+				newObj.textContent = "Назначить";
+			}
 		}
 		});
 });
+
+
+$(document).on('click','#hPerform', function(e){  
+	let num = $(this).attr('href');
+	alert(num);
+	
+	$.ajax({
+		type: "POST",
+		url: "./include/add_perform.php",
+		dataType: "json",
+		cache: false,
+		data: {num:num},
+		success: function(result) {
+		console.log(result);
+		var resPerf = result;
+		newObj.textContent = resPerf[0].first_name;
+		}
+	});
+});
+
 
 $(document).on('click','.knowledge__link', function(e){
 	$("#appPopup").fadeIn("slow");
