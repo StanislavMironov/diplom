@@ -9,10 +9,14 @@ $qtyComment = $_POST["comment"];
 $appComment = $_POST["add_app"] . $qtyComment;
 $lastDate = $_POST["lastDate"];
 $appPerform = $_POST["add_app"];
-
 $newStatus = $_POST["rezStatus"];
 
+$categoryApp = $_POST["categoryApp"];
 
+$tempUser = $_SESSION["auth_id"];
+
+$Manager = mysqli_query($link, "SELECT * FROM manager WHERE user = $tempUser") or die("Диспетчер не найден!");;
+$rowManager = mysqli_fetch_array($Manager);
 
 
 function delete_duplicates_words($text)
@@ -36,8 +40,21 @@ if($temp == "Диспетчер"){
 if(strlen($_POST["lastDate"]) == false)
 	{
 		$error[]='Укажите дату завершения!';
-	}			
+	}		
+
+if(strlen($_POST["categoryApp"]) == null)
+	{
+		$error[]='Укажите категорию!';
+	}		
+	
+if(strlen($_POST["rezStatus"]) == null)
+	{
+		$error[]='Укажите статус!';
+	}		
 }
+	
+		
+
 	
 if (count($error)) {
 	$msg = implode('<br />',$error);
@@ -45,7 +62,8 @@ if (count($error)) {
 }
 else
 {	
-$update = mysqli_query($link,"UPDATE application SET status = '$newStatus', title='$appTitle', description = '$appDescription', start_date = '$appDate', comment = '$text', deadline='$lastDate' WHERE id_application= '{$_SESSION["id_app"]}' ") or die("Ошибка изменения заявки!");
+$_SESSION["id_manager"] = $rowManager["id_manager"];
+$update = mysqli_query($link,"UPDATE application SET status = '$newStatus', title='$appTitle', description = '$appDescription', start_date = '$appDate', comment = '$text', deadline='$lastDate', category = '$categoryApp', manager = '{$rowManager["id_manager"]}', department = '{$_SESSION['auth_department']}', date_last_update = NOW(), author_update = '{$_SESSION['auth_name']}' WHERE id_application= '{$_SESSION["id_app"]}' ") or die("Ошибка изменения заявки!");
 	if ($update == true)
 	{
 		echo "ok";

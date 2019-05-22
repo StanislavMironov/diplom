@@ -11,10 +11,134 @@
 		//header("Location: auth/login.php"); 
 	//}
 	include ("include/header.php");
+	include("include/db_connect.php");
+	include ("functions/functions.php");
+
+if (isset($_POST["CR_submit"])){
+	$error = array();
+	
+	$surname = $_POST['reg_surname'];
+	$name = $_POST['reg_name'];
+	$patronymic = $_POST['reg_patronymic'];
+	$email = $_POST['reg_email'];
+	$phone = $_POST['reg_phone']; 
+	$access = $_POST['Rule'];
+	$department = $_POST['department'];
+	$error_img = array();
+	
+	if(isset($_POST['reg_login']) && isset($_POST['reg_pass'])){
+	$login = $_POST['reg_login'];
+	$pass = $_POST['reg_pass'];
+
+	$pass = iconv("UTF-8","windows-1251", strtolower(clear_string($link, $_POST['reg_pass'])));
+	$pass = md5($pass);
+	$pass = strrev($pass);
+	$pass = "n".$pass."z";
+
+	$ip = $_SERVER['REMOTE_ADDR'];
+	$result = mysqli_query($link, "SELECT login FROM user WHERE login='$login' AND pass = '$pass'")or die("Ошибка запроса регистрации!");
+
+	if(strlen($name) < 5 || strlen($name) > 15){
+		$error[]='Укажите Имя от 5 до 15 символов!';
+	}
+	if(strlen($surname) < 7 || strlen($surname) > 15){
+		$error[]='Укажите Фамилию от 7 до 15 символов!';
+	}
+	if(strlen($login) < 5 || strlen($login) > 15){
+		$error[]='Укажите Логин от 5 до 15 символов!';
+	}
+	if(strlen($patronymic) < 10 || strlen($patronymic) > 55){
+		$error[]='Укажите Отчество от 10 до 25 символов!';
+	}
+	if(strlen($pass) == 0){
+		$error[]='Укажите Пароль!';
+	}
+	
+	
+	if (count($error))
+		{
+			$_SESSION['msg'] = "<p align='left' id='form_error'>".implode('<br />',$error)."</p>";
+		}else
+	{
+	if(mysqli_num_rows($result) > 0)
+	{
+	$msg = 'Логин занят!';
+	echo $msg;
+	}else
+	{
+	if($_FILES['upload_image']['error'] > 0){
+		switch ($_FILES['upload_image']['error'])
+		{
+		case 1: $error_img[] = 'Размер файла превышает допустимое значение UPLOAD_MAX_FILE_SIZE'; break;
+		case 2: $error_img[] = 'Не удалось загрузить часть файла'; break;
+		case 3: $error_img[] = 'Файл не был загружен'; break;
+		}
+	} else
+	{
+	//проверяем расширения
+		if($_FILES['upload_image']['type'] == 'image/jpeg' || $_FILES['upload_image']['type'] == 'image/jpg' || $_FILES['upload_image']['type'] == 'image/png')
+		{
+		if(!isset($_FILES['upload_image']['name'])){
+			$imgext = 'default.jpg';
+			//Папка для загрузки
+			$uploaddir = './uploads_images/';
+			//Новое название файла
+			$newfilename = $imgext;
+			//Путь к файлу (папка,файл)
+			$uploadfile = $uploaddir.$newfilename;
+			echo 'Файл :' . $newfilename;
+		}else{
+			$imgext = strtolower(preg_replace("#.+\.([a-z]+)$#i", "$1", $_FILES['upload_image']['name']));
+			//Папка для загрузки
+			$uploaddir = './uploads_images/';
+			//Новое название файла
+			$newfilename = rand(10,100).'.'.$imgext;
+			//Путь к файлу (папка,файл)
+			$uploadfile = $uploaddir.$newfilename;
+		}
+		//Загружаем файл
+		if(move_uploaded_file($_FILES['upload_image']['tmp_name'], $uploadfile))
+		{
+			$sql = mysqli_query($link, "INSERT INTO user (second_name, first_name, last_name, email, phone, login, pass, access, img, department) VALUES('$surname', '$name', '$patronymic', '$email', '$phone', '$login', '$pass', '$access', '$newfilename', '$department')")or die("Ошибка запроса регистрации(Пользователь не создан)!") or die("Ошибка!");
+			
+			if($sql == true)
+			{
+				$_SESSION['msg'] = "<p align='left' class='form-success'>Новый пользователь успешно создан!</p>";
+			} else {
+			 $_SESSION['msg'] = "<p align='left' class='form-error'>Ошибка!</p>";
+			}
+		}
+		}else
+		{
+			$error_img[] = 'Допустимые расширения: jpeg, jpg, png';
+		}
+	}
+	}
+	}
+	}
+	
+	}
+	
 ?>
+
 	<div class="registration">
-		<form method="post" id="form_reg" action="reg/handler_reg.php">
-		<p id="reg_message"></p>
+	<h2 class="borderTitle">Создание нового пользователя</h2>
+	<?php
+		if(@$_SESSION['msg'])
+		{
+			echo $_SESSION['msg'];
+			unset($_SESSION['msg']);
+		}
+	?>
+	<div class="registration__grid">
+	<div class="registration__left">
+		<div  class="registration__img">
+			<img src="./img/auth.jpg" />
+		</div>
+	</div>
+	
+	<div class="registration__right">
+		<form enctype='multipart/form-data' method="post" id="form_reg">
 		<div id="block-form-registration">
 			<ul class="registration__list">
 				<li>
@@ -29,7 +153,7 @@
 				<div class="field">
 					<label>Пароль</label>
 					<span>*</span>
-					<input type="text" name="reg_pass" id="reg_pass" />
+					<input type="text" name="reg_pass" id="reg_pass"  required/>
 				</div>	
 				</li>
 				
@@ -73,7 +197,7 @@
 				</div>	
 				</li>
 				
-				<li>
+					<li>
 				<div class="field">
 					<label for="info_phone">Изображение</label>
 					<span>*</span>
@@ -81,26 +205,52 @@
 					<input type="file" name="upload_image" />
 				</div>	
 				</li>
-				
+			
+			<li>	
 				<div class="center-on-page">
 				  <div class="select">
-					<select name="sitetime" id="sitetime" onchange="document.getElementById('rez').value=value">
+					<select name="sitetime" id="sitetime" onchange="document.getElementById('Rule').value=value">
 					  <option value="" >Выберите роль</option>
 					  <option value="1" >Пользователь</option>
 					  <option value="2" >Исполнитель</option>
 					  <option value="3" >Диспетчер</option>
 					</select>
 				  </div>
-				</div>
-				
-<input type='text' id='rez' name='rez'/>
+				</div>		
+				<input type='text' id='Rule' name='Rule'/>
+			</li>
+			
+			<li>
+				<div class="center-on-page">
+				  <div class="select">
+					<select name="sitetime" id="sitetime" onchange="document.getElementById('department').value=value">
+					  <option value="" >Выберите отдел</option>
+					  	<?php
+						 	$department = mysqli_query($link, "SELECT * FROM department");
+							while($rowDepartment = mysqli_fetch_array($department)){
+								echo '
+									<option value="'.$rowDepartment["id_department"].'" >'.$rowDepartment["Title"].'</option>
+								';
+							} 
+						?>
+					</select>
+				  </div>
+				</div>		
+				<input type='text' id='department' name='department'/>
+			</li>
+			
+			<li>	
 				<div class="registration__func">
-					<p class="registration__btn"><input type="submit" class="submit" name="reg_submit" id="form_submit" value="Регистрация" /></p>
+					<input type="submit"  value = "Создать" name="CR_submit">
 					<p class="registration__btn"><input type="reset" class="submit" value="Сброс" /></p>
 				</div>	
+			</li>	
 			</ul>
 		</div>
+		
 		</form>
+	</div>	
+	</div>
 	</div>		
 <?php
 	include ("include/footer.php");

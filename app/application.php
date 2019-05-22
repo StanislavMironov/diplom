@@ -257,6 +257,9 @@
 	</li>
 	<?php
 		if($temp == "Диспетчер"){
+		$categoryTask = mysqli_query($link, "SELECT * FROM category") or die("Ошибка вывода исполнителей!");
+	
+		
 			echo '
 				<li>
 				<label for="date">Дата завершения: </label>
@@ -265,18 +268,26 @@
 				
 				<li>
 				<span>Категория сложности:</span>
-				<div class="center-on-page">
+				<div class="center-on-page" id="categoryTask">
 				  <div class="select">
-					<select name="sitetime" id="sitetime" onchange="document.getElementById(\'rez\').value=value">
-					  <option value="" >Выберите роль</option>
-					  <option value="1" >Пользователь</option>
-					  <option value="2" >Исполнитель</option>
-					  <option value="3" >Диспетчер</option>
+					<select name="sitetime" id="sitetime" onchange="document.getElementById(\'categoryApp\').value=value">
+					  <option value="" >Выберите категорию</option>
+					 '; 
+					 
+					 while($rowCategory = mysqli_fetch_array($categoryTask))
+					 {
+						echo '
+							 <option value="'.$rowCategory["OrderNum"].'" >'.$rowCategory["Title"].'</option>
+						';
+					 }
+					 
+					 
+			echo '		
 					</select>
 				  </div>
 				</div>
 				
-<input type=\'text\' id=\'rez\' name=\'rez\'/>
+				<input type=\'text\' id=\'categoryApp\' name=\'categoryApp\'/>
 				</li>
 			
 			';

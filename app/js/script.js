@@ -1,15 +1,13 @@
 $(document).ready(function(){
 let acc = document.querySelectorAll(".knowledge__accordion");
-let prBtn = document.getElementById("tool");
-let prMenu = document.getElementById("prMenu");
-let parObj = document.querySelector('.info-header');  
-let parent = document.getElementById("newPerf");
-let newObj = document.createElement('a')
+
+var prMenu = document.getElementById("prMenu");
+var parObj = document.querySelector('.info-header');  
+var parent = document.getElementById("newPerf");
+var newObj = document.createElement('a');
 newObj.classList.add("t");
 newObj.setAttribute('id', 'addPerformer');
 parent.appendChild(newObj);
-
-
 
 
 $(document).on('click','#addPerformer', function(){  
@@ -36,7 +34,6 @@ $(document).on('click','#addPerformer', function(){
 	});
 	
 });
-
 
 $(document).on('click','#PerformClose', function(){
 	$("#viewPerform").fadeOut("slow");
@@ -76,7 +73,6 @@ $(document).on('click','.editApp', function(e){
 		});
 });
 
-
 $(document).on('click','#hPerform', function(e){  
 	let num = $(this).attr('href');
 	alert(num);
@@ -95,8 +91,8 @@ $(document).on('click','#hPerform', function(e){
 	});
 });
 
-
 $(document).on('click','.knowledge__link', function(e){
+
 	$("#appPopup").fadeIn("slow");
 	let target = e.target;
 	let num = $(this).attr('href');
@@ -114,7 +110,6 @@ $(document).on('click','.knowledge__link', function(e){
 	}
 	});
 });
-
 
 $(document).on('click','#popup-close', function(e){
 	$("#appPopup").fadeOut("slow");
@@ -154,8 +149,6 @@ $(document).on('click','#save_app', function(e){
 	}
 	});
 });
-
-
 
 $(".appInbox").on("click", function(){
 		$.ajax({
@@ -223,7 +216,6 @@ $("#clear_submit").on("click", function(){
 	$("#sFile").val("");
 });
 
-
 $('#create_submit').click(function(){
 	var fd = new FormData(document.getElementById("createApp"));
 	fd.append("CustomField", "This is some extra data");
@@ -281,6 +273,7 @@ $(".custom-option:first-of-type").hover(function() {
 }, function() {
   $(this).parents(".custom-options").removeClass("option-hover");
 });
+
 $(".custom-select-trigger").on("click", function() {
   $('html').one('click',function() {
     $(".custom-select").removeClass("opened");
@@ -296,148 +289,7 @@ $(".custom-option").on("click", function() {
   $(this).parents(".custom-select").removeClass("opened");
   $(this).parents(".custom-select").find(".custom-select-trigger").text($(this).text());
 });
-
-$('#logout').click(function(){
-	$.ajax({
-		type: "POST",
-		url: "./include/logout.php",
-		dataType: "html",
-		cache: false,
-		success: function(data) {
-			if(data == 'logout')
-			{
-				var url = "auth/login.php";
-				$(location).attr('href',url);
-			}
-		}
-	});
-}); 
-
-
-prBtn.addEventListener('click', ()=>{
-prMenu.classList.toggle('active');
-});
-
-   $('#form_reg').validate(
-                {   
-                    // правила для проверки
-                    rules:{
-                        "reg_login":{
-                            required:true,
-                            minlength:5,
-                            maxlength:15,
-                            remote: {
-                            type: "post",    
-                            url: "./reg/check_login.php"
-                            }
-                        },
-                        "reg_pass":{
-                            required:true,
-                            minlength:7,
-                            maxlength:15
-                        },
-                        "reg_surname":{
-                            required:true,
-                            minlength:3,
-                            maxlength:15
-                        },
-                        "reg_name":{
-                            required:true,
-                            minlength:3,
-                            maxlength:15
-                        },
-                        "reg_patronymic":{
-                            required:true,
-                            minlength:3,
-                            maxlength:25
-                        },
-                        "reg_email":{
-                            required:true,
-                            email:true
-                        },
-                        "reg_phone":{
-                            required:true
-                        },
-                        "reg_address":{
-                            required:true
-                        },
-                        "reg_captcha":{
-                            required:true,
-                            remote: {
-                            type: "post",    
-                            url: "/reg/check_captcha.php"
-                            },
-                            
-                            
-                        }
-                    },
- 
-                    // выводимые сообщения при нарушении соответствующих правил
-                    messages:{
-                        "reg_login":{
-                            required:"Укажите Логин!",
-                            minlength:"От 5 до 15 символов!",
-                            maxlength:"От 5 до 15 символов!",
-                            remote: "Логин занят!"
-                        },
-                        "reg_pass":{
-                            required:"Укажите Пароль!",
-                            minlength:"От 7 до 15 символов!",
-                            maxlength:"От 7 до 15 символов!"
-                        },
-                        "reg_surname":{
-                            required:"Укажите вашу Фамилию!",
-                            minlength:"От 3 до 20 символов!",
-                            maxlength:"От 3 до 20 символов!"                            
-                        },
-                        "reg_name":{
-                            required:"Укажите ваше Имя!",
-                            minlength:"От 3 до 15 символов!",
-                            maxlength:"От 3 до 15 символов!"                               
-                        },
-                        "reg_patronymic":{
-                            required:"Укажите ваше Отчество!",
-                            minlength:"От 3 до 25 символов!",
-                            maxlength:"От 3 до 25 символов!"  
-                        },
-                        "reg_email":{
-                            required:"Укажите свой E-mail",
-                            email:"Не корректный E-mail"
-                        },
-                        "reg_phone":{
-                            required:"Укажите номер телефона!"
-                        },
-                        "reg_address":{
-                            required:"Необходимо указать адрес доставки!"
-                        },
-                        "reg_captcha":{
-                            required:"Введите код с картинки!",
-                            remote: "Не верный код проверки!"
-                            
-                        }
-                    },
-                    
-                        submitHandler: function(form){
-                        $(form).ajaxSubmit({
-                        success: function(data) {                  
-                            if (data){
-							
-                                $("#block-form-registration").fadeOut(300,function() {   
-                                    $("#reg_message").addClass("reg_message_good").fadeIn(400).html("Вы успешно зарегистрированы! "+data);
-                                    $("#form_submit").hide();
-                                });
-								return true;
-                            }else{
-                                  $("#block-form-registration").fadeOut(300,function() {   
-                                    $("#reg_message").addClass("reg_message_good").fadeIn(400).html("Вы успешно зарегистрированы! "+data);
-                                    $("#form_submit").hide();
-                                });
-                            }
-                        } 
-                }); 
-            }
-            });
-        
+       
 for (i = 0; i < acc.length; i++) {
   acc[i].addEventListener("click", function() {
   

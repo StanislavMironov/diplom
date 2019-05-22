@@ -12,12 +12,14 @@ include ('rule.php');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Главная</title>
     <meta name="author" content="Dobrovoimaster" />
-    <meta name="description" content="Боковая панель с элементами меню, выдвигающаяся по клику, на чистом css, без использлвания javascript" />
-    <meta name="keywords" content="боковое меню, выдвижное меню, выдвигающееся по клику, боковая панеь, css3, html, css" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
     <link rel="shortcut icon" href="favicon.ico" />
 	<script src="./js/jquery.min.js"></script>
 	<script src="./js/jquery.form.js"></script>
 	<script src="./js/jquery.validate.js"></script>
+	<script src="./js/script.js"></script>
+	
 
 </head>
 <body>
@@ -43,7 +45,27 @@ include ('rule.php');
 </div>
 <i id="tool"></i>
 </div>
-
+<script>
+	let prBtn = document.getElementById("tool");
+	prBtn.addEventListener('click', ()=>{
+	prMenu.classList.toggle('active');
+	});
+	$('#logout').click(function(){
+	$.ajax({
+		type: "POST",
+		url: "./include/logout.php",
+		dataType: "html",
+		cache: false,
+		success: function(data) {
+			if(data == 'logout')
+			{
+				var url = "auth/login.php";
+				$(location).attr('href',url);
+			}
+		}
+	});
+}); 
+</script>
 <input type="checkbox" id="nav-toggle" hidden>
     <nav class="nav">
         <label for="nav-toggle" class="nav-toggle" onclick></label>

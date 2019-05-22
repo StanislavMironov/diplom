@@ -100,11 +100,6 @@
 			//Путь к файлу (папка,файл)
 			$uploadfile = $uploaddir.$newfilename;
 		
-		//Загружаем файл
-		if(move_uploaded_file($_FILES['upload_image']['tmp_name'], $uploadfile))
-		{
-		}else {
-		}
 		}else
 		{
 			$error_img[] = 'Допустимые расширения: jpeg, jpg, png';
@@ -122,7 +117,7 @@
 		}
 		
 		if($_FILES['upload_image']['tmp_name'] === '' ){
-		 $lastname = $_SESSION['auth_img'];
+		 $lastname = './uploads_images/default.jpg';
 		}
 			$dataquery = @$newpassquery."second_name='".$_POST["info_surname"]."',img='{$lastname}',login='".$_POST["info_login"]."',first_name='".$_POST["info_name"]."',last_name='".$_POST["info_patronymic"]."',email='".$_POST["info_email"]."',phone='".$_POST["info_phone"]."',access='".$_POST['rez']."',img='{$lastname}'";
 		$update = mysqli_query($link, "UPDATE user SET $dataquery WHERE login ='{$_SESSION['auth_login']}'")or die("Ошибка");
@@ -167,7 +162,7 @@
 	</div>
 	<div class="profile_right">
 		<form enctype="multipart/form-data" method="post">
-		<p id="reg_message"></p>
+		<p id="message_profile"></p>
 		<div id="block-form-registration">
 			<ul id="info-profile" class="profile__list">
 				<li>

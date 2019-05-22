@@ -184,6 +184,11 @@
               align-items: center; }
       .application__popup .editApp_form li:nth-of-type(3) span {
         margin-right: 39px; }
+    .application__popup .editApp_form li:nth-of-type(8) {
+      display: -webkit-inline-box;
+      display: -webkit-inline-flex;
+      display: -ms-inline-flexbox;
+      display: inline-flex; }
     .application__popup .editApp_form h2 {
       margin: 0;
       display: inline; }
@@ -256,7 +261,7 @@
       font-weight: bold;
       display: none; }
     .application__popup .select {
-      width: 230px; }
+      width: 200px; }
     .application__popup #addPerformer {
       margin-right: 15px;
       -webkit-transition: .3s;
@@ -345,7 +350,7 @@
     cursor: pointer;
     z-index: 2;
     border: none;
-    padding: 10px 10px 10px 5px;
+    padding: 5px 10px 5px 5px;
     -o-text-overflow: '';
        text-overflow: '';
     text-indent: 5px; }

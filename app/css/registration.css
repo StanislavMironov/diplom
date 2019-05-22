@@ -1,28 +1,107 @@
 .registration {
-  float: left;
-  width: 100%; }
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+  .registration__right {
+    margin-left: 40px;
+    background-color: #f6f6f6;
+    padding: 15px;
+    -webkit-box-shadow: 0px 10px 8px;
+            box-shadow: 0px 10px 8px; }
+    @media screen and (max-width: 768px) {
+      .registration__right {
+        margin-left: 0px; } }
+  .registration__grid {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center; }
+    @media screen and (max-width: 768px) {
+      .registration__grid {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+                flex-direction: column; } }
+  .registration__img {
+    height: 300px; }
+    @media screen and (max-width: 768px) {
+      .registration__img {
+        width: 100%;
+        height: 200px;
+        margin-bottom: 30px; } }
+    .registration__img img {
+      height: 300px;
+      -o-object-fit: cover;
+         object-fit: cover; }
+      @media screen and (max-width: 768px) {
+        .registration__img img {
+          width: 100%;
+          height: 200px; } }
   .registration__func {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex; }
+    @media screen and (max-width: 600px) {
+      .registration__func {
+        display: block; }
+        .registration__func p {
+          margin-right: 0px !important; } }
   .registration__select {
     position: relative;
     margin-top: 35px;
     margin-bottom: 25px; }
   .registration__list {
-    list-style: none; }
+    list-style: none;
+    margin-top: 0px;
+    padding: 0px; }
+    @media screen and (max-width: 600px) {
+      .registration__list {
+        padding: 0;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+            -ms-flex-align: center;
+                align-items: center;
+        max-width: 361px;
+        margin: 0 auto; } }
     .registration__list li:not(:last-child) {
       margin-bottom: 10px; }
     .registration__list li:last-child {
       margin-bottom: 35px !important; }
+    @media screen and (max-width: 600px) {
+      .registration__list li {
+        width: 100%; } }
   .registration__btn {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
-    display: flex; }
-    .registration__btn:first-child {
-      margin-right: 15px; }
+    display: flex;
+    margin-left: 15px; }
   .registration .field input {
     width: 300px;
     font-size: 13px;
@@ -31,7 +110,11 @@
     background: #F6F6f6;
     -webkit-border-radius: 5px;
             border-radius: 5px;
-    margin-right: 20px; }
+    margin-right: 0px; }
+    @media screen and (max-width: 600px) {
+      .registration .field input {
+        margin-right: 0px;
+        width: 100%; } }
   .registration .field input:focus {
     outline: none;
     -webkit-box-shadow: 0 0 1px 1px #4d90f0;
@@ -103,3 +186,7 @@
     .registration input[type="submit"]:hover, .registration input[type="reset"]:hover {
       -webkit-box-shadow: 2px 8px 4px -6px rgba(0, 0, 0, 0.3);
               box-shadow: 2px 8px 4px -6px rgba(0, 0, 0, 0.3); }
+  .registration .select {
+    width: 100%; }
+  .registration .form-success {
+    margin-top: -5px; }

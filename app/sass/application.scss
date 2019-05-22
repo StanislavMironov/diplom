@@ -217,6 +217,10 @@ input[type = "submit"], input[type = "reset"] {
   }
 }
 
+.editApp_form li:nth-of-type(8) {
+  display: inline-flex;
+}
+
 .editApp_form h2 {
     margin:0;
     display: inline;
@@ -301,7 +305,7 @@ span {
 }
 
 .select {
-  width: 230px
+  width: 200px
 }
 
 #addPerformer {
@@ -418,7 +422,7 @@ select {
     cursor: pointer;
     z-index: 2;
     border: none;
-    padding: 10px 10px 10px 5px;
+    padding: 5px 10px 5px 5px;
     text-overflow: '';
     text-indent: 5px;
 

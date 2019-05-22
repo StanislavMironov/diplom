@@ -81,11 +81,13 @@
 				}
 				else
 				{
+				$result = mysqli_query($link, "SELECT * FROM application WHERE manager =  '{$_SESSION["id_manager"]}'");
+				while($row = mysqli_fetch_array($result)){
 					echo '<div>
-						 <div><a href="#">Заявка № 266 : Проверка работы техники</a></div>
+						 <div><a href="#" class="myApp">Заявка № '.$row["id_application"].' : '.$row["title"].'</a></div>
 						 </div>
 						 ';
-				
+				}
 				}
 			?>
 			</div>				

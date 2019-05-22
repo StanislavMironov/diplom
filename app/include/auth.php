@@ -9,8 +9,6 @@ $pass = md5($_POST["pass"]);
 $pass = strrev($pass);
 $pass = "n".$pass."z";
 
-
-
 $result = mysqli_query($link, "SELECT * FROM user WHERE login='$login' AND pass = '$pass'")or die("Ошибка!");
 if (mysqli_num_rows($result) > 0)
 {
@@ -27,11 +25,8 @@ $row = mysqli_fetch_array($result);
 			$_SESSION['auth_phone'] = $row["phone"];
 			$_SESSION['auth_access'] = $row["access"];
 			$_SESSION['auth_img'] = $row["img"];
-			echo 'yes_auth';
-			
-		
-			
-			
+			$_SESSION['auth_department'] = $row["department"];
+			echo 'yes_auth';	
 }else
 {
 echo 'no_auth';
