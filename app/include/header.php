@@ -27,7 +27,7 @@ include ('rule.php');
 	<div class="container">
 	<nav>
 		<div class="header__logo">
-			<a class="link" href="index.php">Smart Assistent</a> 
+			<a class="link" href="index.php">Smart Assistant</a> 
 		</div>	
 		<!-- <ul class="header__menu">
 		</ul>	 -->
@@ -39,9 +39,24 @@ include ('rule.php');
 </header>
 <div class="profile-menu" id="prMenu">
 <div class="profile-menu__grid">
+ <div id="systemTime"><span>Время:</span><div id="time-node"></div></div>
  <div class="profile-menu__item"><span>Приветствую!</span> <a class="profile-menu__link" href="javascript:void(0);"><?php echo @$_SESSION['auth_name'];?></a></div>
  <div class="profile-menu__item"><a class="profile-menu__link exit" href="profile.php">Профиль</a></div>
  <div class="profile-menu__item"><a class="profile-menu__link exit" id="logout">Выход</a></div>
+ 
+ 
+<script>
+   var timeNode = document.getElementById('time-node');
+ 
+   function getCurrentTimeString() {
+      return new Date().toTimeString().replace(/ .*/, '');
+   }
+ 
+   setInterval(
+      () => timeNode.innerHTML = getCurrentTimeString(),
+      1000
+   );
+</script>
 </div>
 <i id="tool"></i>
 </div>

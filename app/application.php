@@ -50,6 +50,30 @@
 					</div>
 					';
 				break;
+				
+				case "Исполнитель":
+					echo '
+					<div class="info-header__tab active">
+					Создать
+					</div>
+					<div class="info-header__tab appCreate">
+					Созданные мною
+					</div>
+					<div class="info-header__tab appInbox">
+						Входящие
+					</div>
+					<div class="info-header__tab appWork">
+						В работе
+					</div>
+					<div class="info-header__tab workStatus">
+						Эффективность
+					</div>
+					';
+				break;
+				
+				
+				
+				
 				}
 			
 			?>
@@ -137,6 +161,18 @@
 
 			<div class="application__tabcontent fade">
 			<div class="table" id="inboxApp">
+			</div>
+			</div>
+			
+			<div class="application__tabcontent fade">
+			<div class="table" id="inWork">
+			00000
+			</div>
+			</div>
+			
+			<div class="application__tabcontent fade">
+			<div class="table" id="goodJob">
+			test
 			</div>
 			</div>
 		
@@ -292,6 +328,19 @@
 			
 			';
 		}
+		else if($temp == "Исполнитель"){
+			echo '
+				<li>
+				<label for="date">Дата завершения: </label>
+				<input type="datetime-local" id="lastDate" name="lastDate" disabled/>
+				</li>
+				
+				<li>
+				<label for="date">Прогрес выполнения: </label>
+				<input type="number" id="progress" name="progress" min="0" max="100" value="0"/>
+				</li>
+			';
+		}
 	?>
 	<li>
     <label for="comment">Комментарии:</label>
@@ -333,6 +382,16 @@
     <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.151 17.943l-4.143-4.102-4.117 4.159-1.833-1.833 4.104-4.157-4.162-4.119 1.833-1.833 4.155 4.102 4.106-4.16 1.849 1.849-4.1 4.141 4.157 4.104-1.849 1.849z" />
   </symbol>
 </svg>
+
+<script>
+
+var parent = document.getElementById("newPerf");
+var newObj = document.createElement('a');
+
+newObj.classList.add("t");
+newObj.setAttribute('id', 'addPerformer');
+parent.appendChild(newObj);
+</script>
 </body>
 </html>
 

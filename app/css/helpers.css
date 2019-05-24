@@ -229,3 +229,27 @@
   white-space: nowrap;
   -o-text-overflow: ellipsis;
      text-overflow: ellipsis; }
+
+#systemTime {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-right: auto; }
+  #systemTime span {
+    margin-right: 10px; }
+
+.panel_app {
+  background-color: white !important;
+  display: none; }
+  .panel_app .table_ {
+    margin-top: 0px;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row; }
+
+#workList {
+  width: 100%;
+  margin-top: 20px; }

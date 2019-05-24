@@ -253,11 +253,6 @@
 					<p class="profile__btn"><input type="submit" class="submit" name="save_submit" id="form_submit" value="Сохранить" /></p>
 					<p class="profile__btn"><input type="reset" class="submit" value="Сброс" /></p>
 				</div>
-
-
-				
-				  
-			
 			</ul>
 		</div>
 		</form>

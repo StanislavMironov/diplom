@@ -1,13 +1,61 @@
 $(document).ready(function(){
-let acc = document.querySelectorAll(".knowledge__accordion");
-
+var acc = document.querySelectorAll(".knowledge__accordion");
 var prMenu = document.getElementById("prMenu");
 var parObj = document.querySelector('.info-header');  
-var parent = document.getElementById("newPerf");
-var newObj = document.createElement('a');
-newObj.classList.add("t");
-newObj.setAttribute('id', 'addPerformer');
-parent.appendChild(newObj);
+
+
+$(document).on('click','#workList', function(e){
+let target = e.target;
+
+if($(target).hasClass("progress"))
+{
+	target.classList.toggle("active");
+	var panel = target.nextElementSibling;
+	console.log(panel);	
+     if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+	  panel.style.minHeight = '100px';
+    }
+}
+});
+
+$(".workStatus").on("click", function(){
+		$.ajax({
+		type: "POST",
+		url: "./include/work_list.php",
+		dataType: "html",
+		cache: false,
+		success: function(html) {
+		$("#goodJob").html(html);
+		}
+	});
+});
+
+
+$(document).on('click','.main-left__article', function(e){  
+	let hrefNum = $(this).attr('href');
+	alert(hrefNum);
+	
+	$.ajax({
+		type: "POST",
+		url: "./include/view_news.php",
+		dataType: "json",
+		cache: false,
+		data: {hrefNum:hrefNum},
+		success: function(result) {
+		console.log(result);
+		var resNews = result;
+		$("#appPopup").fadeIn("slow");
+		var titleNews = document.getElementById("newsTitle");
+		var descriptionNews = document.querySelector(".main-left__container");
+		console.log(descriptionNews);
+		titleNews.textContent = resNews[0].title;
+		descriptionNews.textContent = resNews[0].description;
+		}
+		});
+});
 
 
 $(document).on('click','#addPerformer', function(){  
@@ -52,6 +100,7 @@ $(document).on('click','.editApp', function(e){
 		data: {num:num},
 		success: function(result) {
 		var res = result;
+		console.log(res);
 		$("#appPopup").fadeIn("slow");
 		$("#num_app").html("Заявка №: " + res[0].id_application);
 		$("#title_app").val(res[0].title);
@@ -149,6 +198,20 @@ $(document).on('click','#save_app', function(e){
 	}
 	});
 });
+
+
+$(".appWork").on("click", function(){
+		$.ajax({
+		type: "POST",
+		url: "./include/work_app.php",
+		dataType: "html",
+		cache: false,
+		success: function(html) {
+		$("#inWork").html(html);
+		}
+	});
+});
+
 
 $(".appInbox").on("click", function(){
 		$.ajax({
@@ -289,7 +352,7 @@ $(".custom-option").on("click", function() {
   $(this).parents(".custom-select").removeClass("opened");
   $(this).parents(".custom-select").find(".custom-select-trigger").text($(this).text());
 });
-       
+
 for (i = 0; i < acc.length; i++) {
   acc[i].addEventListener("click", function() {
   

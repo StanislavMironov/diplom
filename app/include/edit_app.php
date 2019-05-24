@@ -7,11 +7,23 @@ $appDescription = $_POST["description_app"];
 $appDate = $_POST["date_app"];
 $qtyComment = $_POST["comment"];
 $appComment = $_POST["add_app"] . $qtyComment;
-$lastDate = $_POST["lastDate"];
 $appPerform = $_POST["add_app"];
-$newStatus = $_POST["rezStatus"];
 
-$categoryApp = $_POST["categoryApp"];
+$progressApp = $_POST["progress"];
+$test = mysqli_query($link, "SELECT * FROM application WHERE id_application= '{$_SESSION["id_app"]}'") or die("Ошибка вывод заявки!!!");
+$testRow = mysqli_fetch_array($test);
+
+if($_POST["rezStatus"]!= null){
+	$newStatus = $_POST["rezStatus"];
+} else
+{
+	$newStatus = $testRow["status"];
+}
+
+if(isset($_POST["lastDate"]) && isset($_POST["categoryApp"])){
+	$lastDate = $_POST["lastDate"];
+	$categoryApp = $_POST["categoryApp"];
+} 
 
 $tempUser = $_SESSION["auth_id"];
 
@@ -53,9 +65,6 @@ if(strlen($_POST["rezStatus"]) == null)
 	}		
 }
 	
-		
-
-	
 if (count($error)) {
 	$msg = implode('<br />',$error);
 	echo $msg;
@@ -63,7 +72,26 @@ if (count($error)) {
 else
 {	
 $_SESSION["id_manager"] = $rowManager["id_manager"];
-$update = mysqli_query($link,"UPDATE application SET status = '$newStatus', title='$appTitle', description = '$appDescription', start_date = '$appDate', comment = '$text', deadline='$lastDate', category = '$categoryApp', manager = '{$rowManager["id_manager"]}', department = '{$_SESSION['auth_department']}', date_last_update = NOW(), author_update = '{$_SESSION['auth_name']}' WHERE id_application= '{$_SESSION["id_app"]}' ") or die("Ошибка изменения заявки!");
+
+switch($temp){
+	case  "Диспетчер":
+		$update = mysqli_query($link,"UPDATE application SET status = '$newStatus', title='$appTitle', description = '$appDescription', start_date = '$appDate', comment = '$text', deadline='$lastDate', category = '$categoryApp', manager = '{$rowManager["id_manager"]}', department = '{$_SESSION['auth_department']}', date_last_update = NOW(), author_update = '{$_SESSION['auth_name']}' WHERE id_application= '{$_SESSION["id_app"]}' ") or die("Ошибка изменения заявки!");
+	break;	
+	
+	case "Исполнитель":
+		$update = mysqli_query($link,"UPDATE application SET percent = '$progressApp',status = '$newStatus', title='$appTitle', description = '$appDescription', comment = '$text', department = '{$_SESSION['auth_department']}', date_last_update = NOW(), author_update = '{$_SESSION['auth_name']}' WHERE id_application= '{$_SESSION["id_app"]}' ") or die("Ошибка изменения заявки!" . "Статус = ". $newStatus);
+	break;
+}
+if($newStatus == 4)
+	{
+		$App = mysqli_query($link, "SELECT * FROM application WHERE id_application= '{$_SESSION["id_app"]}'") or die("Ошибка вывод заявки");
+		$appRow = mysqli_fetch_array($App);
+		$lastDate = $appRow["date_last_update"];
+		
+		$update = mysqli_query($link,"UPDATE application SET deadline='$lastDate' WHERE id_application= '{$_SESSION["id_app"]}'") or die("Ошибка изменения заявки!");
+	}
+
+
 	if ($update == true)
 	{
 		echo "ok";

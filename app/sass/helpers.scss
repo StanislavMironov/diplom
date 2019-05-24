@@ -274,3 +274,27 @@
   white-space: nowrap; 
   text-overflow: ellipsis; 
 }
+
+#systemTime {
+  display: flex;
+  margin-right: auto;
+
+  span {
+    margin-right: 10px;
+  }
+}
+
+.panel_app {
+  background-color: white !important;
+  display: none;
+
+  .table_ {
+    margin-top: 0px;
+    flex-direction: row;
+  }
+}
+
+#workList {
+  width: 100%;  
+  margin-top: 20px;
+}

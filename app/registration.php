@@ -99,7 +99,8 @@ if (isset($_POST["CR_submit"])){
 		//Загружаем файл
 		if(move_uploaded_file($_FILES['upload_image']['tmp_name'], $uploadfile))
 		{
-			$sql = mysqli_query($link, "INSERT INTO user (second_name, first_name, last_name, email, phone, login, pass, access, img, department) VALUES('$surname', '$name', '$patronymic', '$email', '$phone', '$login', '$pass', '$access', '$newfilename', '$department')")or die("Ошибка запроса регистрации(Пользователь не создан)!") or die("Ошибка!");
+			$sql = mysqli_query($link, "INSERT INTO user (second_name, first_name, last_name, email, phone, login, pass, access, img, department) VALUES('$surname', '$name', '$patronymic', '$email', '$phone', '$login', '$pass', '$access', '$newfilename', '$department')")or die("Ошибка запроса регистрации(Пользователь не создан)!");
+			
 			
 			if($sql == true)
 			{
@@ -117,8 +118,16 @@ if (isset($_POST["CR_submit"])){
 	}
 	}
 	
+	
+	
+	
 	}
 	
+	$users = mysqli_query($link, "SELECT * FROM user WHERE access = 2");
+			while($rule = mysqli_fetch_array($users)){
+					$user = $rule["id_user"];
+					$sql2 = mysqli_query($link, "INSERT INTO performer (first_name, last_name, user) VALUES('{$rule["first_name"]}', '{$rule["second_name"]}', '{$rule["id_user"]}')");
+			}
 ?>
 
 	<div class="registration">
