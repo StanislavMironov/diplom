@@ -45,7 +45,7 @@
 					<div class="info-header__tab appInbox">
 						Входящие
 					</div>
-					<div class="info-header__tab">
+					<div class="info-header__tab appWork">
 						В работе
 					</div>
 					';
@@ -77,9 +77,7 @@
 				}
 			
 			?>
-		
 			</div>	
-			
 			<div class="application__tabcontent fade">
 				<form id="createApp" enctype="multipart/form-data" method="post">
 				<div class="application__option">
@@ -166,13 +164,14 @@
 			
 			<div class="application__tabcontent fade">
 			<div class="table" id="inWork">
-			00000
+			
 			</div>
 			</div>
 			
 			<div class="application__tabcontent fade">
 			<div class="table" id="goodJob">
-			test
+			
+			
 			</div>
 			</div>
 		
@@ -190,10 +189,7 @@
 <h2>Список исполнителей</h2>
 <div class="viewPerforms">
 <div class="table" id="perfTable">
-
-
 </div>
-
 </div>
 <div id="PerformClose">
 </div>
@@ -325,7 +321,15 @@
 				
 				<input type=\'text\' id=\'categoryApp\' name=\'categoryApp\'/>
 				</li>
-			
+				
+				<li class="prBr">
+				<div>Прогресс:</div>
+					<div class="progress">
+					<progress min = "0" max="100" value=""></progress>
+					<div class="progress-value"></div>
+					<div class="progress-bg"><div class="progress-bar"></div></div>
+					</div>
+				</li>
 			';
 		}
 		else if($temp == "Исполнитель"){
@@ -337,7 +341,7 @@
 				
 				<li>
 				<label for="date">Прогрес выполнения: </label>
-				<input type="number" id="progress" name="progress" min="0" max="100" value="0"/>
+				<input type="number" id="progress" name="progress" min="0" max="100" value=""/>
 				</li>
 			';
 		}

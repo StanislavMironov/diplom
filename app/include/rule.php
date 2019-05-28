@@ -9,6 +9,12 @@
 				case '3':
 					$temp = "Диспетчер";
 				break;
+				case '4':
+					$temp = "Руководитель";
+				break;
+				case '5':
+					$temp = "Администратор";
+				break;
 			}
 	
 ?>

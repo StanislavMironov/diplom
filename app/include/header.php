@@ -164,12 +164,6 @@ include ('rule.php');
 			case "Администратор":
 			echo '
 				<li>
-				<a href="#">Пользователи</a>
-				</li>
-				<li>
-				<a href="#">Новости</a>
-				</li>
-				<li>
 				<a href="./application.php">Заявки</a>
 				</li>	
 				<li>
@@ -185,7 +179,7 @@ include ('rule.php');
 				<a href="#">Отчёты</a>
 				</li>
 				<li>
-				<a href="#">Настройки</a>
+				<a href="setting.php">Настройки</a>
 				</li>
 				';
 			break;

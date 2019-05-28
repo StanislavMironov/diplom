@@ -108,7 +108,9 @@ $(document).on('click','.editApp', function(e){
 		$("#date").val(res[0].start_date); 
 		$("#lastDate").val(res[0].deadline); 
 		$("#comment_app").val(res[0].comment);
-		
+		let temp = document.querySelector(".progress");
+		$("progress").attr("value", res[0].percent); 
+		console.log(temp);
 		if(res[0].performers != null)
 			{
 				newObj.innerHTML = '';
@@ -135,7 +137,9 @@ $(document).on('click','#hPerform', function(e){
 		success: function(result) {
 		console.log(result);
 		var resPerf = result;
-		newObj.textContent = resPerf[0].first_name;
+		let qtyTask = document.getElementById("countTask");
+		qtyTask.textContent = resPerf["test"];
+		console.log(qtyTask);
 		}
 	});
 });
@@ -268,6 +272,38 @@ alert(aHref);
 			}
 			});
 			}
+			
+		let num = $(this).attr('href');	
+		$.ajax({
+		type: "POST",
+		url: "./include/view_app.php",
+		dataType: "json",
+		cache: false,
+		data: {num:num},
+		success: function(result) {
+		var res = result;
+		console.log(res);
+		$("#appPopup").fadeIn("slow");
+		$("#num_app").html("Заявка №: " + res[0].id_application);
+		$("#title_app").val(res[0].title);
+		$("#description_app").val(res[0].description);
+		$("#date").val(res[0].start_date); 
+		$("#lastDate").val(res[0].deadline); 
+		$("#comment_app").val(res[0].comment);
+		let temp = document.querySelector(".progress");
+		$("progress").attr("value", res[0].percent); 
+		console.log(temp);
+		if(res[0].performers != null)
+			{
+				newObj.innerHTML = '';
+				let name = (res[0].performers);
+				newObj.textContent = res[0].performers;
+			}else {
+				newObj.innerHTML = '';
+				newObj.textContent = "Назначить";
+			}
+		}
+		});
 		}
 	});
 });

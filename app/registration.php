@@ -223,6 +223,8 @@ if (isset($_POST["CR_submit"])){
 					  <option value="1" >Пользователь</option>
 					  <option value="2" >Исполнитель</option>
 					  <option value="3" >Диспетчер</option>
+					  <option value="4" >Руководитель</option>
+					  <option value="5" >Администратор</option>
 					</select>
 				  </div>
 				</div>		

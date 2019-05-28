@@ -6,7 +6,7 @@ include ("db_connect.php");
 if($temp == "Диспетчер")
 {
 
-$sql = mysqli_query($link, "SELECT * FROM application") or die("Ошибка вывода заявки");
+$sql = mysqli_query($link, "SELECT * FROM application WHERE status = 0") or die("Ошибка вывода заявки");
 $row = mysqli_fetch_array($sql);
 $statusApp = $row["status"];
 
@@ -84,7 +84,7 @@ echo	'
 }
 else
 {
-	echo '<div class="error">Заявок пока нет!</div>';
+	echo '<div class="error">Новых заявок пока нет!</div>';
 }
 
 } 

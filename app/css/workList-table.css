@@ -14,20 +14,32 @@
     -webkit-flex-direction: column;
         -ms-flex-direction: column;
             flex-direction: column; }
+    .workList-table__row:first-child {
+      width: 130px; }
+    .workList-table__row:last-child {
+      width: -webkit-calc(100% - 130px);
+      width: calc(100% - 130px); }
   .workList-table__column {
-    padding: 10px; }
-    @media screen and (max-width: 600px) {
-      .workList-table__column {
-        width: 70%;
-        max-width: 70%;
-        min-width: 70%; } }
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 10px;
+    border-bottom: 2px solid #f1f1f1;
+    height: 30px; }
     .workList-table__column span {
-      display: none; }
-      @media screen and (max-width: 600px) {
-        .workList-table__column span {
-          display: inline-block;
-          padding-right: 10px; } }
+      font-weight: bold; }
+    .workList-table__column.title {
+      overflow: hidden;
+      white-space: nowrap;
+      -o-text-overflow: ellipsis;
+         text-overflow: ellipsis; }
   .workList-table .progress {
+    width: 100%;
     font: 12px Arial, Tahoma, sans-serif;
     position: relative;
     overflow: hidden; }
@@ -492,3 +504,5 @@
     content: "100%"; }
   .workList-table .progress progress[value="100"] ~ .progress-bg .progress-bar {
     width: 100%; }
+  .workList-table .pr {
+    margin-top: auto; }

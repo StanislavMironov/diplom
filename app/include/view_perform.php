@@ -4,8 +4,7 @@ include ("db_connect.php");
 
 	$sqlPerf = mysqli_query($link, "SELECT * FROM performer") or die("Ошибка вывода исполнителей!");
 	$rowPerf = mysqli_fetch_array($sqlPerf);
-	$qtyTask = mysqli_query($link, "SELECT COUNT(id_application) FROM application WHERE performers = '{$rowPerf["first_name"]}'") or die("Ошибка вывода количества задач!");
-	$rowQty = mysqli_fetch_array($qtyTask);
+	
 	
 	
 	
@@ -18,6 +17,8 @@ include ("db_connect.php");
 		</div>
 	';
 		do {
+		$qtyTask = mysqli_query($link, "SELECT COUNT(id_application) FROM application WHERE performers = '{$rowPerf["first_name"]}'") or die("Ошибка вывода количества задач!");
+		$rowQty = mysqli_fetch_array($qtyTask);
 			echo '
 			<div class="table__row">
 			<div class="table__column">

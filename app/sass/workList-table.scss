@@ -5,31 +5,37 @@
 	&__row {
 		display: flex;
 		flex-direction: column;
+
+		&:first-child {
+			width: 130px;
+		}
+
+		&:last-child {
+			width: calc(100% - 130px);
+		}
 	}
 
 	&__column {
+		display: flex;
+   		align-items: center;
 	    padding: 10px;
-
-	 
-	    @media screen and (max-width: 600px){
-	    	width: 70%;
-		    max-width: 70%;
-		    min-width: 70%;
+	    border-bottom: 2px solid #f1f1f1;	
+	    height: 30px;
+	
+	    span {
+	    	font-weight: bold;
 	    }
 
-
-	    span {
-	    	display: none;
-
-	    	@media screen and (max-width: 600px){
-		    	display: inline-block;
-		    	padding-right: 10px;
-	    	}
+	    &.title {
+	    	overflow: hidden;
+		    white-space: nowrap;
+		    text-overflow: ellipsis;
 	    }
 	}
 
 	.progress
 {
+  width: 100%;	
   font: 12px Arial, Tahoma, sans-serif;
   position: relative;
   overflow: hidden;
@@ -112,6 +118,10 @@
     & + .progress-value:before { content : '#{$i}%' }
     & ~ .progress-bg .progress-bar { width: $i * 1% }
   }
+}
+
+.pr {
+	margin-top: auto;
 }
 }
 

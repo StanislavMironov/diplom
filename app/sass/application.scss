@@ -473,4 +473,18 @@ select::-ms-expand {
 
 }
 }
+
+.progress {
+  width: 300px;
+}
+
+.prBr {
+  display: flex;
+  align-items: center;
+
+  & > div:first-child {
+    margin-right: 85px;
+    font-weight: bold;
+  }
+}
 }

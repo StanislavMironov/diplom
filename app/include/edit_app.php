@@ -9,7 +9,10 @@ $qtyComment = $_POST["comment"];
 $appComment = $_POST["add_app"] . $qtyComment;
 $appPerform = $_POST["add_app"];
 
+if(isset($_POST["progress"])){
 $progressApp = $_POST["progress"];
+}
+
 $test = mysqli_query($link, "SELECT * FROM application WHERE id_application= '{$_SESSION["id_app"]}'") or die("Ошибка вывод заявки!!!");
 $testRow = mysqli_fetch_array($test);
 

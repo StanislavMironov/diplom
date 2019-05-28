@@ -296,5 +296,42 @@
 
 #workList {
   width: 100%;  
-  margin-top: 20px;
+  margin-bottom: 5px;
+
+  button {
+    width: 100% !important;
+  }
+}
+
+#msg {
+    padding: 15px;
+    background-color: white;
+    margin-bottom: 35px;
+    -webkit-box-shadow: 0px 10px 8px;
+    box-shadow: 0px 10px 8px;
+    word-break: break-all;
+    outline: 4px solid #666;
+}
+
+.wrapper {
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.15);
+  margin-bottom: 15px;
+  padding: 10px;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin-right: 10px;
+    min-width: 180px;
+  }
+}
+
+.level {
+  width: 100%;
+}
+
+#goodJob {
+  margin-top: 50px !important;
 }
