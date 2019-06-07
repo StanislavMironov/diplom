@@ -41,11 +41,11 @@ if (isset($_POST["CR_submit"])){
 	if(strlen($name) < 5 || strlen($name) > 15){
 		$error[]='Укажите Имя от 5 до 15 символов!';
 	}
-	if(strlen($surname) < 7 || strlen($surname) > 15){
-		$error[]='Укажите Фамилию от 7 до 15 символов!';
+	if(strlen($surname) < 5 || strlen($surname) > 15){
+		$error[]='Укажите Фамилию от 5 до 15 символов!';
 	}
-	if(strlen($login) < 5 || strlen($login) > 15){
-		$error[]='Укажите Логин от 5 до 15 символов!';
+	if(strlen($login) < 4 || strlen($login) > 15){
+		$error[]='Укажите Логин от 4 до 15 символов!';
 	}
 	if(strlen($patronymic) < 10 || strlen($patronymic) > 55){
 		$error[]='Укажите Отчество от 10 до 25 символов!';
@@ -105,6 +105,7 @@ if (isset($_POST["CR_submit"])){
 			if($sql == true)
 			{
 				$_SESSION['msg'] = "<p align='left' class='form-success'>Новый пользователь успешно создан!</p>";
+				header("Location: ./setting.php");
 			} else {
 			 $_SESSION['msg'] = "<p align='left' class='form-error'>Ошибка!</p>";
 			}
@@ -117,10 +118,6 @@ if (isset($_POST["CR_submit"])){
 	}
 	}
 	}
-	
-	
-	
-	
 	}
 	
 	$users = mysqli_query($link, "SELECT * FROM user WHERE access = 2");

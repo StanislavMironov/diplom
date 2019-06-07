@@ -43,6 +43,14 @@
         .table__row:first-child {
           display: none; } }
   .table__column {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
     width: 12%;
     max-width: 12%;
     min-width: 12%;
@@ -81,3 +89,5 @@
       fill: black; }
       .table__func svg.icon:hover {
         fill: red; }
+  .table .progress {
+    width: auto; }

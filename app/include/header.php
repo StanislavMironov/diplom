@@ -30,10 +30,10 @@ include ('rule.php');
 			<a class="link" href="index.php">Smart Assistant</a> 
 		</div>	
 		<!-- <ul class="header__menu">
-		</ul>	 -->
+		</ul>	
 		  <form method="get" action="/search" id="searchbox5">
         <input id="search51" name="q" type="text" size="40" placeholder="Поиск..." />
-    </form>
+    </form> -->
 	</nav>
 	</div>
 </header>

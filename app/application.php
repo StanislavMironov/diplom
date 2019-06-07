@@ -28,7 +28,7 @@
 					<div class="info-header__tab appCreate">
 					Созданные мною
 					</div>
-					<div class="info-header__tab">
+					<div class="info-header__tab appArchive">
 						Архив
 					</div>
 					';
@@ -47,6 +47,9 @@
 					</div>
 					<div class="info-header__tab appWork">
 						В работе
+					</div>
+					<div class="info-header__tab appArchive">
+						Архив
 					</div>
 					';
 				break;
@@ -71,9 +74,22 @@
 					';
 				break;
 				
-				
-				
-				
+				case "Администратор":
+					echo '
+					<div class="info-header__tab active">
+					Создать
+					</div>
+					<div class="info-header__tab appCreate">
+					Созданные мною
+					</div>
+					<div class="info-header__tab appWork">
+						В работе
+					</div>
+					<div class="info-header__tab appArchive">
+						Архив
+					</div>
+					';
+				break;
 				}
 			
 			?>
@@ -164,14 +180,22 @@
 			
 			<div class="application__tabcontent fade">
 			<div class="table" id="inWork">
+			</div>
+			</div>
+			<?php
+			if($temp == "Исполнитель"){
+				echo '
+					<div class="application__tabcontent fade">
+					<div class="table" id="goodJob">
+					</div>
+					</div>
+				';
+			}
+			?>
 			
-			</div>
-			</div>
 			
 			<div class="application__tabcontent fade">
-			<div class="table" id="goodJob">
-			
-			
+			<div class="table" id="archiveApp">
 			</div>
 			</div>
 		

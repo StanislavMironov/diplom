@@ -2,7 +2,240 @@ $(document).ready(function(){
 var acc = document.querySelectorAll(".knowledge__accordion");
 var prMenu = document.getElementById("prMenu");
 var parObj = document.querySelector('.info-header');  
+var tabs = document.querySelectorAll('.setting__link'),
+	infoBlock = document.querySelector('.setting__menu'),
+	tabContents = document.querySelectorAll('.setting__info');	
+ 
 
+	
+	
+$(document).on('click','.delArch', function(){
+	let link = $(this).attr('href');
+	
+	$.ajax({
+		type: 'POST',
+		url: './include/delete_arch.php',
+		data: {appArch:link},
+		success: function(data) {
+		console.log(data);
+			if(data == "ok") {
+				$.ajax({
+				type: "POST",
+				url: "./include/archive_app.php",
+				dataType: "html",
+				cache: false,
+				success: function(html) {
+				let temp = $("#archiveApp");
+				$("#archiveApp").html(html);
+				}
+				});
+			}
+		}
+	});
+});	
+	
+	
+	
+$(".setting__right").on("click", function(e){
+	let target = e.target;
+	let hrefNum = $(this).attr('href');
+	if($(target).hasClass("news_del")) {
+		let num = $(target).attr("href");
+		$.ajax({
+		type: 'POST',
+		url: './include/delete_news.php',
+		data: {num:num},
+		success: function(data) {
+		
+		//console.log(data);
+		
+		
+		
+		if(data == "ok")
+		{
+			$('.changeNews').addClass('form-success').removeClass('form-error');
+			$('.changeNews').html("Изменения успешно сохранены!");
+			$('.changeNews').slideDown();
+			setTimeout(function() { $(".changeNews").slideUp(); }, 2000);
+		}
+		else
+		{
+			$('.changeNews').addClass('form-error').removeClass('form-success');
+			$('.changeNews').html(data);
+			$('.changeNews').slideDown();
+			setTimeout(function() { $(".changeStatus").slideUp(); }, 3500);
+		}
+		}
+		});
+	}
+});	
+	
+$(document).on('click','#save_news', function(e){
+ var app = $('#formNews').serialize();
+ $.ajax({
+	type: 'POST',
+	url: './include/create_news.php',
+	data: app,
+	success: function(data) {
+	
+	if(data == "ok")
+	{
+		$('.changeNews').addClass('form-success').removeClass('form-error');
+		$('.changeNews').html("Изменения успешно сохранены!");
+		$('.changeNews').slideDown();
+		setTimeout(function() { $(".changeNews").slideUp(); }, 2000);
+	}
+	else
+	{
+		$('.changeNews').addClass('form-error').removeClass('form-success');
+		$('.changeNews').html(data);
+		$('.changeNews').slideDown();
+		setTimeout(function() { $(".changeStatus").slideUp(); }, 3500);
+	}
+	}
+	});
+});	
+	
+	
+	
+$('.setting__link').click(function(){
+if(!$(this).hasClass('active')){
+	$(this).siblings().removeClass('active');
+	$(this).addClass('active');
+}
+});
+
+
+function hideTabContents(a) {
+	for (let i = a; i < tabContents.length; i++) {
+		tabContents[i].classList.remove('show');
+		tabContents[i].classList.add('hide');
+	}
+}
+
+
+
+hideTabContents(1);
+
+function showTabContents(b) {
+	if (tabContents[b].classList.contains('hide')) {
+		tabContents[b].classList.remove('hide');
+		tabContents[b].classList.add('show');
+	}
+}
+
+$(infoBlock).on("click", function(e){
+	let target = e.target;
+	if (target && target.classList.contains('setting__link')) {
+	for(let i = 0; i < tabs.length; i++) {
+			if (target == tabs[i]) {
+				hideTabContents(0);
+				showTabContents(i);
+			break;
+			}
+		}
+	}
+}); 
+
+
+$(document).ready(function(){
+$.ajax({
+	type: "POST",
+	url: "./include/view_users.php",
+	dataType: "html",
+	cache: false,
+	success: function(html) {
+	$(".setting__container").html(html);
+	var accSetting = document.querySelectorAll(".setting__accordion");
+	$(document).on('click','.setting__accordion', function(e){
+	let target = e.target;
+		target.classList.toggle("active");
+		var panel = target.nextElementSibling;
+			
+		 if (panel.style.display === "flex") {
+		  panel.style.display = "none";
+		} else {
+		  panel.style.display = "flex";
+		  panel.style.minHeight = '50px';
+		}
+	});
+}
+});
+
+}
+);
+
+
+$(document).on('click', '#users',function(){
+$.ajax({
+	type: "POST",
+	url: "./include/view_users.php",
+	dataType: "html",
+	cache: false,
+	success: function(html) {
+	$(".setting__container").html(html);
+	var accSetting = document.querySelectorAll(".setting__accordion");
+	$(document).on('click','.setting__accordion', function(e){
+	let target = e.target;
+		target.classList.toggle("active");
+		var panel = target.nextElementSibling;
+			
+		 if (panel.style.display === "flex") {
+		  panel.style.display = "none";
+		} else {
+		  panel.style.display = "flex";
+		  panel.style.minHeight = '50px';
+		}
+	});
+	
+for (i = 0; i < accSetting.length; i++) {
+
+accSetting[i].addEventListener("click", function() {
+let hrefNum = this.nextElementSibling;
+
+hrefNum.addEventListener("click", function(e){
+let target = e.target;
+
+if($(target).hasClass("link")){
+let num = $(target).attr("href");
+$.ajax({
+type: 'POST',
+url: './include/delete_users.php',
+data: {num:num},
+success: function(data) {
+
+if(data == "ok")
+{
+$('.changeSetting').addClass('form-success').removeClass('form-error');
+$('.changeSetting').html("Изменения успешно сохранены!");
+$('.changeSetting').slideDown();
+setTimeout(function() { $(".changeSetting").slideUp(); }, 2000);
+}
+else
+{
+	$('.changeSetting').addClass('form-error').removeClass('form-success');
+	$('.changeSetting').html(data);
+	$('.changeSetting').slideDown();
+	setTimeout(function() { $(".changeSetting").slideUp(); }, 3500);
+}
+$.ajax({
+type: "POST",
+url: "./include/view_users.php",
+dataType: "html",
+cache: false,
+success: function(html) {
+$(".setting__container").html(html);
+}
+});
+}
+});
+  }
+});
+});
+}
+}
+});
+});
 
 $(document).on('click','#workList', function(e){
 let target = e.target;
@@ -11,7 +244,7 @@ if($(target).hasClass("progress"))
 {
 	target.classList.toggle("active");
 	var panel = target.nextElementSibling;
-	console.log(panel);	
+	
      if (panel.style.display === "block") {
       panel.style.display = "none";
     } else {
@@ -36,7 +269,6 @@ $(".workStatus").on("click", function(){
 
 $(document).on('click','.main-left__article', function(e){  
 	let hrefNum = $(this).attr('href');
-	alert(hrefNum);
 	
 	$.ajax({
 		type: "POST",
@@ -45,12 +277,12 @@ $(document).on('click','.main-left__article', function(e){
 		cache: false,
 		data: {hrefNum:hrefNum},
 		success: function(result) {
-		console.log(result);
+		
 		var resNews = result;
 		$("#appPopup").fadeIn("slow");
 		var titleNews = document.getElementById("newsTitle");
 		var descriptionNews = document.querySelector(".main-left__container");
-		console.log(descriptionNews);
+	
 		titleNews.textContent = resNews[0].title;
 		descriptionNews.textContent = resNews[0].description;
 		}
@@ -74,7 +306,7 @@ $(document).on('click','#addPerformer', function(){
 				dataType: "json",
 				cache: false,
 				success: function(result) {
-				console.log(result);
+				
 				var qtyTasks = result;
 				}
 			});
@@ -89,7 +321,7 @@ $(document).on('click','#PerformClose', function(){
 
 $(document).on('click','.editApp', function(e){  
 	let num = $(this).attr('href');
-	console.log(num);
+
 	
 		
 	$.ajax({
@@ -100,7 +332,7 @@ $(document).on('click','.editApp', function(e){
 		data: {num:num},
 		success: function(result) {
 		var res = result;
-		console.log(res);
+		
 		$("#appPopup").fadeIn("slow");
 		$("#num_app").html("Заявка №: " + res[0].id_application);
 		$("#title_app").val(res[0].title);
@@ -110,7 +342,7 @@ $(document).on('click','.editApp', function(e){
 		$("#comment_app").val(res[0].comment);
 		let temp = document.querySelector(".progress");
 		$("progress").attr("value", res[0].percent); 
-		console.log(temp);
+		
 		if(res[0].performers != null)
 			{
 				newObj.innerHTML = '';
@@ -126,7 +358,6 @@ $(document).on('click','.editApp', function(e){
 
 $(document).on('click','#hPerform', function(e){  
 	let num = $(this).attr('href');
-	alert(num);
 	
 	$.ajax({
 		type: "POST",
@@ -135,11 +366,11 @@ $(document).on('click','#hPerform', function(e){
 		cache: false,
 		data: {num:num},
 		success: function(result) {
-		console.log(result);
+		
 		var resPerf = result;
 		let qtyTask = document.getElementById("countTask");
 		qtyTask.textContent = resPerf["test"];
-		console.log(qtyTask);
+	
 		}
 	});
 });
@@ -203,6 +434,20 @@ $(document).on('click','#save_app', function(e){
 	});
 });
 
+$(".appArchive").on("click", function(){
+		$.ajax({
+		type: "POST",
+		url: "./include/archive_app.php",
+		dataType: "html",
+		cache: false,
+		success: function(html) {
+		
+		let temp = $("#archiveApp");
+		$("#archiveApp").html(html);
+		}
+	});
+});
+
 
 $(".appWork").on("click", function(){
 		$.ajax({
@@ -215,7 +460,6 @@ $(".appWork").on("click", function(){
 		}
 	});
 });
-
 
 $(".appInbox").on("click", function(){
 		$.ajax({
@@ -238,13 +482,12 @@ $(".appCreate").on("click", function(){
 		success: function(html) {
 		$("#myApp").html(html);
 		}
-	});
+		});
 });
 
 $(document).on('click','.delApp', function(e){
 e.preventDefault();
 let aHref = $(this).attr('href');
-alert(aHref);
 	$.ajax({
 		type: "POST",
 		url: "./include/delete_app.php",
@@ -252,25 +495,34 @@ alert(aHref);
 		dataType: "html",
 		cache: false,
 		success: function(data) {
-		alert(data);
+		alert(aHref);
+		$.ajax({
+		type: "POST",
+		url: "./include/update_app.php",
+		dataType: "html",
+		cache: false,
+		success: function(html) {
+		$("#myApp").html(html);
+		}
+		});
 			if(data == 'ok')
 			{
-			var target, elParent, elGr;
-			target = e.target;
-			elParent = target.parentNode.parentNode.parentNode;
-			elGr = elParent;
-			elParent.style="display:none";
-			
-			$.ajax({
+				$.ajax({
 				type: "POST",
 				url: "./include/update_app.php",
 				dataType: "html",
 				cache: false,
 				success: function(html) {
-				$("#myApp").html(html);
 				$("#inboxApp").html(html);
-			}
-			});
+				}
+				});
+			
+			
+			var target, elParent, elGr;
+			target = e.target;
+			elParent = target.parentNode.parentNode.parentNode;
+			elGr = elParent;
+			elParent.style="display:none";
 			}
 			
 		let num = $(this).attr('href');	
@@ -282,7 +534,6 @@ alert(aHref);
 		data: {num:num},
 		success: function(result) {
 		var res = result;
-		console.log(res);
 		$("#appPopup").fadeIn("slow");
 		$("#num_app").html("Заявка №: " + res[0].id_application);
 		$("#title_app").val(res[0].title);
@@ -292,7 +543,6 @@ alert(aHref);
 		$("#comment_app").val(res[0].comment);
 		let temp = document.querySelector(".progress");
 		$("progress").attr("value", res[0].percent); 
-		console.log(temp);
 		if(res[0].performers != null)
 			{
 				newObj.innerHTML = '';

@@ -103,6 +103,31 @@
         -ms-transform: rotate(-45deg);
             transform: rotate(-45deg); }
 
+.delArch {
+  position: relative;
+  width: 15px;
+  height: 15px; }
+  .delArch:after, .delArch:before {
+    content: "";
+    height: 2px;
+    width: 16px;
+    position: absolute;
+    left: 0;
+    top: 5px;
+    z-index: 1;
+    bottom: 0;
+    background-color: black; }
+  .delArch:hover:after, .delArch:hover:before {
+    background-color: red; }
+  .delArch:after {
+    -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+            transform: rotate(45deg); }
+  .delArch:before {
+    -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg); }
+
 .podlogka {
   background: rgba(102, 102, 102, 0.5);
   width: 100%;
@@ -291,3 +316,8 @@
 
 #goodJob {
   margin-top: 50px !important; }
+
+#archiveApp {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 300px; }

@@ -92,7 +92,7 @@ else if($temp == "Исполнитель")
 {
 
 
-$sql = mysqli_query($link, "SELECT * FROM application WHERE performers = '{$_SESSION['auth_name']}'") or die("Ошибка вывода заявки");
+$sql = mysqli_query($link, "SELECT * FROM application WHERE performers = '{$_SESSION['auth_name']}' AND status = 1") or die("Ошибка вывода заявки");
 $row = mysqli_fetch_array($sql);
 $statusApp = $row["status"];
 

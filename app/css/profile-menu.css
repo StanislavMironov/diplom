@@ -15,9 +15,9 @@
           box-shadow: -7px 5px 33px -9px #000000 inset; }
   @media screen and (max-width: 500px) {
     .profile-menu {
-      -webkit-transform: translateY(-105px);
-          -ms-transform: translateY(-105px);
-              transform: translateY(-105px); } }
+      -webkit-transform: translateY(-130px);
+          -ms-transform: translateY(-130px);
+              transform: translateY(-130px); } }
   .profile-menu__grid {
     display: -webkit-box;
     display: -webkit-flex;

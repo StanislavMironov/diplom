@@ -22,7 +22,6 @@ echo '
 </div>
 
 <div class="level">
-
 <div class="progress">
 <progress max="100" value="'.$_SESSION["qty_effect"] .'"></progress>
 <div class="progress-value"></div>

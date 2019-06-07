@@ -39,7 +39,7 @@
 			</div>
 			<div class="main-right__item">
 			<?php 
-			/* 	if($temp == "Пользователь")
+				if($temp == "Пользователь")
 				{
 					echo '
 						<div>
@@ -79,7 +79,7 @@
 						 </div>
 						 ';
 					}
-				} */
+				}
 			?>
 			</div>
 
@@ -96,7 +96,7 @@
 			</div>
 			<div class="main-right__item">
 				<?php 
-			/* 	if($temp == "Пользователь")
+				if($temp == "Пользователь")
 				{
 				$result = mysqli_query($link, "SELECT * FROM application WHERE initiator =  '{$_SESSION["auth_name"]}'");
 				if(mysqli_num_rows($result) > 0){
@@ -158,7 +158,7 @@
 						<div><a href="#">Задач нет.</a></div>
 						</div>
 					';
-				} */
+				}
 			?>
 			</div>				
 		</div>

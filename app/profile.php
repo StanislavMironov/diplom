@@ -72,10 +72,10 @@
 		
 		if (count($error))
 		{
-			$_SESSION['msg'] = "<p align='left' id='form_error'>".implode('<br />',$error)."</p>";
+			$_SESSION['msg2'] = "<p align='left' id='form_error'>".implode('<br />',$error)."</p>";
 		}else
 		{
-			$_SESSION['msg'] = "<p align='left' id='form-success'>Данные успешно сохранены!</p>";
+			$_SESSION['msg2'] = "<p align='left' id='form-success'>Данные успешно сохранены!</p>";
 		
 		
 		if($_FILES['upload_image']['error'] > 0){
@@ -151,10 +151,10 @@
 	<h3>Изменение профиля</h3>
 	
 	<?php
-		if(@$_SESSION['msg'])
+		if(@$_SESSION['msg2'])
 		{
-			echo $_SESSION['msg'];
-			unset($_SESSION['msg']);
+			echo $_SESSION['msg2'];
+			unset($_SESSION['msg2']);
 		}
 	?>
 	

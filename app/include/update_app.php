@@ -15,7 +15,7 @@ echo
 	<div class="table__column">Автор</div>
 	<div class="table__column">Дата создания</div>';
 	
-	if($temp != "Пользователь"){
+	if(($temp != "Пользователь") && ($temp != "Исполнитель")){
 		echo '
 			<div class="table__column">Конечная дата</div>
 			';
@@ -51,7 +51,7 @@ echo	'
 	<div class="table__column"><span>Автор: </span>'.$_SESSION['auth_name'].'</div>
 	<div class="table__column"><span>Дата создания: </span>'.$row["start_date"].'</div>';
 	
-	if($temp != "Пользователь"){
+	if(($temp != "Пользователь") && ($temp != "Исполнитель")){
 	echo '
 		<div class="table__column"><span>Конечная дата: </span>'.$row["deadline"].'</div>
 		';

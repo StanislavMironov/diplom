@@ -1,7 +1,7 @@
 <?php
 session_start();
 include ("db_connect.php");
-
+include ('rule.php');
 global $lastname;
 $lastname = '';
 $title = trim($_POST["description"]);
@@ -40,8 +40,12 @@ if (count($error))
 {
 	$error_img[] = 'Допустимые расширения: jpeg, jpg, png';
 }
-
-$sql = mysqli_query($link, "INSERT INTO application (title, description, attachment, user, start_date, initiator) VALUES ('$title', '$description', '$lastname', '{$_SESSION['auth_id']}', NOW(), '{$_SESSION['auth_name']}')")or die("Ошибка создания заявки!");
+if($temp == "Исполнитель"){
+$sql = mysqli_query($link, "INSERT INTO application (department, title, description, attachment, user, start_date, initiator, performers) VALUES ('{$_SESSION['auth_department']}', '$title', '$description', '$lastname', '{$_SESSION['auth_id']}', NOW(), '{$_SESSION['auth_name']}','{$_SESSION['auth_name']}')")or die("Ошибка создания заявки!");
+}
+else{
+$sql = mysqli_query($link, "INSERT INTO application (department, title, description, attachment, user, start_date, initiator) VALUES ('{$_SESSION['auth_department']}', '$title', '$description', '$lastname', '{$_SESSION['auth_id']}', NOW(), '{$_SESSION['auth_name']}')")or die("Ошибка создания заявки!");
+}
 echo 'create';
 }
 	
