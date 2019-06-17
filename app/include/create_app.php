@@ -7,12 +7,15 @@ $lastname = '';
 $title = trim($_POST["description"]);
 $description = trim($_POST["full_text"]); 
 
+$category_app = $_POST["rez"];
+
+
 $error = array();
 
 if(strlen($_POST["description"]) < 25 || strlen($_POST["description"]) > 95)
-		{
-			$error[]='Укажите краткое описание от 35 до 50 символов!';
-		}
+	{
+		$error[]='Укажите краткое описание от 35 до 50 символов!';
+	}
 
 if (count($error))
 {
@@ -40,14 +43,25 @@ if (count($error))
 {
 	$error_img[] = 'Допустимые расширения: jpeg, jpg, png';
 }
+
+
+switch($category_app){
+	case 1:
+		$timeForWork = '00:30:00';
+	break;
+	
+	case 2:
+		$timeForWork = '01:30:00';
+	break;
+}
+
+
 if($temp == "Исполнитель"){
-$sql = mysqli_query($link, "INSERT INTO application (department, title, description, attachment, user, start_date, initiator, performers) VALUES ('{$_SESSION['auth_department']}', '$title', '$description', '$lastname', '{$_SESSION['auth_id']}', NOW(), '{$_SESSION['auth_name']}','{$_SESSION['auth_name']}')")or die("Ошибка создания заявки!");
+$sql = mysqli_query($link, "INSERT INTO application (department, title, description, attachment, user, start_date, initiator, performers, category_app, deadline) VALUES ('{$_SESSION['auth_department']}', '$title', '$description', '$lastname', '{$_SESSION['auth_id']}', NOW(), '{$_SESSION['auth_name']}','{$_SESSION['auth_name']}', '$category_app', '$timeForWork')")or die("Ошибка создания заявки!");
 }
 else{
-$sql = mysqli_query($link, "INSERT INTO application (department, title, description, attachment, user, start_date, initiator) VALUES ('{$_SESSION['auth_department']}', '$title', '$description', '$lastname', '{$_SESSION['auth_id']}', NOW(), '{$_SESSION['auth_name']}')")or die("Ошибка создания заявки!");
+$sql = mysqli_query($link, "INSERT INTO application (department, title, description, attachment, user, start_date, initiator, category_app, deadline) VALUES ('{$_SESSION['auth_department']}', '$title', '$description', '$lastname', '{$_SESSION['auth_id']}', NOW(), '{$_SESSION['auth_name']}', '$category_app', '$timeForWork')")or die("Ошибка создания заявки!");
 }
 echo 'create';
 }
-	
-
 ?>

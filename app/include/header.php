@@ -18,7 +18,7 @@ include ('rule.php');
 	<script src="./js/jquery.min.js"></script>
 	<script src="./js/jquery.form.js"></script>
 	<script src="./js/jquery.validate.js"></script>
-	<script src="./js/script.js"></script>
+	<script charset="utf-8" src="./js/script.js"></script>
 	
 
 </head>
@@ -176,7 +176,7 @@ include ('rule.php');
 				<a href="#">Оргструктура</a>
 				</li>
 				<li>
-				<a href="#">Отчёты</a>
+				<a href="report.php">Отчёты</a>
 				</li>
 				<li>
 				<a href="setting.php">Настройки</a>

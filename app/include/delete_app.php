@@ -38,16 +38,11 @@ if(isset($_POST["aD"]))
 		echo 'Error';
 	}
 	
-
-//$addArchive = mysqli_query($link, "INSERT INTO archive (id_application, department, manager, title, description, start_date, initiator, date_last_update, author_update, category, deadline, status, performers, spent_time, user) VALUES ('{$row['id_application']}', '{$row['department']}', '{$row['manager']}', '{$row['title']}', '{$row['description']}', '{$row['start_date']}', '{$row['initiator']}', '{$row['date_last_update']}', '{$row['author_update']}', '{$row['category']}', '{$row['deadline']}', 4, '{$row['performers']}', '{$row['spent_time']}', '{$row['user']}')")or die("Ошибка перемещения!");
-
-
 if($addArchive){
-	
 	$sql2 = mysqli_query($link, "SELECT * FROM application WHERE user = '{$_SESSION['auth_id']}' ") or die("Ошибка вывода заявки");
 	$sql = mysqli_query($link, "DELETE FROM application WHERE id_application = '{$id_app}'") or die("Ошибка удаления заявки!");
 	$_SESSION["id_app"] = $id_app;
-	
+
 	if (mysqli_num_rows($sql2) > 0 && $sql  == true)
 	{
 		echo "ok";
@@ -59,12 +54,5 @@ if($addArchive){
 	{
 		echo 'Error';
 	} 
-	
-	
-	
-	
-	
-	
-	}
-
+}
 ?>

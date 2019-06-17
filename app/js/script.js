@@ -6,9 +6,49 @@ var tabs = document.querySelectorAll('.setting__link'),
 	infoBlock = document.querySelector('.setting__menu'),
 	tabContents = document.querySelectorAll('.setting__info');	
  
+ 
+$(document).on('click','#crReport', function(){
+	let tempAttr = $("#report").val();
+	let foo = tempAttr;
+	$(this).attr('href', '');
+	$(this).attr('href', function() {
+	return this.href + '?status=create&performer=' + foo;
+	});
+}); 
 
-	
-	
+$(document).on('click','#crReportsAll', function(){
+	$(this).attr('href', '');
+	$(this).attr('href', function() {
+	return this.href + '?status=create';
+	});
+}); 
+
+$(document).ready(function(){
+$.ajax({
+	  url: "./include/view_task.php",
+	  type: "POST",
+	  dataType: "html",
+	  processData: false,  
+	  contentType: false, 
+	  success: function(html)
+	  {
+		$("#getTask").html(html);
+	  }
+});	
+
+$.ajax({
+	  url: "./include/give_task.php",
+	  type: "POST",
+	  dataType: "html",
+	  processData: false,  
+	  contentType: false, 
+	  success: function(html)
+	  {
+		$("#giveTask").html(html);
+	  }
+});	
+});
+
 $(document).on('click','.delArch', function(){
 	let link = $(this).attr('href');
 	
@@ -17,25 +57,25 @@ $(document).on('click','.delArch', function(){
 		url: './include/delete_arch.php',
 		data: {appArch:link},
 		success: function(data) {
-		console.log(data);
+		
 			if(data == "ok") {
 				$.ajax({
-				type: "POST",
-				url: "./include/archive_app.php",
-				dataType: "html",
-				cache: false,
-				success: function(html) {
-				let temp = $("#archiveApp");
-				$("#archiveApp").html(html);
-				}
+					type: "POST",
+					url: "./include/archive_app.php",
+					dataType: "html",
+					cache: false,
+					success: function(html) {
+					console.log(html);
+					let temp = $("#archiveApp");
+					$("#archiveApp").html(html);
+					}
 				});
 			}
 		}
 	});
 });	
 	
-	
-	
+		
 $(".setting__right").on("click", function(e){
 	let target = e.target;
 	let hrefNum = $(this).attr('href');
@@ -46,10 +86,6 @@ $(".setting__right").on("click", function(e){
 		url: './include/delete_news.php',
 		data: {num:num},
 		success: function(data) {
-		
-		//console.log(data);
-		
-		
 		
 		if(data == "ok")
 		{
@@ -322,8 +358,6 @@ $(document).on('click','#PerformClose', function(){
 $(document).on('click','.editApp', function(e){  
 	let num = $(this).attr('href');
 
-	
-		
 	$.ajax({
 		type: "POST",
 		url: "./include/view_app.php",
@@ -332,7 +366,7 @@ $(document).on('click','.editApp', function(e){
 		data: {num:num},
 		success: function(result) {
 		var res = result;
-		
+		console.log(res);
 		$("#appPopup").fadeIn("slow");
 		$("#num_app").html("Заявка №: " + res[0].id_application);
 		$("#title_app").val(res[0].title);
@@ -341,7 +375,17 @@ $(document).on('click','.editApp', function(e){
 		$("#lastDate").val(res[0].deadline); 
 		$("#comment_app").val(res[0].comment);
 		let temp = document.querySelector(".progress");
-		$("progress").attr("value", res[0].percent); 
+		$("#progress").attr("value", res[0].percent); 
+		$("#deadline").val(res[0].finishing);
+		$("#spent_time").val(res[0].spent_time);
+		
+		if(res[0].temp == "Error") {
+			$("#spent_time").css('color', '#F00');
+		}
+		else
+		{
+			$("#spent_time").css('color', 'green');
+		}
 		
 		if(res[0].performers != null)
 			{
@@ -413,15 +457,63 @@ $(document).on('click','#save_app', function(e){
 		$('.changeStatus').html("Изменения успешно сохранены!");
 		$('.changeStatus').slideDown();
 		setTimeout(function() { $(".changeStatus").slideUp(); }, 2000);
-			$.ajax({
+				$.ajax({
 		type: "POST",
-		url: "./include/inbox_app.php",
-		dataType: "html",
+		url: "./include/view_app.php",
+		dataType: "json",
 		cache: false,
-		success: function(html) {
-		$("#inboxApp").html(html);
+		data: {num:num},
+		success: function(result) {
+		var res = result;
+		console.log(res);
+		$("#appPopup").fadeIn("slow");
+		$("#num_app").html("Заявка №: " + res[0].id_application);
+		$("#title_app").val(res[0].title);
+		$("#description_app").val(res[0].description);
+		$("#date").val(res[0].start_date); 
+		$("#lastDate").val(res[0].deadline); 
+		$("#comment_app").val(res[0].comment);
+		let temp = document.querySelector(".progress");
+		$("#progress").attr("value", res[0].percent); 
+		
+		if(res[0].performers != null)
+			{
+				newObj.innerHTML = '';
+				let name = (res[0].performers);
+				newObj.textContent = res[0].performers;
+			}else {
+				newObj.innerHTML = '';
+				newObj.textContent = "Назначить";
+			}
 		}
-	});
+		});
+			
+			
+			
+			
+			$.ajax({
+				type: "POST",
+				url: "./include/inbox_app.php",
+				dataType: "html",
+				cache: false,
+				success: function(html) {
+				$("#inboxApp").html(html);
+				}
+			});
+			
+			$.ajax({
+				  url: "./include/give_task.php",
+				  type: "POST",
+				  dataType: "html",
+				  processData: false,  
+				  contentType: false, 
+				  success: function(html)
+				  {
+					console.log(html);
+					$("#giveTask").html(html);
+				  }
+			});	
+			
 	}
 	else
 	{
@@ -441,7 +533,7 @@ $(".appArchive").on("click", function(){
 		dataType: "html",
 		cache: false,
 		success: function(html) {
-		
+		console.log(html);
 		let temp = $("#archiveApp");
 		$("#archiveApp").html(html);
 		}
@@ -495,13 +587,24 @@ let aHref = $(this).attr('href');
 		dataType: "html",
 		cache: false,
 		success: function(data) {
-		alert(aHref);
+		console.log(data);
 		$.ajax({
 		type: "POST",
 		url: "./include/update_app.php",
 		dataType: "html",
 		cache: false,
 		success: function(html) {
+		$.ajax({
+			  url: "./include/give_task.php",
+			  type: "POST",
+			  dataType: "html",
+			  processData: false,  
+			  contentType: false, 
+			  success: function(html)
+			  {
+				$("#giveTask").html(html);
+			  }
+		});	
 		$("#myApp").html(html);
 		}
 		});
@@ -533,6 +636,7 @@ let aHref = $(this).attr('href');
 		cache: false,
 		data: {num:num},
 		success: function(result) {
+		console.log(result);
 		var res = result;
 		$("#appPopup").fadeIn("slow");
 		$("#num_app").html("Заявка №: " + res[0].id_application);
@@ -582,6 +686,33 @@ $('#create_submit').click(function(){
 				$("#form-success").html("Заявка успешно создана!");
 				$("#form-success").slideDown(400);
 				setTimeout(function() { $("#form-success").slideUp(); }, 4000);
+				
+			$.ajax({
+				  url: "./include/view_task.php",
+				  type: "POST",
+				  dataType: "html",
+				  processData: false,  
+				  contentType: false, 
+				  success: function(html)
+				  {
+					console.log(html);
+					$("#getTask").html(html);
+				  }
+			});	
+				
+			$.ajax({
+			  url: "./include/give_task.php",
+			  type: "POST",
+			  dataType: "html",
+			  processData: false,  
+			  contentType: false, 
+			  success: function(html)
+			  {
+				console.log(html);
+				$("#giveTask").html(html);
+			  }
+			});		
+				
 			}else
 			{
 				$("#form-success").attr('id', 'form_error')

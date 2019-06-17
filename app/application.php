@@ -157,7 +157,7 @@
 				
 				<div class="center-on-page">
 				  <div class="select">
-					<select name="sitetime" id="sitetime" onchange="vT()">
+					<select name="sitetime" id="sitetime" onchange="document.getElementById('rez').value=value; vT();">
 					  <option value="" >Выберите шаблон</option>
 					  <option value="1" >Установка ПО</option>
 					  <option value="2" >Замена запчастей</option>
@@ -168,25 +168,69 @@
 				</form>
 			</div>
 			
-			<div class="application__tabcontent fade">
-			<div class="table" id="myApp">
-			</div>
-			</div>
-
-			<div class="application__tabcontent fade">
-			<div class="table" id="inboxApp">
-			</div>
-			</div>
-			
-			<div class="application__tabcontent fade">
-			<div class="table" id="inWork">
-			</div>
-			</div>
 			<?php
+			if($temp == "Пользователь"){
+				echo '
+					<div class="application__tabcontent fade">
+					<div class="table" id="myApp">
+					</div>
+					</div>
+					
+					<div class="application__tabcontent fade">
+					<div class="table" id="archiveApp">
+					</div>
+					</div>
+				';
+			}
+			
+			if($temp == "Диспетчер"){
+					echo '
+						<div class="application__tabcontent fade">
+						<div class="table" id="myApp">
+						</div>
+						</div>
+						
+						<div class="application__tabcontent fade">
+						<div class="table" id="inboxApp">
+						</div>
+						</div>
+						
+						<div class="application__tabcontent fade">
+						<div class="table" id="inWork">
+						</div>
+						</div>
+						
+						<div class="application__tabcontent fade">
+						<div class="table" id="archiveApp">
+						</div>
+						</div>
+					';
+				}
+
 			if($temp == "Исполнитель"){
 				echo '
 					<div class="application__tabcontent fade">
+					<div class="table" id="myApp">
+					</div>
+					</div>
+				
+					<div class="application__tabcontent fade">
+					<div class="table" id="inboxApp">
+					</div>
+					</div>
+					
+					<div class="application__tabcontent fade">
+					<div class="table" id="inWork">
+					</div>
+					</div>
+				
+					<div class="application__tabcontent fade">
 					<div class="table" id="goodJob">
+					</div>
+					</div>
+					
+					<div class="application__tabcontent fade">
+					<div class="table" id="archiveApp">
 					</div>
 					</div>
 				';
@@ -194,10 +238,6 @@
 			?>
 			
 			
-			<div class="application__tabcontent fade">
-			<div class="table" id="archiveApp">
-			</div>
-			</div>
 		
 		</div>	
 
@@ -318,8 +358,8 @@
 		
 			echo '
 				<li>
-				<label for="date">Дата завершения: </label>
-				<input type="datetime-local" id="lastDate" name="lastDate"/>
+				<label for="date">Время на выполнение: </label>
+				<input  type="time" id="lastDate" name="lastDate" value="00:00" min="00:00" max="24:00"/>
 				</li>
 				
 				<li>
@@ -346,6 +386,12 @@
 				<input type=\'text\' id=\'categoryApp\' name=\'categoryApp\'/>
 				</li>
 				
+				
+				<li>
+				<label for="deadline">Дата завершения: </label>
+				<input type="datetime-local" id="deadline" name="date_app" disabled />
+				</li>
+				
 				<li class="prBr">
 				<div>Прогресс:</div>
 					<div class="progress">
@@ -359,13 +405,45 @@
 		else if($temp == "Исполнитель"){
 			echo '
 				<li>
-				<label for="date">Дата завершения: </label>
-				<input type="datetime-local" id="lastDate" name="lastDate" disabled/>
+				<label for="date">Время на выполнение: </label>
+				<input  type="time" id="lastDate" name="lastDate" value="00:00" min="00:00" max="24:00"/>
+				</li>
+				 
+				<li> 
+				   <label for="time">Время: </label>
+				   <p><input id="spent_time" type="time" name="time" value="00:00" min="00:00" max="24:00"></p>
 				</li>
 				
 				<li>
 				<label for="date">Прогрес выполнения: </label>
 				<input type="number" id="progress" name="progress" min="0" max="100" value=""/>
+				</li>
+				
+				<li>
+				<label for="deadline">Дата завершения: </label>
+				<input type="datetime-local" id="deadline" name="date_app" disabled />
+				</li>
+			';
+		}
+		if($temp == "Пользователь"){
+			echo '				
+				<li> 
+				   <label for="time">Время: </label>
+				   <p><input id="spent_time" type="time" name="time" value="00:00" min="00:00" max="24:00"></p>
+				</li>
+			
+				<li>
+				<label for="deadline">Дата завершения: </label>
+				<input type="datetime-local" id="deadline" name="date_app" disabled />
+				</li>
+			
+				<li class="prBr">
+				<div>Прогресс:</div>
+				<div class="progress">
+				<progress min = "0" max="100" value=""></progress>
+				<div class="progress-value"></div>
+				<div class="progress-bg"><div class="progress-bar"></div></div>
+				</div>
 				</li>
 			';
 		}

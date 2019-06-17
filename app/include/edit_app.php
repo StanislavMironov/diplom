@@ -9,8 +9,20 @@ $qtyComment = $_POST["comment"];
 $appComment = $_POST["add_app"] . $qtyComment;
 $appPerform = $_POST["add_app"];
 
+$progressApp = 0;
+$_SESSION["progress"] = $progressApp;
+
+if(isset($_POST["time"])){
+	$spent_time = $_POST["time"];
+}
+
+
 if(isset($_POST["progress"])){
 $progressApp = $_POST["progress"];
+$_SESSION["progress"] = $progressApp;
+} else 
+{
+	$progressApp = $_SESSION["progress"];
 }
 
 
@@ -86,7 +98,7 @@ switch($temp){
 	break;	
 	
 	case "Исполнитель":
-		$update = mysqli_query($link,"UPDATE application SET percent = '$progressApp', status = '$newStatus', title='$appTitle', description = '$appDescription', comment = '$text', department = '{$_SESSION['auth_department']}', date_last_update = NOW(), author_update = '{$_SESSION['auth_name']}' WHERE id_application= '{$_SESSION["id_app"]}' ") or die("Ошибка изменения заявки!");
+		$update = mysqli_query($link,"UPDATE application SET spent_time = '$spent_time', percent = '$progressApp', status = '$newStatus', title='$appTitle', description = '$appDescription', comment = '$text', department = '{$_SESSION['auth_department']}', date_last_update = NOW(), author_update = '{$_SESSION['auth_name']}' WHERE id_application= '{$_SESSION["id_app"]}' ") or die("Ошибка изменения заявки!");
 	break;
 }
 

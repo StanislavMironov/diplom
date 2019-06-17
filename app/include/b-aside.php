@@ -37,50 +37,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="main-right__item">
-			<?php 
-			/* 	if($temp == "Пользователь")
-				{
-					echo '
-						<div>
-						<div><a href="#">Задач нет.</a></div>
-						</div>
-					';
-				}
-				elseif($temp == "Диспетчер") 
-				{
-					echo '<div>
-						 <div><a href="#">Задач нет</a></div>
-						 </div>
-						 ';
-				}
-				elseif($temp == "Администратор") 
-				{
-					echo '<div>
-						 <div><a href="#">Задач нет</a></div>
-						 </div>
-						 ';
-				}
-				else
-				{
-					$getApp = mysqli_query($link, "SELECT * FROM application WHERE performers =  '{$_SESSION["auth_name"]}'") or die();
-					if(mysqli_num_rows($getApp) > 0){
-					while($row = mysqli_fetch_array($getApp)){
-						echo '<div>
-							 <div><a href="#" class="myApp">Заявка № '.$row["id_application"].' : '.$row["title"].'</a></div>
-							 </div>
-							 ';
-					}
-					}
-					else
-					{
-						echo '<div>
-						 <div><a href="#">Задач нет</a></div>
-						 </div>
-						 ';
-					}
-				} */
-			?>
+			<div class="main-right__item" id="getTask">
+			
 			</div>
 
 			<div class="main__title" data-tooltip="Всплывающая подсказка">
@@ -94,7 +52,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="main-right__item">
+			<div class="main-right__item" id="giveTask">
 				<?php 
 			/* 	if($temp == "Пользователь")
 				{

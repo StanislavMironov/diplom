@@ -145,7 +145,6 @@
 			$_SESSION['auth_access'] = $_POST['rez'];
 		}
 	}
-	
 ?>
 	<div class="profile">
 	<h3>Изменение профиля</h3>

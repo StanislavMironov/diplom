@@ -4,13 +4,12 @@ include ('rule.php');
 include ("db_connect.php");	
 $sum = 0;
 
-$sql = mysqli_query($link, "SELECT * FROM application WHERE performers = '{$_SESSION["auth_name"]}'") or die("Ошибка вывода заявки");
+$sql = mysqli_query($link, "SELECT * FROM application WHERE performers = '{$_SESSION["auth_name"]}' AND NOT status = 4 ") or die("Ошибка вывода заявки");
 $row = mysqli_fetch_array($sql);
 $statusApp = $row["status"];
 
 if(mysqli_num_rows($sql) > 0)
 {
-
 echo '
 <div id = "msg">
 Список задач
@@ -28,7 +27,6 @@ echo '
 <div class="progress-bg"><div class="progress-bar"></div></div>
 </div>
 </div>
-
 </div>';
 
 do {
@@ -47,6 +45,24 @@ switch($row["category"]){
 	break;
 }
 
+switch($row["status"]){
+	case 0:
+		$_SESSION["statusApp"] = "Открыта";
+	break;
+	case 1:
+		$_SESSION["statusApp"] = "Назначен исполнитель";
+	break;
+	case 2:
+		$_SESSION["statusApp"] = "Исполняется";
+	break;
+	case 3:
+		$_SESSION["statusApp"] = "На проверке";
+	break;
+	case 4:
+		$_SESSION["statusApp"] = "Закрыта";
+	break;
+}
+
 echo '
 <div id="workList">
 <button class="knowledge__accordion progress" id="'.$row["id_application"].'">'.$row["title"].'</button>
@@ -57,8 +73,10 @@ echo '
 	<div class="workList-table__column"><span>Номер:</span></div>
 	<div class="workList-table__column"><span>Название:</span></div>
 	<div class="workList-table__column"><span>Автор:</span></div>
+	<div class="workList-table__column"><span>Статус:</span></div>
 	<div class="workList-table__column"><span>Дата создания:</span></div>
-	<div class="workList-table__column"><span>Крайний срок:</span></div>
+	<div class="workList-table__column"><span>Время на выполнение:</span></div>
+	<div class="workList-table__column"><span>Время:</span></div>
 	<div class="workList-table__column"><span>Категория:</span></div>
 	<div class="workList-table__column pr"><span>Прогресс:</span></div>
 </div>	
@@ -66,8 +84,10 @@ echo '
 	<div class="workList-table__column">'.$row["id_application"].'</div>
 	<div class="workList-table__column title">'.$row["title"].'</div>
 	<div class="workList-table__column">'.$row["initiator"].'</div>
+	<div class="workList-table__column">'.$_SESSION["statusApp"].'</div>
 	<div class="workList-table__column">'.$row["start_date"].'</div>
 	<div class="workList-table__column">'.$row["deadline"].'</div>
+	<div class="workList-table__column">'.$row["spent_time"].'</div>
 	<div class="workList-table__column">'.$_SESSION["tmp_category"].'</div>
 	<div class="workList-table__column">
 	<div class="progress">
@@ -85,10 +105,5 @@ echo '
 
 }
 while($row = mysqli_fetch_array($sql));
-
-
 }
-
-
-
 ?>

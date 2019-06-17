@@ -17,15 +17,22 @@ if(isset($_POST["num"]))
 	$dates = $row["start_date"];
 	$dates = strtotime($dates);
 	$dates = date("Y-m-d\TH:i",$dates);
-	
-	$lastDate = $row["deadline"];
-	$lastDate = strtotime($lastDate);
-	$lastDate = date("Y-m-d\TH:i",$lastDate);
-	
 	$row["start_date"] = $dates;
-	$row["deadline"] = $lastDate;
 	
+	$timeWork = $row["spent_time"];
+	$endWork = $row["deadline"];
 	
+	 if (strtotime($endWork) <= strtotime($timeWork)){
+      $row["temp"] = "Error";
+	  $deadline = strtotime($timeWork);
+	  $deadline =  date("Y-m-d\TH:i", $deadline);
+	  $row["finishing"] = $deadline;
+	}
+	else
+	{
+		$row["temp"] = "Good";
+	}
+		
 		$arr[]=$row;
 	}
 	echo json_encode($arr, JSON_UNESCAPED_UNICODE);

@@ -24,7 +24,7 @@ echo
 	
 	if($temp != "Пользователь"){
 		echo '
-			<div class="table__column">Конечная дата</div>
+			<div class="table__column">Время на выполнение:</div>
 			';
 	}	
 	
@@ -60,7 +60,7 @@ echo	'
 	
 	if($temp != "Пользователь"){
 	echo '
-		<div class="table__column"><span>Конечная дата: </span>'.$row["deadline"].'</div>
+		<div class="table__column"><span>Время на выполнение: </span>'.$row["deadline"].'</div>
 		';
 	}	
 	
@@ -110,7 +110,7 @@ echo
 	
 	if($temp != "Пользователь"){
 		echo '
-			<div class="table__column">Конечная дата</div>
+			<div class="table__column">Время на выполнение:</div>
 			';
 	}	
 	
@@ -146,7 +146,7 @@ echo	'
 	
 	if($temp != "Пользователь"){
 	echo '
-		<div class="table__column"><span>Конечная дата: </span>'.$row["deadline"].'</div>
+		<div class="table__column"><span>Время на выполнение: </span>'.$row["deadline"].'</div>
 		';
 	}	
 	
