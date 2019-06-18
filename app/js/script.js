@@ -7,6 +7,17 @@ var tabs = document.querySelectorAll('.setting__link'),
 	tabContents = document.querySelectorAll('.setting__info');	
  
  
+$(document).on('click','#linkImg', function(){
+	alert(1);
+	$("#imgPopup").fadeIn("slow");
+	});
+
+$(document).on('click','#closePopup', function(){
+	alert(2);
+	$("#imgPopup").fadeOut("slow");
+});
+	
+ 
 $(document).on('click','#crReport', function(){
 	let tempAttr = $("#report").val();
 	let foo = tempAttr;
@@ -355,6 +366,7 @@ $(document).on('click','#PerformClose', function(){
 	$("#viewPerform").fadeOut("slow");
 });
 
+
 $(document).on('click','.editApp', function(e){  
 	let num = $(this).attr('href');
 
@@ -375,9 +387,20 @@ $(document).on('click','.editApp', function(e){
 		$("#lastDate").val(res[0].deadline); 
 		$("#comment_app").val(res[0].comment);
 		let temp = document.querySelector(".progress");
-		$("#progress").attr("value", res[0].percent); 
-		$("#deadline").val(res[0].finishing);
+		$("progress").attr("value", res[0].percent); 
 		$("#spent_time").val(res[0].spent_time);
+		$("#deadline").val(res[0].finishing);
+		var imgApps = document.getElementById("imgApps");
+		
+		if(res[0].attachment != "") {
+			$(imgApps).attr('src', './application_images/' + res[0].attachment);
+			console.log(imgApps);
+		}
+		else
+		{
+			$(imgApps).attr('src', './application_images/404.jpg');
+			console.log(imgApps);
+		}
 		
 		if(res[0].temp == "Error") {
 			$("#spent_time").css('color', '#F00');
@@ -445,6 +468,7 @@ $(document).on('click','#popup-close', function(e){
 
 $(document).on('click','#save_app', function(e){
  var app = $('#formEditApp').serialize();
+ 
  $.ajax({
 	type: 'POST',
 	url: './include/edit_app.php',
@@ -457,41 +481,18 @@ $(document).on('click','#save_app', function(e){
 		$('.changeStatus').html("Изменения успешно сохранены!");
 		$('.changeStatus').slideDown();
 		setTimeout(function() { $(".changeStatus").slideUp(); }, 2000);
-				$.ajax({
-		type: "POST",
-		url: "./include/view_app.php",
-		dataType: "json",
-		cache: false,
-		data: {num:num},
-		success: function(result) {
-		var res = result;
-		console.log(res);
-		$("#appPopup").fadeIn("slow");
-		$("#num_app").html("Заявка №: " + res[0].id_application);
-		$("#title_app").val(res[0].title);
-		$("#description_app").val(res[0].description);
-		$("#date").val(res[0].start_date); 
-		$("#lastDate").val(res[0].deadline); 
-		$("#comment_app").val(res[0].comment);
-		let temp = document.querySelector(".progress");
-		$("#progress").attr("value", res[0].percent); 
 		
-		if(res[0].performers != null)
-			{
-				newObj.innerHTML = '';
-				let name = (res[0].performers);
-				newObj.textContent = res[0].performers;
-			}else {
-				newObj.innerHTML = '';
-				newObj.textContent = "Назначить";
-			}
+	$.ajax({
+		type: "POST",
+		url: "./include/work_app.php",
+		dataType: "html",
+		cache: false,
+		success: function(html) {
+		$("#inWork").html(html);
 		}
-		});
-			
-			
-			
-			
-			$.ajax({
+	});
+	
+		$.ajax({
 				type: "POST",
 				url: "./include/inbox_app.php",
 				dataType: "html",
@@ -500,6 +501,38 @@ $(document).on('click','#save_app', function(e){
 				$("#inboxApp").html(html);
 				}
 			});
+		
+		$.ajax({
+			type: "POST",
+			url: "./include/view_app.php",
+			dataType: "json",
+			cache: false,
+			data: {num:num},
+			success: function(result) {
+			var res = result;
+			console.log(res);
+			$("#appPopup").fadeIn("slow");
+			$("#num_app").html("Заявка №: " + res[0].id_application);
+			$("#title_app").val(res[0].title);
+			$("#description_app").val(res[0].description);
+			$("#date").val(res[0].start_date); 
+			$("#lastDate").val(res[0].deadline); 
+			$("#comment_app").val(res[0].comment);
+			let temp = document.querySelector(".progress");
+			$("#progress").attr("value", res[0].percent); 
+			
+			if(res[0].performers != null)
+				{
+					newObj.innerHTML = '';
+					let name = (res[0].performers);
+					newObj.textContent = res[0].performers;
+				}else {
+					newObj.innerHTML = '';
+					newObj.textContent = "Назначить";
+				}
+			}
+		});
+			
 			
 			$.ajax({
 				  url: "./include/give_task.php",
@@ -542,7 +575,7 @@ $(".appArchive").on("click", function(){
 
 
 $(".appWork").on("click", function(){
-		$.ajax({
+	$.ajax({
 		type: "POST",
 		url: "./include/work_app.php",
 		dataType: "html",

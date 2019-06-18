@@ -3,18 +3,16 @@ session_start();
 include ('rule.php');
 include ("db_connect.php");	
 
+
 if($temp == "Диспетчер")
 {
-
 $sql = mysqli_query($link, "SELECT * FROM application WHERE status = 0") or die("Ошибка вывода заявки");
 $row = mysqli_fetch_array($sql);
 $statusApp = $row["status"];
 
-
-
 if (mysqli_num_rows($sql) > 0)
 {
-echo
+	echo
 	'
 	<div class="table__row">
 	<div class="table__column">Номер</div>
@@ -29,7 +27,7 @@ echo
 	}	
 	
 	
-echo	'
+	echo	'
 		<div class="table__column">Статус</div>
 		<div class="table__column"></div>
 		</div>';
@@ -159,9 +157,6 @@ echo	'
 				  <use xlink:href="#my-first-icon" />
 				</svg>
 			</a>
-
-			<a class="delApp" onclick="return false;" href="'.$row["id_application"].'">
-			</a>
 		</div>
 	</div>
 </div>';
@@ -172,11 +167,6 @@ else
 {
 	echo '<div class="error">Заявок пока нет!</div>';
 }
-
-
-
-
-
 
 }
 

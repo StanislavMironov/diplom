@@ -6,8 +6,6 @@ $sql = mysqli_query($link, "SELECT * FROM application WHERE performers = $_SESSI
 $row = mysqli_fetch_array($sql);
 $statusApp = $row["status"];
 
-
-
 if (mysqli_num_rows($sql) > 0)
 {
 echo
@@ -23,7 +21,6 @@ echo
 			<div class="table__column">Время на выполнение:</div>
 			';
 	}	
-	
 	
 echo	'
 		<div class="table__column">Статус</div>

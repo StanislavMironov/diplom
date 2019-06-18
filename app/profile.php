@@ -1,150 +1,152 @@
 <?php
-	session_start();
-	define( '_JEXEC', 1 );
-	//global $lastname;
-	$newpass = '';
-	if($_SESSION['auth'] == "yes_auth"){	
-	if(isset($_GET["logout"]))
-	{
-		unset($_SESSION['auth']);
-		unset($_SESSION['auth_name']);
-		header("Location: auth/login.php");
-	}
-	include ("include/header.php");
-	include ("functions/functions.php");
-	if (@$_POST["save_submit"])
-	{
-		$_POST["info_surname"] = trim($_POST["info_surname"]);
-		$_POST["info_name"] = trim($_POST["info_name"]);
-		$_POST["info_patronymic"] = trim($_POST["info_patronymic"]);
-		$_POST["info_login"] = trim($_POST["info_login"]);
-		$_POST["info_email"] = trim($_POST["info_email"]);
-		$_POST["info_phone"] = trim($_POST["info_phone"]);
-		
-		$error = array();
-		
-		$pass = md5($_POST["info_pass"]);
-		$pass = strrev($pass);
-		$pass = "n".$pass."z";
-		
-		if($_SESSION['auth_pass'] != $pass) {
-			$error[] = 'Неверный текущий пароль!';
-		}else
-		{
-			if($_POST["info_new_pass"] != "")
-			{
-				if(strlen($_POST["info_new_pass"]) < 7 || strlen($_POST["info_new_pass"]) > 15){
-					$error[]='Укажите новый пароль от 7 до 15 символов!';
-				}else
-				{
-					$newpass = md5($_POST["info_new_pass"]);
-					$newpass = strrev($newpass);
-					$newpass = "n".$newpass."z";	
-					$newpassquery = "pass='".$newpass."',";
-				}
-			}
-			
-			if(strlen($_POST["info_surname"]) < 3 || strlen($_POST["info_surname"]) > 30)
-				{
-					$error[]='Укажите Фамилию от 3 до 15 символов!';
-				}
-			
-			if(strlen($_POST["info_name"]) < 3 || strlen($_POST["info_name"]) > 30)
-				{
-					$error[]='Укажите Имя от 3 до 15 символов!';
-				}
-				
-			if(strlen($_POST["info_patronymic"]) < 3 || strlen($_POST["info_patronymic"]) > 30)
-				{
-					$error[]='Укажите Отчество от 3 до 25 символов!';
-				}	
-			
-			if(!preg_match("/^(?:[a-z0-9]+(?:[-_.]?[a-z0-9]+)?@[a-z0-9_.-]+(?:\.?[a-z0-9]+)?\.[a-z]{2,5})$/i",trim($_POST["info_email"])))
-				{
-					$error[]='Укажите корректный email!';
-				}
-			
-			if(strlen($_POST["info_phone"]) == "")
-				{
-					$error[]='Укажите номер телефона!';
-				}	
-		}
-		
-		if (count($error))
-		{
-			$_SESSION['msg2'] = "<p align='left' id='form_error'>".implode('<br />',$error)."</p>";
-		}else
-		{
-			$_SESSION['msg2'] = "<p align='left' id='form-success'>Данные успешно сохранены!</p>";
-		
-		
-		if($_FILES['upload_image']['error'] > 0){
-		switch ($_FILES['upload_image']['error'])
-		{
-		case 1: $error_img[] = 'Размер файла превышает допустимое значение UPLOAD_MAX_FILE_SIZE'; break;
-		case 2: $error_img[] = 'Не удалось загрузить часть файла'; break;
-		case 3: $error_img[] = 'Файл не был загружен'; break;
-		}
-	} else
-	{
-	//проверяем расширения
-		if($_FILES['upload_image']['type'] == 'image/jpeg' || $_FILES['upload_image']['type'] == 'image/jpg' || $_FILES['upload_image']['type'] == 'image/png')
-		{
-			$imgext = strtolower(preg_replace("#.+\.([a-z]+)$#i", "$1", $_FILES['upload_image']['name']));
-			//Папка для загрузки
-			$uploaddir = './uploads_images/';
-			//Новое название файла
-			$newfilename = rand(10,100).'.'.$imgext;
-			$lastname  = $newfilename;
-			//Путь к файлу (папка,файл)
-			$uploadfile = $uploaddir.$newfilename;
-		
-		}else
-		{
-			$error_img[] = 'Допустимые расширения: jpeg, jpg, png';
-		}
-		
-		
-		
-	}
-	if(empty($_POST['rez'])){
-			$_POST['rez'] = $_SESSION['auth_access'];
-		}
-		
-		if(empty($_POST['rez'])){
-			$_POST['rez'] = $_SESSION['auth_access'];
-		}
-		
-		if($_FILES['upload_image']['tmp_name'] === '' ){
-		 $lastname = 'default.jpg';
-		 $uploaddir = './uploads_images/';
-			//Путь к файлу (папка,файл)
-			$uploadfile = $uploaddir.$lastname;
-		}
-		if(move_uploaded_file($_FILES['upload_image']['tmp_name'], $uploadfile))
-		{
-			$dataquery = @$newpassquery."second_name='".$_POST["info_surname"]."',img='{$lastname}',login='".$_POST["info_login"]."',first_name='".$_POST["info_name"]."',last_name='".$_POST["info_patronymic"]."',email='".$_POST["info_email"]."',phone='".$_POST["info_phone"]."',access='".$_POST['rez']."',img='{$lastname}'";
-		$update = mysqli_query($link, "UPDATE user SET $dataquery WHERE login ='{$_SESSION['auth_login']}'")or die("Ошибка");
-			$_SESSION['auth_surname'] = $_POST["info_surname"];
-			$_SESSION['auth_name'] = $_POST["info_name"];
-			$_SESSION['auth_patronymic'] = $_POST["info_patronymic"];
-			$_SESSION['auth_email'] = $_POST["info_email"];
-			$_SESSION['auth_phone'] = $_POST["info_phone"];
-			$_SESSION['auth_login'] = $_POST["info_login"];
-			$_SESSION['auth_access'] = $_POST['rez'];
-		}
+session_start();
+define( '_JEXEC', 1 );
+//global $lastname;
+$newpass = '';
 
-		if($newpass){ $_SESSION['auth_pass'] = $newpass;} 
-	
-			$_SESSION['auth_surname'] = $_POST["info_surname"];
-			$_SESSION['auth_name'] = $_POST["info_name"];
-			$_SESSION['auth_patronymic'] = $_POST["info_patronymic"];
-			$_SESSION['auth_email'] = $_POST["info_email"];
-			$_SESSION['auth_phone'] = $_POST["info_phone"];
-			$_SESSION['auth_login'] = $_POST["info_login"];
-			$_SESSION['auth_access'] = $_POST['rez'];
+if($_SESSION['auth'] == "yes_auth"){	
+
+if(isset($_GET["logout"]))
+{
+	unset($_SESSION['auth']);
+	unset($_SESSION['auth_name']);
+	header("Location: auth/login.php");
+}
+
+include ("include/header.php");
+include ("functions/functions.php");
+
+if (@$_POST["save_submit"])
+{
+	$_POST["info_surname"] = trim($_POST["info_surname"]);
+	$_POST["info_name"] = trim($_POST["info_name"]);
+	$_POST["info_patronymic"] = trim($_POST["info_patronymic"]);
+	$_POST["info_login"] = trim($_POST["info_login"]);
+	$_POST["info_email"] = trim($_POST["info_email"]);
+	$_POST["info_phone"] = trim($_POST["info_phone"]);
+
+	$error = array();
+
+	$pass = md5($_POST["info_pass"]);
+	$pass = strrev($pass);
+	$pass = "n".$pass."z";
+
+if($_SESSION['auth_pass'] != $pass) {
+	$error[] = 'Неверный текущий пароль!';
+}else
+{
+	if($_POST["info_new_pass"] != "")
+	{
+		if(strlen($_POST["info_new_pass"]) < 7 || strlen($_POST["info_new_pass"]) > 15){
+			$error[]='Укажите новый пароль от 7 до 15 символов!';
+		}else
+		{
+			$newpass = md5($_POST["info_new_pass"]);
+			$newpass = strrev($newpass);
+			$newpass = "n".$newpass."z";	
+			$newpassquery = "pass='".$newpass."',";
 		}
 	}
+	
+if(strlen($_POST["info_surname"]) < 3 || strlen($_POST["info_surname"]) > 30)
+	{
+		$error[]='Укажите Фамилию от 3 до 15 символов!';
+	}
+
+if(strlen($_POST["info_name"]) < 3 || strlen($_POST["info_name"]) > 30)
+	{
+		$error[]='Укажите Имя от 3 до 15 символов!';
+	}
+	
+if(strlen($_POST["info_patronymic"]) < 3 || strlen($_POST["info_patronymic"]) > 30)
+	{
+		$error[]='Укажите Отчество от 3 до 25 символов!';
+	}	
+
+if(!preg_match("/^(?:[a-z0-9]+(?:[-_.]?[a-z0-9]+)?@[a-z0-9_.-]+(?:\.?[a-z0-9]+)?\.[a-z]{2,5})$/i",trim($_POST["info_email"])))
+	{
+		$error[]='Укажите корректный email!';
+	}
+
+if(strlen($_POST["info_phone"]) == "")
+	{
+		$error[]='Укажите номер телефона!';
+	}	
+}
+		
+	if (count($error))
+	{
+		$_SESSION['msg2'] = "<p align='left' id='form_error'>".implode('<br />',$error)."</p>";
+	}else
+	{
+		$_SESSION['msg2'] = "<p align='left' id='form-success'>Данные успешно сохранены!</p>";
+	
+	
+	if($_FILES['upload_image']['error'] > 0){
+	switch ($_FILES['upload_image']['error'])
+	{
+	case 1: $error_img[] = 'Размер файла превышает допустимое значение UPLOAD_MAX_FILE_SIZE'; break;
+	case 2: $error_img[] = 'Не удалось загрузить часть файла'; break;
+	case 3: $error_img[] = 'Файл не был загружен'; break;
+	}
+} else
+{
+//проверяем расширения
+if($_FILES['upload_image']['type'] == 'image/jpeg' || $_FILES['upload_image']['type'] == 'image/jpg' || $_FILES['upload_image']['type'] == 'image/png')
+{
+	$imgext = strtolower(preg_replace("#.+\.([a-z]+)$#i", "$1", $_FILES['upload_image']['name']));
+	//Папка для загрузки
+	$uploaddir = './uploads_images/';
+	//Новое название файла
+	$newfilename = rand(10,100).'.'.$imgext;
+	$lastname  = $newfilename;
+	//Путь к файлу (папка,файл)
+	$uploadfile = $uploaddir.$newfilename;
+
+}else
+{
+	$error_img[] = 'Допустимые расширения: jpeg, jpg, png';
+}
+}
+
+if(empty($_POST['rez'])){
+		$_POST['rez'] = $_SESSION['auth_access'];
+	}
+	
+	if(empty($_POST['rez'])){
+		$_POST['rez'] = $_SESSION['auth_access'];
+	}
+	
+	if($_FILES['upload_image']['tmp_name'] === '' ){
+	 $lastname = 'default.jpg';
+	 $uploaddir = './uploads_images/';
+		//Путь к файлу (папка,файл)
+		$uploadfile = $uploaddir.$lastname;
+	}
+	if(move_uploaded_file($_FILES['upload_image']['tmp_name'], $uploadfile))
+	{
+		$dataquery = @$newpassquery."second_name='".$_POST["info_surname"]."',img='{$lastname}',login='".$_POST["info_login"]."',first_name='".$_POST["info_name"]."',last_name='".$_POST["info_patronymic"]."',email='".$_POST["info_email"]."',phone='".$_POST["info_phone"]."',access='".$_POST['rez']."',img='{$lastname}'";
+	$update = mysqli_query($link, "UPDATE user SET $dataquery WHERE login ='{$_SESSION['auth_login']}'")or die("Ошибка");
+		$_SESSION['auth_surname'] = $_POST["info_surname"];
+		$_SESSION['auth_name'] = $_POST["info_name"];
+		$_SESSION['auth_patronymic'] = $_POST["info_patronymic"];
+		$_SESSION['auth_email'] = $_POST["info_email"];
+		$_SESSION['auth_phone'] = $_POST["info_phone"];
+		$_SESSION['auth_login'] = $_POST["info_login"];
+		$_SESSION['auth_access'] = $_POST['rez'];
+	}
+
+	if($newpass){ $_SESSION['auth_pass'] = $newpass;} 
+
+		$_SESSION['auth_surname'] = $_POST["info_surname"];
+		$_SESSION['auth_name'] = $_POST["info_name"];
+		$_SESSION['auth_patronymic'] = $_POST["info_patronymic"];
+		$_SESSION['auth_email'] = $_POST["info_email"];
+		$_SESSION['auth_phone'] = $_POST["info_phone"];
+		$_SESSION['auth_login'] = $_POST["info_login"];
+		$_SESSION['auth_access'] = $_POST['rez'];
+	}
+}
 ?>
 	<div class="profile">
 	<h3>Изменение профиля</h3>

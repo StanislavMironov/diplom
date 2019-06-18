@@ -94,6 +94,11 @@
 	display: flex;
 	background-color: rgba(0, 0, 0, 0.1);
 	margin-bottom: 15px;
+
+  @media screen and (max-width: 600px){
+	    display: flex;
+    	flex-direction: column;
+	}
 }
 
 &__link {
@@ -107,6 +112,10 @@
    		box-shadow: 1px 1px 4px black;
    		color: white;
    		transition: .3s;
+	}
+
+	 @media screen and (max-width: 600px){
+	    margin-right: 0px;
 	}
 }
 

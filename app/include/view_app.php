@@ -22,7 +22,7 @@ if(isset($_POST["num"]))
 	$timeWork = $row["spent_time"];
 	$endWork = $row["deadline"];
 	
-	 if (strtotime($endWork) <= strtotime($timeWork)){
+	if (strtotime($endWork) <= strtotime($timeWork)){
       $row["temp"] = "Error";
 	  $deadline = strtotime($timeWork);
 	  $deadline =  date("Y-m-d\TH:i", $deadline);

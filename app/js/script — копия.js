@@ -1,67 +1,363 @@
 $(document).ready(function(){
-let acc = document.querySelectorAll(".knowledge__accordion");
-let prBtn = document.getElementById("tool");
-let prMenu = document.getElementById("prMenu");
-let parObj = document.querySelector('.info-header');  
+var acc = document.querySelectorAll(".knowledge__accordion");
+var prMenu = document.getElementById("prMenu");
+var parObj = document.querySelector('.info-header');  
+var tabs = document.querySelectorAll('.setting__link'),
+	infoBlock = document.querySelector('.setting__menu'),
+	tabContents = document.querySelectorAll('.setting__info');	
+ 
+ 
+$(document).on('click','#crReport', function(){
+	let tempAttr = $("#report").val();
+	let foo = tempAttr;
+	$(this).attr('href', '');
+	$(this).attr('href', function() {
+	return this.href + '?status=create&performer=' + foo;
+	});
+}); 
 
+$(document).on('click','#crReportsAll', function(){
+	$(this).attr('href', '');
+	$(this).attr('href', function() {
+	return this.href + '?status=create';
+	});
+}); 
 
-/* $(".knowledge__link").on("click", function(e){
-	$("#appPopup").fadeIn("slow");
-	let target = e.target;
-	let num = $(this).attr('href');
-	alert(num);
-	let parent = target.parentNode.parentNode;
+$(document).ready(function(){
+$.ajax({
+	  url: "./include/view_task.php",
+	  type: "POST",
+	  dataType: "html",
+	  processData: false,  
+	  contentType: false, 
+	  success: function(html)
+	  {
+		$("#getTask").html(html);
+	  }
+});	
 
-		$.ajax({
-		type: "POST",
-		url: "./include/view_knowledge.php",
-		dataType: "json",
-		cache: false,
-		data: {num:num},
-		success: function(result) {
-		var res = result;
-		alert(result);
-		
-		$(".knowTitle").html(res[0].title);
-		$(".knowDescription").html(res[0].description);
-		}
-		});
-	
-}); */
-
-
-$(document).on('click','#popup-close', function(e){
-	$("#appPopup").fadeOut("slow");
+$.ajax({
+	  url: "./include/give_task.php",
+	  type: "POST",
+	  dataType: "html",
+	  processData: false,  
+	  contentType: false, 
+	  success: function(html)
+	  {
+		$("#giveTask").html(html);
+	  }
+});	
 });
 
-$(document).on('click','#save_app', function(e){
- var app = $('#formEditApp').serialize();
+$(document).on('click','.delArch', function(){
+	let link = $(this).attr('href');
+	
+	$.ajax({
+		type: 'POST',
+		url: './include/delete_arch.php',
+		data: {appArch:link},
+		success: function(data) {
+		
+			if(data == "ok") {
+				$.ajax({
+					type: "POST",
+					url: "./include/archive_app.php",
+					dataType: "html",
+					cache: false,
+					success: function(html) {
+					console.log(html);
+					let temp = $("#archiveApp");
+					$("#archiveApp").html(html);
+					}
+				});
+			}
+		}
+	});
+});	
+	
+		
+$(".setting__right").on("click", function(e){
+	let target = e.target;
+	let hrefNum = $(this).attr('href');
+	if($(target).hasClass("news_del")) {
+		let num = $(target).attr("href");
+		$.ajax({
+		type: 'POST',
+		url: './include/delete_news.php',
+		data: {num:num},
+		success: function(data) {
+		
+		if(data == "ok")
+		{
+			$('.changeNews').addClass('form-success').removeClass('form-error');
+			$('.changeNews').html("Изменения успешно сохранены!");
+			$('.changeNews').slideDown();
+			setTimeout(function() { $(".changeNews").slideUp(); }, 2000);
+		}
+		else
+		{
+			$('.changeNews').addClass('form-error').removeClass('form-success');
+			$('.changeNews').html(data);
+			$('.changeNews').slideDown();
+			setTimeout(function() { $(".changeStatus").slideUp(); }, 3500);
+		}
+		}
+		});
+	}
+});	
+	
+$(document).on('click','#save_news', function(e){
+ var app = $('#formNews').serialize();
  $.ajax({
 	type: 'POST',
-	url: './include/edit_app.php',
+	url: './include/create_news.php',
 	data: app,
 	success: function(data) {
-	alert(data);
+	
 	if(data == "ok")
 	{
-		$('.changeStatus').addClass('form-success').removeClass('form-error');
-		$('.changeStatus').html("Изменения успешно сохранены!");
-		$('.changeStatus').slideDown();
-		setTimeout(function() { $(".changeStatus").slideUp(); }, 2000);
+		$('.changeNews').addClass('form-success').removeClass('form-error');
+		$('.changeNews').html("Изменения успешно сохранены!");
+		$('.changeNews').slideDown();
+		setTimeout(function() { $(".changeNews").slideUp(); }, 2000);
 	}
 	else
 	{
-		$('.changeStatus').addClass('form-error').removeClass('form-success');
-		$('.changeStatus').html(data);
-		$('.changeStatus').slideDown();
+		$('.changeNews').addClass('form-error').removeClass('form-success');
+		$('.changeNews').html(data);
+		$('.changeNews').slideDown();
 		setTimeout(function() { $(".changeStatus").slideUp(); }, 3500);
 	}
 	}
 	});
+});	
+	
+	
+	
+$('.setting__link').click(function(){
+if(!$(this).hasClass('active')){
+	$(this).siblings().removeClass('active');
+	$(this).addClass('active');
+}
 });
 
-$(document).on('click','.editApp', function(e){
+
+function hideTabContents(a) {
+	for (let i = a; i < tabContents.length; i++) {
+		tabContents[i].classList.remove('show');
+		tabContents[i].classList.add('hide');
+	}
+}
+
+
+
+hideTabContents(1);
+
+function showTabContents(b) {
+	if (tabContents[b].classList.contains('hide')) {
+		tabContents[b].classList.remove('hide');
+		tabContents[b].classList.add('show');
+	}
+}
+
+$(infoBlock).on("click", function(e){
+	let target = e.target;
+	if (target && target.classList.contains('setting__link')) {
+	for(let i = 0; i < tabs.length; i++) {
+			if (target == tabs[i]) {
+				hideTabContents(0);
+				showTabContents(i);
+			break;
+			}
+		}
+	}
+}); 
+
+
+$(document).ready(function(){
+$.ajax({
+	type: "POST",
+	url: "./include/view_users.php",
+	dataType: "html",
+	cache: false,
+	success: function(html) {
+	$(".setting__container").html(html);
+	var accSetting = document.querySelectorAll(".setting__accordion");
+	$(document).on('click','.setting__accordion', function(e){
+	let target = e.target;
+		target.classList.toggle("active");
+		var panel = target.nextElementSibling;
+			
+		 if (panel.style.display === "flex") {
+		  panel.style.display = "none";
+		} else {
+		  panel.style.display = "flex";
+		  panel.style.minHeight = '50px';
+		}
+	});
+}
+});
+
+}
+);
+
+
+$(document).on('click', '#users',function(){
+$.ajax({
+	type: "POST",
+	url: "./include/view_users.php",
+	dataType: "html",
+	cache: false,
+	success: function(html) {
+	$(".setting__container").html(html);
+	var accSetting = document.querySelectorAll(".setting__accordion");
+	$(document).on('click','.setting__accordion', function(e){
+	let target = e.target;
+		target.classList.toggle("active");
+		var panel = target.nextElementSibling;
+			
+		 if (panel.style.display === "flex") {
+		  panel.style.display = "none";
+		} else {
+		  panel.style.display = "flex";
+		  panel.style.minHeight = '50px';
+		}
+	});
+	
+for (i = 0; i < accSetting.length; i++) {
+
+accSetting[i].addEventListener("click", function() {
+let hrefNum = this.nextElementSibling;
+
+hrefNum.addEventListener("click", function(e){
+let target = e.target;
+
+if($(target).hasClass("link")){
+let num = $(target).attr("href");
+$.ajax({
+type: 'POST',
+url: './include/delete_users.php',
+data: {num:num},
+success: function(data) {
+
+if(data == "ok")
+{
+$('.changeSetting').addClass('form-success').removeClass('form-error');
+$('.changeSetting').html("Изменения успешно сохранены!");
+$('.changeSetting').slideDown();
+setTimeout(function() { $(".changeSetting").slideUp(); }, 2000);
+}
+else
+{
+	$('.changeSetting').addClass('form-error').removeClass('form-success');
+	$('.changeSetting').html(data);
+	$('.changeSetting').slideDown();
+	setTimeout(function() { $(".changeSetting").slideUp(); }, 3500);
+}
+$.ajax({
+type: "POST",
+url: "./include/view_users.php",
+dataType: "html",
+cache: false,
+success: function(html) {
+$(".setting__container").html(html);
+}
+});
+}
+});
+  }
+});
+});
+}
+}
+});
+});
+
+$(document).on('click','#workList', function(e){
+let target = e.target;
+
+if($(target).hasClass("progress"))
+{
+	target.classList.toggle("active");
+	var panel = target.nextElementSibling;
+	
+     if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+	  panel.style.minHeight = '100px';
+    }
+}
+});
+
+$(".workStatus").on("click", function(){
+		$.ajax({
+		type: "POST",
+		url: "./include/work_list.php",
+		dataType: "html",
+		cache: false,
+		success: function(html) {
+		$("#goodJob").html(html);
+		}
+	});
+});
+
+
+$(document).on('click','.main-left__article', function(e){  
+	let hrefNum = $(this).attr('href');
+	
+	$.ajax({
+		type: "POST",
+		url: "./include/view_news.php",
+		dataType: "json",
+		cache: false,
+		data: {hrefNum:hrefNum},
+		success: function(result) {
+		
+		var resNews = result;
+		$("#appPopup").fadeIn("slow");
+		var titleNews = document.getElementById("newsTitle");
+		var descriptionNews = document.querySelector(".main-left__container");
+	
+		titleNews.textContent = resNews[0].title;
+		descriptionNews.textContent = resNews[0].description;
+		}
+		});
+});
+
+
+$(document).on('click','#addPerformer', function(){  
+	$("#viewPerform").fadeIn("slow");
+	$.ajax({
+		type: "POST",
+		url: "./include/view_perform.php",
+		dataType: "html",
+		cache: false,
+		success: function(data) {
+			$("#perfTable").html(data);
+			
+			$.ajax({
+				type: "POST",
+				url: "./include/view_perform.php",
+				dataType: "json",
+				cache: false,
+				success: function(result) {
+				
+				var qtyTasks = result;
+				}
+			});
+		}
+	});
+	
+});
+
+$(document).on('click','#PerformClose', function(){
+	$("#viewPerform").fadeOut("slow");
+});
+
+$(document).on('click','.editApp', function(e){  
 	let num = $(this).attr('href');
+
 	$.ajax({
 		type: "POST",
 		url: "./include/view_app.php",
@@ -75,10 +371,198 @@ $(document).on('click','.editApp', function(e){
 		$("#num_app").html("Заявка №: " + res[0].id_application);
 		$("#title_app").val(res[0].title);
 		$("#description_app").val(res[0].description);
-		$("#date").val(res[0].start_date);
+		$("#date").val(res[0].start_date); 
+		$("#lastDate").val(res[0].deadline); 
 		$("#comment_app").val(res[0].comment);
+		let temp = document.querySelector(".progress");
+		$("#progress").attr("value", res[0].percent); 
+		$("#deadline").val(res[0].finishing);
+		$("#spent_time").val(res[0].spent_time);
+		
+		if(res[0].temp == "Error") {
+			$("#spent_time").css('color', '#F00');
+		}
+		else
+		{
+			$("#spent_time").css('color', 'green');
+		}
+		
+		if(res[0].performers != null)
+			{
+				newObj.innerHTML = '';
+				let name = (res[0].performers);
+				newObj.textContent = res[0].performers;
+			}else {
+				newObj.innerHTML = '';
+				newObj.textContent = "Назначить";
+			}
 		}
 		});
+});
+
+$(document).on('click','#hPerform', function(e){  
+	let num = $(this).attr('href');
+	
+	$.ajax({
+		type: "POST",
+		url: "./include/add_perform.php",
+		dataType: "json",
+		cache: false,
+		data: {num:num},
+		success: function(result) {
+		
+		var resPerf = result;
+		let qtyTask = document.getElementById("countTask");
+		qtyTask.textContent = resPerf["test"];
+	
+		}
+	});
+});
+
+$(document).on('click','.knowledge__link', function(e){
+
+	$("#appPopup").fadeIn("slow");
+	let target = e.target;
+	let num = $(this).attr('href');
+
+	$.ajax({
+	type: 'POST',
+	url: './include/view_knowledge.php',
+	dataType: "json",
+	cache: false,
+	data: {num:num},
+	success: function(result) {
+	var res = result;
+	$(".knowTitle").html(res[0].title);
+	$(".knowDescription").html(res[0].description);
+	}
+	});
+});
+
+$(document).on('click','#popup-close', function(e){
+	$("#appPopup").fadeOut("slow");
+});
+
+$(document).on('click','#save_app', function(e){
+ var app = $('#formEditApp').serialize();
+ $.ajax({
+	type: 'POST',
+	url: './include/edit_app.php',
+	data: app,
+	success: function(data) {
+	
+	if(data == "ok")
+	{
+		$('.changeStatus').addClass('form-success').removeClass('form-error');
+		$('.changeStatus').html("Изменения успешно сохранены!");
+		$('.changeStatus').slideDown();
+		setTimeout(function() { $(".changeStatus").slideUp(); }, 2000);
+				$.ajax({
+		type: "POST",
+		url: "./include/view_app.php",
+		dataType: "json",
+		cache: false,
+		data: {num:num},
+		success: function(result) {
+		var res = result;
+		console.log(res);
+		$("#appPopup").fadeIn("slow");
+		$("#num_app").html("Заявка №: " + res[0].id_application);
+		$("#title_app").val(res[0].title);
+		$("#description_app").val(res[0].description);
+		$("#date").val(res[0].start_date); 
+		$("#lastDate").val(res[0].deadline); 
+		$("#comment_app").val(res[0].comment);
+		let temp = document.querySelector(".progress");
+		$("#progress").attr("value", res[0].percent); 
+		
+		if(res[0].performers != null)
+			{
+				newObj.innerHTML = '';
+				let name = (res[0].performers);
+				newObj.textContent = res[0].performers;
+			}else {
+				newObj.innerHTML = '';
+				newObj.textContent = "Назначить";
+			}
+		}
+		});
+			
+			
+			
+			
+			$.ajax({
+				type: "POST",
+				url: "./include/inbox_app.php",
+				dataType: "html",
+				cache: false,
+				success: function(html) {
+				$("#inboxApp").html(html);
+				}
+			});
+			
+			$.ajax({
+				  url: "./include/give_task.php",
+				  type: "POST",
+				  dataType: "html",
+				  processData: false,  
+				  contentType: false, 
+				  success: function(html)
+				  {
+					console.log(html);
+					$("#giveTask").html(html);
+				  }
+			});	
+			
+	}
+	else
+	{
+		$('.changeStatus').addClass('form-error').removeClass('form-success');
+		$('.changeStatus').html(data);
+		$('.changeStatus').slideDown();
+		setTimeout(function() { $(".changeStatus").slideUp(); }, 3500);
+	}
+	}
+	});
+});
+
+$(".appArchive").on("click", function(){
+		$.ajax({
+		type: "POST",
+		url: "./include/archive_app.php",
+		dataType: "html",
+		cache: false,
+		success: function(html) {
+		console.log(html);
+		let temp = $("#archiveApp");
+		$("#archiveApp").html(html);
+		}
+	});
+});
+
+
+$(".appWork").on("click", function(){
+		$.ajax({
+		type: "POST",
+		url: "./include/work_app.php",
+		dataType: "html",
+		cache: false,
+		success: function(html) {
+		$("#inWork").html(html);
+		}
+	});
+});
+
+$(".appInbox").on("click", function(){
+		$.ajax({
+		type: "POST",
+		url: "./include/inbox_app.php",
+		dataType: "html",
+		cache: false,
+		success: function(html) {
+		$("#inboxApp").html(html);
+		}
+	});
 });
 
 $(".appCreate").on("click", function(){
@@ -90,7 +574,7 @@ $(".appCreate").on("click", function(){
 		success: function(html) {
 		$("#myApp").html(html);
 		}
-	});
+		});
 });
 
 $(document).on('click','.delApp', function(e){
@@ -103,14 +587,77 @@ let aHref = $(this).attr('href');
 		dataType: "html",
 		cache: false,
 		success: function(data) {
+		console.log(data);
+		$.ajax({
+		type: "POST",
+		url: "./include/update_app.php",
+		dataType: "html",
+		cache: false,
+		success: function(html) {
+		$.ajax({
+			  url: "./include/give_task.php",
+			  type: "POST",
+			  dataType: "html",
+			  processData: false,  
+			  contentType: false, 
+			  success: function(html)
+			  {
+				$("#giveTask").html(html);
+			  }
+		});	
+		$("#myApp").html(html);
+		}
+		});
 			if(data == 'ok')
 			{
+				$.ajax({
+				type: "POST",
+				url: "./include/update_app.php",
+				dataType: "html",
+				cache: false,
+				success: function(html) {
+				$("#inboxApp").html(html);
+				}
+				});
+			
+			
 			var target, elParent, elGr;
 			target = e.target;
 			elParent = target.parentNode.parentNode.parentNode;
 			elGr = elParent;
 			elParent.style="display:none";
 			}
+			
+		let num = $(this).attr('href');	
+		$.ajax({
+		type: "POST",
+		url: "./include/view_app.php",
+		dataType: "json",
+		cache: false,
+		data: {num:num},
+		success: function(result) {
+		console.log(result);
+		var res = result;
+		$("#appPopup").fadeIn("slow");
+		$("#num_app").html("Заявка №: " + res[0].id_application);
+		$("#title_app").val(res[0].title);
+		$("#description_app").val(res[0].description);
+		$("#date").val(res[0].start_date); 
+		$("#lastDate").val(res[0].deadline); 
+		$("#comment_app").val(res[0].comment);
+		let temp = document.querySelector(".progress");
+		$("progress").attr("value", res[0].percent); 
+		if(res[0].performers != null)
+			{
+				newObj.innerHTML = '';
+				let name = (res[0].performers);
+				newObj.textContent = res[0].performers;
+			}else {
+				newObj.innerHTML = '';
+				newObj.textContent = "Назначить";
+			}
+		}
+		});
 		}
 	});
 });
@@ -121,7 +668,6 @@ $("#clear_submit").on("click", function(){
 	$("#file").val("");
 	$("#sFile").val("");
 });
-
 
 $('#create_submit').click(function(){
 	var fd = new FormData(document.getElementById("createApp"));
@@ -140,6 +686,33 @@ $('#create_submit').click(function(){
 				$("#form-success").html("Заявка успешно создана!");
 				$("#form-success").slideDown(400);
 				setTimeout(function() { $("#form-success").slideUp(); }, 4000);
+				
+			$.ajax({
+				  url: "./include/view_task.php",
+				  type: "POST",
+				  dataType: "html",
+				  processData: false,  
+				  contentType: false, 
+				  success: function(html)
+				  {
+					console.log(html);
+					$("#getTask").html(html);
+				  }
+			});	
+				
+			$.ajax({
+			  url: "./include/give_task.php",
+			  type: "POST",
+			  dataType: "html",
+			  processData: false,  
+			  contentType: false, 
+			  success: function(html)
+			  {
+				console.log(html);
+				$("#giveTask").html(html);
+			  }
+			});		
+				
 			}else
 			{
 				$("#form-success").attr('id', 'form_error')
@@ -180,6 +753,7 @@ $(".custom-option:first-of-type").hover(function() {
 }, function() {
   $(this).parents(".custom-options").removeClass("option-hover");
 });
+
 $(".custom-select-trigger").on("click", function() {
   $('html').one('click',function() {
     $(".custom-select").removeClass("opened");
@@ -196,169 +770,20 @@ $(".custom-option").on("click", function() {
   $(this).parents(".custom-select").find(".custom-select-trigger").text($(this).text());
 });
 
-$('#logout').click(function(){
-	$.ajax({
-		type: "POST",
-		url: "./include/logout.php",
-		dataType: "html",
-		cache: false,
-		success: function(data) {
-			if(data == 'logout')
-			{
-				var url = "auth/login.php";
-				$(location).attr('href',url);
-			}
-		}
-	});
-}); 
-
-
-prBtn.addEventListener('click', ()=>{
-prMenu.classList.toggle('active');
-});
-
-   $('#form_reg').validate(
-                {   
-                    // правила для проверки
-                    rules:{
-                        "reg_login":{
-                            required:true,
-                            minlength:5,
-                            maxlength:15,
-                            remote: {
-                            type: "post",    
-                            url: "./reg/check_login.php"
-                            }
-                        },
-                        "reg_pass":{
-                            required:true,
-                            minlength:7,
-                            maxlength:15
-                        },
-                        "reg_surname":{
-                            required:true,
-                            minlength:3,
-                            maxlength:15
-                        },
-                        "reg_name":{
-                            required:true,
-                            minlength:3,
-                            maxlength:15
-                        },
-                        "reg_patronymic":{
-                            required:true,
-                            minlength:3,
-                            maxlength:25
-                        },
-                        "reg_email":{
-                            required:true,
-                            email:true
-                        },
-                        "reg_phone":{
-                            required:true
-                        },
-                        "reg_address":{
-                            required:true
-                        },
-                        "reg_captcha":{
-                            required:true,
-                            remote: {
-                            type: "post",    
-                            url: "/reg/check_captcha.php"
-                            },
-                            
-                            
-                        }
-                    },
- 
-                    // выводимые сообщения при нарушении соответствующих правил
-                    messages:{
-                        "reg_login":{
-                            required:"Укажите Логин!",
-                            minlength:"От 5 до 15 символов!",
-                            maxlength:"От 5 до 15 символов!",
-                            remote: "Логин занят!"
-                        },
-                        "reg_pass":{
-                            required:"Укажите Пароль!",
-                            minlength:"От 7 до 15 символов!",
-                            maxlength:"От 7 до 15 символов!"
-                        },
-                        "reg_surname":{
-                            required:"Укажите вашу Фамилию!",
-                            minlength:"От 3 до 20 символов!",
-                            maxlength:"От 3 до 20 символов!"                            
-                        },
-                        "reg_name":{
-                            required:"Укажите ваше Имя!",
-                            minlength:"От 3 до 15 символов!",
-                            maxlength:"От 3 до 15 символов!"                               
-                        },
-                        "reg_patronymic":{
-                            required:"Укажите ваше Отчество!",
-                            minlength:"От 3 до 25 символов!",
-                            maxlength:"От 3 до 25 символов!"  
-                        },
-                        "reg_email":{
-                            required:"Укажите свой E-mail",
-                            email:"Не корректный E-mail"
-                        },
-                        "reg_phone":{
-                            required:"Укажите номер телефона!"
-                        },
-                        "reg_address":{
-                            required:"Необходимо указать адрес доставки!"
-                        },
-                        "reg_captcha":{
-                            required:"Введите код с картинки!",
-                            remote: "Не верный код проверки!"
-                            
-                        }
-                    },
-                    
-                        submitHandler: function(form){
-                        $(form).ajaxSubmit({
-                        success: function(data) {                  
-                            if (data){
-							
-                                $("#block-form-registration").fadeOut(300,function() {   
-                                    $("#reg_message").addClass("reg_message_good").fadeIn(400).html("Вы успешно зарегистрированы! "+data);
-                                    $("#form_submit").hide();
-                                });
-								return true;
-                            }else{
-                                  $("#block-form-registration").fadeOut(300,function() {   
-                                    $("#reg_message").addClass("reg_message_good").fadeIn(400).html("Вы успешно зарегистрированы! "+data);
-                                    $("#form_submit").hide();
-                                });
-                            }
-                        } 
-                }); 
-            }
-            });
-        
 for (i = 0; i < acc.length; i++) {
   acc[i].addEventListener("click", function() {
   
   this.classList.toggle("active");
     var panel = this.nextElementSibling;
-	console.log(panel);
-   /*   if (panel.style.display === "block") {
+     if (panel.style.display === "block") {
       panel.style.display = "none";
     } else {
       panel.style.display = "block";
     }
-	 if (panel.style.maxHeight){
-      panel.style.maxHeight = null;
-    } else { */
-      panel.style.maxHeight = panel.scrollHeight + "px";
-   // }  
 	
+	let idBlock = $(this).attr('id');
+	var Content = this;
 	
-  let idBlock = $(this).attr('id');
-  var Content = this;
- 
-
   $.ajax({
 	type: "POST",
 	url: "./include/view_question.php",
@@ -366,18 +791,16 @@ for (i = 0; i < acc.length; i++) {
 	cache: false,
 	data: {idBlock:idBlock},
 		success: function(html) {
-		alert(html);
-		let cBlock = Content.nextElementSibling;
-		jQuery(cBlock).html(html);
+			let cBlock = Content.nextElementSibling;
+			jQuery(cBlock).html(html);
 		}
 	});
-/*   let panel2 = this.nextElementSibling;
-  let num = $(panel2).on("click", function(e){
+	
+	let panelHref = this.nextElementSibling;
+	
+	let num = $(panelHref).on("click", function(e){
 	var target = e.target.parentNode;
-  }); */
-  
-
-    
+	});   
   });
 }
 

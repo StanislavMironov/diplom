@@ -64,11 +64,17 @@
 
 @media screen and (max-width: 768px) {
   padding:10px 50px;
+
 }
 
 @media screen and (max-width: 500px) {
+  display: block;
   max-width: 100%;
   width: 100%;
+
+  &:first-child {
+    margin-bottom: 15px;
+  }
 }
 
        &:hover{
@@ -82,6 +88,10 @@
 }
 
 .error {
+      display: block;
+      margin: 0 auto;
+      width: calc(100% - 40px);
+      margin-top: 30px;
       padding: 15px;
       background-color: white;
       margin-bottom: 35px;
@@ -89,7 +99,7 @@
       box-shadow: 0px 10px 8px;
       word-break: break-all;
       outline: 4px solid #666;
-      margin-top: 30px;
+      
 }
 
 .delApp {
@@ -380,4 +390,98 @@
 #myApp {
   overflow-y: auto;
   height: 300px;
+}
+
+#linkImg {
+  display: flex;
+
+  div {
+    width: 115px;
+    margin-top: 3px;
+    display: inline-block;
+    float: left;
+    padding: 3px;
+    font-weight: bold;
+    margin-right: 20px;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+#imgPopup {
+  display: none;
+   
+
+    .application__popup {
+      height: calc(100% - 220px);
+      position: absolute;
+      z-index: 999999;
+      outline: 5px solid #495057;
+      background-color: white;
+      margin: auto;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      width: 700px;
+    }
+}
+
+.podlogkaImg {
+  background: rgba(102, 102, 102, 0.5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 4;
+}
+
+
+#closePopup{
+   height: 20px;
+    width: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    cursor: pointer;
+
+    &:after, &:before {
+      content: "";
+      height: 20px;
+      background-color: black;
+      width: 2px;
+      position: absolute;
+      right: 0px;
+      left: 9px;
+      top: 1px;
+      bottom: 0;
+    }
+
+    &:after {
+      transform: rotate(-45deg);
+    }
+
+    &:before {
+      transform: rotate(45deg);
+    }
+}
+
+#imgApps {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+}
+
+.categoryApps {
+  display: flex;
+}
+
+#newPerf {
+  cursor: pointer;
 }

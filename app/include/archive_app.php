@@ -7,7 +7,7 @@ include ("db_connect.php");
 if($temp == "Исполнитель")
 {
 
-$sql = mysqli_query($link, "SELECT * FROM archive'") or die("Ошибка вывода заявки");
+$sql = mysqli_query($link, "SELECT * FROM archive WHERE user = '{$_SESSION['auth_id']}'") or die("Ошибка вывода заявки исполнителя");
 $row = mysqli_fetch_array($sql);
 $statusApp = $row["status"];
 
@@ -90,11 +90,9 @@ else
 if($temp == "Диспетчер")
 {
 
-$sql = mysqli_query($link, "SELECT * FROM archive") or die("Ошибка вывода заявки");
+$sql = mysqli_query($link, "SELECT * FROM archive ") or die("Ошибка вывода заявки");
 $row = mysqli_fetch_array($sql);
 $statusApp = $row["status"];
-
-
 
 if (mysqli_num_rows($sql) > 0)
 {
@@ -129,9 +127,7 @@ echo	'
 	<div class="table__column"><span>Название: </span>'.$row["title"].'</div>
 	<div class="table__column"><span>Автор: </span>'.$row["initiator"].'</div>
 	<div class="table__column"><span>Дата создания: </span>'.$row["start_date"].'</div>
-	<div class="table__column"><span>Время на выполнение: </span>'.$row["deadline"].'</div>';
-
-	
+	<div class="table__column"><span>Дата завершения: </span>'.$row["deadline"].'</div>';
 	
 	echo '
 	<div class="table__column"><span>Статус: </span>'.$statusApp.'</div>
@@ -170,11 +166,8 @@ echo
 	<div class="table__column">Название</div>
 	<div class="table__column">Автор</div>
 	<div class="table__column">Дата создания</div>
-			<div class="table__column">Время на выполнение:</div>';
+	<div class="table__column">Дата завершения:</div>';
 			
-	
-	
-	
 echo	'
 		<div class="table__column">Статус</div>
 		<div class="table__column"></div>
@@ -191,10 +184,8 @@ echo	'
 	<div class="table__column"><span>Название: </span>'.$row["title"].'</div>
 	<div class="table__column"><span>Автор: </span>'.$row["initiator"].'</div>
 	<div class="table__column"><span>Дата создания: </span>'.$row["start_date"].'</div>
-	<div class="table__column"><span>Время на выполнение: </span>'.$row["deadline"].'</div>';
+	<div class="table__column"><span>Дата завершения: </span>'.$row["deadline"].'</div>';
 
-	
-	
 	echo '
 	<div class="table__column"><span>Статус: </span>'.$statusApp.'</div>
 	<div class="table__column table__column--function">
@@ -224,22 +215,21 @@ $statusApp = $row["status"];
 
 if (mysqli_num_rows($sql) > 0)
 {
-echo
+	echo
 	'
 	<div class="table__row">
 	<div class="table__column">Номер</div>
 	<div class="table__column">Название</div>
 	<div class="table__column">Автор</div>
 	<div class="table__column">Дата создания</div>
-			<div class="table__column">Время на выполнение:</div>';
-			
-	
-	
-	
-echo	'
-		<div class="table__column">Статус</div>
-		<div class="table__column"></div>
-		</div>';
+	<div class="table__column">Дата завершения:</div>';
+				
+	echo
+	'
+	<div class="table__column">Статус</div>
+	<div class="table__column"></div>
+	</div>';
+
 	do {
 		switch($row["status"]){
 	case 4:
@@ -252,7 +242,7 @@ echo	'
 	<div class="table__column"><span>Название: </span>'.$row["title"].'</div>
 	<div class="table__column"><span>Автор: </span>'.$row["initiator"].'</div>
 	<div class="table__column"><span>Дата создания: </span>'.$row["start_date"].'</div>
-	<div class="table__column"><span>Время на выполнение: </span>'.$row["deadline"].'</div>';
+	<div class="table__column"><span>Дата завершения:</span>'.$row["deadline"].'</div>';
 
 	
 	

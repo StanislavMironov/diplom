@@ -4,6 +4,7 @@ include ("db_connect.php");
 include ('rule.php');
 
 switch ($temp) {
+
 	case "Пользователь":
 		echo '
 			<div>
@@ -11,8 +12,9 @@ switch ($temp) {
 			</div>
 		';
 	break;
+	
 	case "Исполнитель":
-		$getApp = mysqli_query($link, "SELECT * FROM application WHERE performers =  '{$_SESSION["auth_name"]}'") or die();
+		$getApp = mysqli_query($link, "SELECT * FROM application WHERE performers =  '{$_SESSION["auth_name"]}' AND NOT status = 3") or die();
 		if(mysqli_num_rows($getApp) > 0){
 		while($row = mysqli_fetch_array($getApp)){
 		echo '
@@ -31,6 +33,7 @@ switch ($temp) {
 				';
 		}
 	break;
+	
 	case "Диспетчер":
 	echo '
 			<div>
@@ -38,6 +41,7 @@ switch ($temp) {
 			</div>
 	';
 	break;
+	
 	case "Руководитель":
 		echo '
 			<div>
@@ -45,6 +49,7 @@ switch ($temp) {
 			</div>
 		';
 	break;
+	
 		case "Администратор":
 		echo '
 			<div>

@@ -1,251 +1,279 @@
 <?php
-	session_start();
-	define( '_JEXEC', 1 );
-	
-	if($_SESSION['auth'] == "yes_auth"){	
-	if(isset($_GET["logout"]))
-	{
-		unset($_SESSION['auth']);
-		unset($_SESSION['auth_name']);
-		header("Location: auth/login.php");
-	}
-	include ("include/header.php");
-	include ("functions/functions.php");
-	include ('/include/rule.php');
+session_start();
+define( '_JEXEC', 1 );
+
+if($_SESSION['auth'] == "yes_auth"){	
+if(isset($_GET["logout"]))
+{
+	unset($_SESSION['auth']);
+	unset($_SESSION['auth_name']);
+	header("Location: auth/login.php");
+}
+include ("include/header.php");
+include ("functions/functions.php");
+include ('/include/rule.php');
 ?>
 
-	<div class="application">
-		<div class="application__left">
-		<p style="display:none;" align='left' id='form-success'></p>
-			<div class="info-header">
-			<?php 
-				switch($temp){
-				case "Пользователь":
-				echo '
-					<div class="info-header__tab active">
-					Создать
-					</div>
-					<div class="info-header__tab appCreate">
-					Созданные мною
-					</div>
-					<div class="info-header__tab appArchive">
-						Архив
-					</div>
-					';
-				break;
-				
-				case "Диспетчер":
-					echo '
-					<div class="info-header__tab active">
-					Создать
-					</div>
-					<div class="info-header__tab appCreate">
-					Созданные мною
-					</div>
-					<div class="info-header__tab appInbox">
-						Входящие
-					</div>
-					<div class="info-header__tab appWork">
-						В работе
-					</div>
-					<div class="info-header__tab appArchive">
-						Архив
-					</div>
-					';
-				break;
-				
-				case "Исполнитель":
-					echo '
-					<div class="info-header__tab active">
-					Создать
-					</div>
-					<div class="info-header__tab appCreate">
-					Созданные мною
-					</div>
-					<div class="info-header__tab appInbox">
-						Входящие
-					</div>
-					<div class="info-header__tab appWork">
-						В работе
-					</div>
-					<div class="info-header__tab workStatus">
-						Эффективность
-					</div>
-					';
-				break;
-				
-				case "Администратор":
-					echo '
-					<div class="info-header__tab active">
-					Создать
-					</div>
-					<div class="info-header__tab appCreate">
-					Созданные мною
-					</div>
-					<div class="info-header__tab appWork">
-						В работе
-					</div>
-					<div class="info-header__tab appArchive">
-						Архив
-					</div>
-					';
-				break;
-				}
-			
-			?>
-			</div>	
-			<div class="application__tabcontent fade">
-				<form id="createApp" enctype="multipart/form-data" method="post">
-				<div class="application__option">
-				<a href="javascript:void(0);" id="create_submit" class='Btn' name="save_submit" >Создать</a>
-				<a href="javascript:void(0);" id="clear_submit" class='Btn' name="clear_submit" >Очистить</a>
-				</div>
-
-				<div class="application__option ">
-					<div class="fileload">
-						
-						<div class="fileload__title">
-						<h2>Загрузка файла:</h2>
-						<div class="helper">
-							<div class="mes">
-							<img src="./img/icons/question-mark.svg">
-							<div class="mes__info">
-								Можно прикрепить скрин экрана
-							</div>	
-							</div>
-						</div>
-						</div>
-						
-						<div class="file-load-block">
-						
-							<input type="file" name="upload_image" id="file" required />
-							<input type="hidden" name="MAX_FILE_SIZE" value="5000000"/>
-							<div class="fileLoad">
-								<input id="sFile" type="text" value="Select file" />
-								<button>Выберите файл</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="application__field">
-				<label for="description">
-					Краткое описание*
-				</label>
-				<input type="text" id="description" name="description" required>
-				</div>
-
-				<div class="application__field">
-				<label for="full-description">
-					Подробное описание
-				</label>
-				<textarea id="full-description" rows="10" cols="45" name="full_text"></textarea>
-				</div>
-
-				<script>
-					function vT(){
-						var valueInput = document.getElementById("sitetime").options.selectedIndex;
-						console.log(valueInput);
-						switch(valueInput){
-							case 1: 
-								$('#description').val('Установить \"Программу\" для учёта бухгалтерии.');
-								$('#full-description').val('Желательно последнюю версию');
-							break;
-					}
-}
-				</script>
-				
-				<div class="center-on-page">
-				  <div class="select">
-					<select name="sitetime" id="sitetime" onchange="document.getElementById('rez').value=value; vT();">
-					  <option value="" >Выберите шаблон</option>
-					  <option value="1" >Установка ПО</option>
-					  <option value="2" >Замена запчастей</option>
-					</select>
-				  </div>
-				</div>
-				<input type='text' id='rez' name='rez'/>
-				</form>
+<div class="application">
+<div class="application__left">
+<p style="display:none;" align='left' id='form-success'></p>
+	<div class="info-header">
+	<?php 
+		switch($temp){
+		case "Пользователь":
+		echo '
+			<div class="info-header__tab active">
+			Создать
 			</div>
-			
-			<?php
-			if($temp == "Пользователь"){
-				echo '
-					<div class="application__tabcontent fade">
-					<div class="table" id="myApp">
-					</div>
-					</div>
-					
-					<div class="application__tabcontent fade">
-					<div class="table" id="archiveApp">
-					</div>
-					</div>
-				';
-			}
-			
-			if($temp == "Диспетчер"){
-					echo '
-						<div class="application__tabcontent fade">
-						<div class="table" id="myApp">
-						</div>
-						</div>
-						
-						<div class="application__tabcontent fade">
-						<div class="table" id="inboxApp">
-						</div>
-						</div>
-						
-						<div class="application__tabcontent fade">
-						<div class="table" id="inWork">
-						</div>
-						</div>
-						
-						<div class="application__tabcontent fade">
-						<div class="table" id="archiveApp">
-						</div>
-						</div>
-					';
-				}
-
-			if($temp == "Исполнитель"){
-				echo '
-					<div class="application__tabcontent fade">
-					<div class="table" id="myApp">
-					</div>
-					</div>
-				
-					<div class="application__tabcontent fade">
-					<div class="table" id="inboxApp">
-					</div>
-					</div>
-					
-					<div class="application__tabcontent fade">
-					<div class="table" id="inWork">
-					</div>
-					</div>
-				
-					<div class="application__tabcontent fade">
-					<div class="table" id="goodJob">
-					</div>
-					</div>
-					
-					<div class="application__tabcontent fade">
-					<div class="table" id="archiveApp">
-					</div>
-					</div>
-				';
-			}
-			?>
-			
-			
+			<div class="info-header__tab appCreate">
+			Созданные мною
+			</div>
+			<div class="info-header__tab appArchive">
+			Архив
+			</div>
+			';
+		break;
 		
-		</div>	
+		case "Диспетчер":
+			echo '
+			<div class="info-header__tab active">
+			Создать
+			</div>
+			<div class="info-header__tab appCreate">
+			Созданные мною
+			</div>
+			<div class="info-header__tab appInbox">
+				Входящие
+			</div>
+			<div class="info-header__tab appWork">
+				В работе
+			</div>
+			<div class="info-header__tab appArchive">
+				Архив
+			</div>
+			';
+		break;
+		
+		case "Исполнитель":
+			echo '
+			<div class="info-header__tab active">
+			Создать
+			</div>
+			<div class="info-header__tab appCreate">
+			Созданные мною
+			</div>
+			<div class="info-header__tab appInbox">
+				Входящие
+			</div>
+			<div class="info-header__tab appWork">
+				В работе
+			</div>
+			<div class="info-header__tab workStatus">
+				Эффективность
+			</div>
+			<div class="info-header__tab appArchive">
+				Архив
+			</div>
+			';
+		break;
+		
+		case "Администратор":
+			echo '
+			<div class="info-header__tab active">
+				Создать
+			</div>
+			<div class="info-header__tab appCreate">
+				Созданные мною
+			</div>
+			<div class="info-header__tab appWork">
+				В работе
+			</div>
+			<div class="info-header__tab appArchive">
+				Архив
+			</div>
+			';
+		break;
+		}
+	?>
+	</div>	
+	<div class="application__tabcontent fade">
+		<form id="createApp" enctype="multipart/form-data" method="post">
+		<div class="application__option">
+		<a href="javascript:void(0);" id="create_submit" class='Btn' name="save_submit" >Создать</a>
+		<a href="javascript:void(0);" id="clear_submit" class='Btn' name="clear_submit" >Очистить</a>
+		</div>
 
+		<div class="application__option ">
+			<div class="fileload">
+				<div class="fileload__title">
+				<h2>Загрузка файла:</h2>
+				<div class="helper">
+					<div class="mes">
+					<img src="./img/icons/question-mark.svg">
+					<div class="mes__info">
+						Можно прикрепить скрин экрана
+					</div>	
+					</div>
+				</div>
+				</div>
+				
+				<div class="file-load-block">
+				
+					<input type="file" name="upload_image" id="file" required />
+					<input type="hidden" name="MAX_FILE_SIZE" value="5000000"/>
+					<div class="fileLoad">
+						<input id="sFile" type="text" value="Select file" />
+						<button>Выберите файл</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="application__field">
+		<label for="description">
+			Краткое описание*
+		</label>
+		<input type="text" id="description" name="description" required>
+		</div>
+
+		<div class="application__field">
+		<label for="full-description">
+			Подробное описание
+		</label>
+		<textarea id="full-description" rows="10" cols="45" name="full_text"></textarea>
+		</div>
+
+		<script>
+			function vT(){
+				var valueInput = document.getElementById("sitetime").options.selectedIndex;
+				console.log(valueInput);
+				switch(valueInput){
+					case 1: 
+						$('#description').val('Установить \"Программу\" для учёта бухгалтерии.');
+						$('#full-description').val('Желательно последнюю версию');
+					break;
+				}
+			}
+		</script>
+		
+		<div class="center-on-page">
+		  <div class="select">
+			<select name="sitetime" id="sitetime" onchange="document.getElementById('rez').value=value; vT();">
+			  <option value="" >Выберите шаблон</option>
+			  <option value="1" >Установка ПО</option>
+			  <option value="2" >Замена запчастей</option>
+			</select>
+		  </div>
+		</div>
+		<input type='text' id='rez' name='rez'/>
+		</form>
+	</div>
+	
+<?php
+if($temp == "Пользователь"){
+echo '
+	<div class="application__tabcontent fade">
+	<div class="table" id="myApp">
+	</div>
+	</div>
+	
+	<div class="application__tabcontent fade">
+	<div class="table" id="archiveApp">
+	</div>
+	</div>
+	';
+}
+
+if($temp == "Диспетчер"){
+	echo '
+		<div class="application__tabcontent fade">
+		<div class="table" id="myApp">
+		</div>
+		</div>
+		
+		<div class="application__tabcontent fade">
+		<div class="table" id="inboxApp">
+		</div>
+		</div>
+		
+		<div class="application__tabcontent fade">
+		<div class="table" id="inWork">
+		</div>
+		</div>
+		
+		<div class="application__tabcontent fade">
+		<div class="table" id="archiveApp">
+		</div>
+		</div>
+	';
+}
+
+if($temp == "Администратор"){
+	echo '
+		<div class="application__tabcontent fade">
+		<div class="table" id="myApp">
+		</div>
+		</div>
+		
+		<div class="application__tabcontent fade">
+		<div class="table" id="inWork">
+		</div>
+		</div>
+		
+		<div class="application__tabcontent fade">
+		<div class="table" id="archiveApp">
+		</div>
+		</div>
+	';
+}
+
+if($temp == "Исполнитель"){
+	echo '
+		<div class="application__tabcontent fade">
+		<div class="table" id="myApp">
+		</div>
+		</div>
+	
+		<div class="application__tabcontent fade">
+		<div class="table" id="inboxApp">
+		</div>
+		</div>
+		
+		<div class="application__tabcontent fade">
+		<div class="table" id="inWork">
+		</div>
+		</div>
+	
+		<div class="application__tabcontent fade">
+		<div class="table" id="goodJob">
+		</div>
+		</div>
+		
+		<div class="application__tabcontent fade">
+		<div class="table" id="archiveApp">
+		</div>
+		</div>
+	';
+}
+?>
+	
+</div>	
 	<?php
 		include ("include/b-aside.php");
 		$sql = mysqli_query($link, "SELECT * FROM application WHERE user = '{$_SESSION['auth_id']}' ") or die("Ошибка вывода заявки");
 		$row = mysqli_fetch_array($sql);
+		$_SESSION["test"] = $row['attachment'];
 	?>
+	
+	<div class="podlogkaImg" id="imgPopup">	
+	<div class="application__popup">
+	<img id="imgApps"/>
+	<div id="closePopup">
+	</div>
+	</div>
+	</div>
+	
+	
 <div class="podlogka" id="appPopup">	
 <div class="application__popup">
 <div class="application__popup-Container">
@@ -270,12 +298,10 @@
 	<div>
 		<span>Отдел:</span>
 	</div>	
-	
 	<div>
 		Отдел кадров
 	</div>
     </li>
-	
 	<li>
 		<span>Статус:</span> <div class="statusCH"><?php echo $_SESSION["statusApp"];?></div>
 		<div>
@@ -307,14 +333,11 @@
 			';
 			
 			echo	'
-					</div>
-					<div>
-			
-		
-			
+			</div>
+			<div>
 			<div class="center-on-page">
-			  <div class="select">
-				<select name="sitetime" id="sitetime" onchange="document.getElementById(\'rezP\').value=value">
+			<div class="select">
+			<select name="sitetime" id="sitetime" onchange="document.getElementById(\'rezP\').value=value">
 			'; 
 			if(mysqli_num_rows($sqlPerf) > 0){
 			do {	
@@ -347,15 +370,20 @@
 		<textarea id="description_app" name="description_app" cols="40" rows="6" >
 		</textarea>
 	</li>
+	
+	<li id="linkImg">
+		<div>Скрин:</div>
+		<a href="javascript:void(0)" id="viewImg">Открыть</a>
+	</li>
+	
 	<li>
 		<label for="date">Дата создания: </label>
 		<input type="datetime-local" id="date" name="date_app"/>
 	</li>
 	<?php
-		if($temp == "Диспетчер"){
+	if($temp == "Администратор"){
 		$categoryTask = mysqli_query($link, "SELECT * FROM category") or die("Ошибка вывода исполнителей!");
 	
-		
 			echo '
 				<li>
 				<label for="date">Время на выполнение: </label>
@@ -377,16 +405,13 @@
 						';
 					 }
 					 
-					 
 			echo '		
-					</select>
-				  </div>
+				</select>
 				</div>
-				
+				</div>
 				<input type=\'text\' id=\'categoryApp\' name=\'categoryApp\'/>
 				</li>
-				
-				
+	
 				<li>
 				<label for="deadline">Дата завершения: </label>
 				<input type="datetime-local" id="deadline" name="date_app" disabled />
@@ -402,11 +427,58 @@
 				</li>
 			';
 		}
-		else if($temp == "Исполнитель"){
+		if($temp == "Диспетчер"){
+		$categoryTask = mysqli_query($link, "SELECT * FROM category") or die("Ошибка вывода исполнителей!");
+	
 			echo '
 				<li>
 				<label for="date">Время на выполнение: </label>
 				<input  type="time" id="lastDate" name="lastDate" value="00:00" min="00:00" max="24:00"/>
+				</li>
+				
+				<li class="categoryApps">
+				<span>Категория сложности:</span>
+				<div class="center-on-page" id="categoryTask">
+				  <div class="select">
+					<select name="sitetime" id="sitetime" onchange="document.getElementById(\'categoryApp\').value=value">
+					  <option value="" >Выберите категорию</option>
+					 '; 
+					 
+					 while($rowCategory = mysqli_fetch_array($categoryTask))
+					 {
+						echo '
+							 <option value="'.$rowCategory["OrderNum"].'" >'.$rowCategory["Title"].'</option>
+						';
+					 }
+					 
+			echo '		
+				</select>
+				</div>
+				</div>
+				<input type=\'text\' id=\'categoryApp\' name=\'categoryApp\'/>
+				</li>
+	
+				<li>
+				<label for="deadline">Дата завершения: </label>
+				<input type="datetime-local" id="deadline" name="date_app" disabled />
+				</li>
+				
+				<li class="prBr">
+				<div>Прогресс:</div>
+					<div class="progress">
+					<progress min = "0" max="100" value=""></progress>
+					<div class="progress-value"></div>
+					<div class="progress-bg"><div class="progress-bar"></div></div>
+					</div>
+				</li>
+			';
+		}
+		
+		else if($temp == "Исполнитель"){
+			echo '
+				<li>
+				<label for="date">Время на выполнение: </label>
+				<input  type="time" id="lastDate" name="lastDate" value="00:00" min="00:00" max="24:00" disabled/>
 				</li>
 				 
 				<li> 
@@ -418,18 +490,22 @@
 				<label for="date">Прогрес выполнения: </label>
 				<input type="number" id="progress" name="progress" min="0" max="100" value=""/>
 				</li>
-				
-				<li>
-				<label for="deadline">Дата завершения: </label>
-				<input type="datetime-local" id="deadline" name="date_app" disabled />
-				</li>
 			';
+			
+			if($row["status"] == 3) {
+				echo '
+					<li>
+					<label for="deadline">Дата завершения: </label>
+					<input type="datetime-local" id="deadline" name="date_app" disabled />
+					</li>
+				';
+			}
 		}
 		if($temp == "Пользователь"){
 			echo '				
 				<li> 
 				   <label for="time">Время: </label>
-				   <p><input id="spent_time" type="time" name="time" value="00:00" min="00:00" max="24:00"></p>
+				   <p><input id="spent_time" type="time" name="time" value="13:30" min="00:00" max="24:00"></p>
 				</li>
 			
 				<li>
@@ -449,9 +525,9 @@
 		}
 	?>
 	<li>
-    <label for="comment">Комментарии:</label>
-    <textarea name="comment" cols="40" rows="6" id="comment_app" >
-	</textarea>
+		<label for="comment">Комментарии:</label>
+		<textarea name="comment" cols="40" rows="6" id="comment_app" >
+		</textarea>
 	</li>
 	<li>
 	<div>
@@ -469,7 +545,6 @@
 </div>
 </div>
 </div>	
-
 </div>	
 </div>		
 <?php
@@ -490,7 +565,6 @@
 </svg>
 
 <script>
-
 var parent = document.getElementById("newPerf");
 var newObj = document.createElement('a');
 
