@@ -26,7 +26,7 @@ case "Пользователь":
 break;
 	
 case "Исполнитель":
-	$result = mysqli_query($link, "SELECT * FROM application WHERE initiator =  '{$_SESSION["auth_name"]}'");
+	$result = mysqli_query($link, "SELECT * FROM application WHERE initiator =  '{$_SESSION["auth_name"]}' AND user = '{$_SESSION["auth_id"]}'");
 	if(mysqli_num_rows($result) > 0){
 		while($row = mysqli_fetch_array($result)){
 			echo '<div>

@@ -1,5 +1,16 @@
 <?php
+//define( '_JEXEC', 1 );
 session_start();
+
+if($_SESSION['auth'] == "yes_auth"){	
+if(isset($_GET["logout"]))
+{
+	unset($_SESSION['auth']);
+	unset($_SESSION['auth_name']);
+	header("Location: auth/login.php");
+}
+
+
 include ('rule.php');
 include ("db_connect.php");	
 
@@ -97,7 +108,7 @@ else
 if($temp == "Диспетчер")
 {
 
-$sql = mysqli_query($link, "SELECT * FROM application WHERE performers IS NOT NULL AND status != 0") or die("Ошибка вывода заявки");
+$sql = mysqli_query($link, "SELECT * FROM application WHERE performers IS NOT NULL AND status = 2") or die("Ошибка вывода заявки");
 $row = mysqli_fetch_array($sql);
 $statusApp = $row["status"];
 
@@ -178,7 +189,7 @@ else
 if($temp == "Администратор")
 {
 
-$sql = mysqli_query($link, "SELECT * FROM application WHERE performers IS NOT NULL AND status != 0") or die("Ошибка вывода заявки");
+$sql = mysqli_query($link, "SELECT * FROM application WHERE performers IS NOT NULL AND status = 2") or die("Ошибка вывода заявки");
 $row = mysqli_fetch_array($sql);
 $statusApp = $row["status"];
 
@@ -256,4 +267,8 @@ else
 }
 }
 
+}else
+{
+	header("Location: auth/login.php");
+}
 ?>

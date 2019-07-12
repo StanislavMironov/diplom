@@ -10,7 +10,7 @@ include ('rule.php');
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Главная</title>
+    <title>SA</title>
     <meta name="author" content="Dobrovoimaster" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -133,7 +133,7 @@ include ('rule.php');
 				<a href="#">Оргструктура</a>
 				</li>
 				<li>
-				<a href="#">Отчёты</a>
+				<a href="report.php">Отчёты</a>
 				</li>
 				';
 			break;

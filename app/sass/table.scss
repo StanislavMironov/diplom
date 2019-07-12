@@ -56,8 +56,20 @@
 	    min-width: 12%;
 	    padding: 10px;
 
+	    @media screen and (max-width: 768px)
+	   		{
+			    width: 11%;
+			    max-width: 11%;
+			    min-width: 11%;
+	   		}
+
 	    &--function {
 	    	margin-left: auto;
+
+	    @media screen and (max-width: 600px)
+   		{
+		    margin-left: 0px;
+   		}
 	    }
 
 	    &:nth-child(2) {

@@ -27,6 +27,12 @@
    		border-top: 3px solid;
    		background-image: url(../img/bg3.png);
 
+
+   		@media screen and (max-width: 768px)
+   		{
+		    margin-left: 0px;
+   		}
+
    		@media screen and (max-width: 500px)
    		{
 		    width: 102%;

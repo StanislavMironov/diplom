@@ -4,8 +4,8 @@ include ("db_connect.php");
 include ("../functions/functions.php");
 
 global $temp;
-$login = clear_string($link, $_POST["login"]);
-$pass = md5($_POST["pass"]);
+$login = clear_string($link, @$_POST["login"]);
+$pass = md5(@$_POST["pass"]);
 $pass = strrev($pass);
 $pass = "n".$pass."z";
 

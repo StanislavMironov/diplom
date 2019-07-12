@@ -6,18 +6,14 @@ var tabs = document.querySelectorAll('.setting__link'),
 	infoBlock = document.querySelector('.setting__menu'),
 	tabContents = document.querySelectorAll('.setting__info');	
  
- 
 $(document).on('click','#linkImg', function(){
-	alert(1);
 	$("#imgPopup").fadeIn("slow");
 	});
 
 $(document).on('click','#closePopup', function(){
-	alert(2);
 	$("#imgPopup").fadeOut("slow");
 });
 	
- 
 $(document).on('click','#crReport', function(){
 	let tempAttr = $("#report").val();
 	let foo = tempAttr;
@@ -143,15 +139,12 @@ $(document).on('click','#save_news', function(e){
 	});
 });	
 	
-	
-	
 $('.setting__link').click(function(){
-if(!$(this).hasClass('active')){
-	$(this).siblings().removeClass('active');
-	$(this).addClass('active');
-}
+	if(!$(this).hasClass('active')){
+		$(this).siblings().removeClass('active');
+		$(this).addClass('active');
+	}
 });
-
 
 function hideTabContents(a) {
 	for (let i = a; i < tabContents.length; i++) {
@@ -159,8 +152,6 @@ function hideTabContents(a) {
 		tabContents[i].classList.add('hide');
 	}
 }
-
-
 
 hideTabContents(1);
 
@@ -184,36 +175,34 @@ $(infoBlock).on("click", function(e){
 	}
 }); 
 
-
 $(document).ready(function(){
-$.ajax({
-	type: "POST",
-	url: "./include/view_users.php",
-	dataType: "html",
-	cache: false,
-	success: function(html) {
-	$(".setting__container").html(html);
-	var accSetting = document.querySelectorAll(".setting__accordion");
-	$(document).on('click','.setting__accordion', function(e){
-	let target = e.target;
-		target.classList.toggle("active");
-		var panel = target.nextElementSibling;
-			
-		 if (panel.style.display === "flex") {
-		  panel.style.display = "none";
-		} else {
-		  panel.style.display = "flex";
-		  panel.style.minHeight = '50px';
-		}
+	$.ajax({
+		type: "POST",
+		url: "./include/view_users.php",
+		dataType: "html",
+		cache: false,
+		success: function(html) {
+		$(".setting__container").html(html);
+		var accSetting = document.querySelectorAll(".setting__accordion");
+		$(document).on('click','.setting__accordion', function(e){
+		let target = e.target;
+			target.classList.toggle("active");
+			var panel = target.nextElementSibling;
+				
+			 if (panel.style.display === "flex") {
+			  panel.style.display = "none";
+			} else {
+			  panel.style.display = "flex";
+			  panel.style.minHeight = '50px';
+			}
+		});
+	}
 	});
-}
-});
-
-}
+  }
 );
 
-
 $(document).on('click', '#users',function(){
+
 $.ajax({
 	type: "POST",
 	url: "./include/view_users.php",
@@ -238,25 +227,26 @@ $.ajax({
 for (i = 0; i < accSetting.length; i++) {
 
 accSetting[i].addEventListener("click", function() {
-let hrefNum = this.nextElementSibling;
+	let hrefNum = this.nextElementSibling;
 
 hrefNum.addEventListener("click", function(e){
-let target = e.target;
+	let target = e.target;
 
 if($(target).hasClass("link")){
-let num = $(target).attr("href");
-$.ajax({
-type: 'POST',
-url: './include/delete_users.php',
-data: {num:num},
-success: function(data) {
+	let num = $(target).attr("href");
+	
+	$.ajax({
+	type: 'POST',
+	url: './include/delete_users.php',
+	data: {num:num},
+	success: function(data) {
 
 if(data == "ok")
 {
-$('.changeSetting').addClass('form-success').removeClass('form-error');
-$('.changeSetting').html("Изменения успешно сохранены!");
-$('.changeSetting').slideDown();
-setTimeout(function() { $(".changeSetting").slideUp(); }, 2000);
+	$('.changeSetting').addClass('form-success').removeClass('form-error');
+	$('.changeSetting').html("Пользователь удалён!");
+	$('.changeSetting').slideDown();
+	setTimeout(function() { $(".changeSetting").slideUp(); }, 2000);
 }
 else
 {
@@ -265,18 +255,18 @@ else
 	$('.changeSetting').slideDown();
 	setTimeout(function() { $(".changeSetting").slideUp(); }, 3500);
 }
-$.ajax({
-type: "POST",
-url: "./include/view_users.php",
-dataType: "html",
-cache: false,
-success: function(html) {
-$(".setting__container").html(html);
+	$.ajax({
+		type: "POST",
+		url: "./include/view_users.php",
+		dataType: "html",
+		cache: false,
+		success: function(html) {
+			$(".setting__container").html(html);
+		}
+	});
 }
 });
 }
-});
-  }
 });
 });
 }
@@ -313,7 +303,6 @@ $(".workStatus").on("click", function(){
 	});
 });
 
-
 $(document).on('click','.main-left__article', function(e){  
 	let hrefNum = $(this).attr('href');
 	
@@ -324,18 +313,19 @@ $(document).on('click','.main-left__article', function(e){
 		cache: false,
 		data: {hrefNum:hrefNum},
 		success: function(result) {
-		
 		var resNews = result;
+		console.log(result);
 		$("#appPopup").fadeIn("slow");
 		var titleNews = document.getElementById("newsTitle");
-		var descriptionNews = document.querySelector(".main-left__container");
-	
+		var descriptionNews = document.querySelector("#descNews");
+		var dateNews = document.querySelector("#dateNews");
+		
+		dateNews.textContent = "Дата создания: " + resNews[0].period;
 		titleNews.textContent = resNews[0].title;
 		descriptionNews.textContent = resNews[0].description;
 		}
 		});
 });
-
 
 $(document).on('click','#addPerformer', function(){  
 	$("#viewPerform").fadeIn("slow");
@@ -346,17 +336,6 @@ $(document).on('click','#addPerformer', function(){
 		cache: false,
 		success: function(data) {
 			$("#perfTable").html(data);
-			
-			$.ajax({
-				type: "POST",
-				url: "./include/view_perform.php",
-				dataType: "json",
-				cache: false,
-				success: function(result) {
-				
-				var qtyTasks = result;
-				}
-			});
 		}
 	});
 	
@@ -365,7 +344,6 @@ $(document).on('click','#addPerformer', function(){
 $(document).on('click','#PerformClose', function(){
 	$("#viewPerform").fadeOut("slow");
 });
-
 
 $(document).on('click','.editApp', function(e){  
 	let num = $(this).attr('href');
@@ -381,6 +359,61 @@ $(document).on('click','.editApp', function(e){
 		console.log(res);
 		$("#appPopup").fadeIn("slow");
 		$("#num_app").html("Заявка №: " + res[0].id_application);
+		
+		
+		switch(res[0].status){
+			case '0':
+				$("#sApp").html("Открыта");
+			break;
+			case '1':
+				$("#sApp").html("Назначен исполнитель");
+			break;
+			case '2':
+				$("#sApp").html("Исполняется");
+			break;
+			case '3':
+				$("#sApp").html("На проверке");
+			break;
+			case '4':
+				$("#sApp").html("Закрыта");
+			break;
+		}
+		
+		
+		switch(res[0].department){
+			case '1':
+			 $("#depApp").html("Отдел кадров");
+			break;
+
+			case '2':
+			 $("#depApp").html("Транспортный отдел");
+			break;
+
+			case '3':
+			 $("#depApp").html("Финансовый отдел");
+			break;
+
+			case '4':
+			 $("#depApp").html("Отдел продаж");
+			break;
+
+			case '5':
+			 $("#depApp").html("Отдел закупок");
+			break;
+
+			case '6':
+			 $("#depApp").html("Отдел маркетинга");
+			break;
+
+			case '7':
+			 $("#depApp").html("Отдел рекламы");
+			break;
+
+			case '8':
+			 $("#depApp").html("Технический отдел");
+			break;
+		}
+		
 		$("#title_app").val(res[0].title);
 		$("#description_app").val(res[0].description);
 		$("#date").val(res[0].start_date); 
@@ -433,11 +466,21 @@ $(document).on('click','#hPerform', function(e){
 		cache: false,
 		data: {num:num},
 		success: function(result) {
+			
+		$.ajax({
+			type: "POST",
+			url: "./include/view_perform.php",
+			dataType: "html",
+			cache: false,
+			success: function(data) {
+				$("#perfTable").html(data);
+				
+			}
+		});
 		
 		var resPerf = result;
 		let qtyTask = document.getElementById("countTask");
 		qtyTask.textContent = resPerf["test"];
-	
 		}
 	});
 });
@@ -532,8 +575,7 @@ $(document).on('click','#save_app', function(e){
 				}
 			}
 		});
-			
-			
+					
 			$.ajax({
 				  url: "./include/give_task.php",
 				  type: "POST",

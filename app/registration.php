@@ -1,15 +1,6 @@
 <?php
-	session_start();
-	//define( '_JEXEC', 1 );
-	
-	
-	//if(!$_SESSION['auth'] == "yes_auth"){	
-	//if(isset($_GET["logout"]))
-	//{
-		//unset($_SESSION['auth']);
-		//unset($_SESSION['auth_name']);
-		//header("Location: auth/login.php"); 
-	//}
+session_start();
+define( '_JEXEC', 1 );
 	include ("include/header.php");
 	include("include/db_connect.php");
 	include ("functions/functions.php");
@@ -62,69 +53,76 @@ if (isset($_POST["CR_submit"])){
 	{
 	if(mysqli_num_rows($result) > 0)
 	{
-	$msg = 'Логин занят!';
-	echo $msg;
+		$msg = ' <p align="left" id="form_error">Логин занят!</p>';
+		echo $msg;
 	}else
 	{
-	if($_FILES['upload_image']['error'] > 0){
-		switch ($_FILES['upload_image']['error'])
-		{
-		case 1: $error_img[] = 'Размер файла превышает допустимое значение UPLOAD_MAX_FILE_SIZE'; break;
-		case 2: $error_img[] = 'Не удалось загрузить часть файла'; break;
-		case 3: $error_img[] = 'Файл не был загружен'; break;
-		}
-	} else
-	{
-	//проверяем расширения
-		if($_FILES['upload_image']['type'] == 'image/jpeg' || $_FILES['upload_image']['type'] == 'image/jpg' || $_FILES['upload_image']['type'] == 'image/png')
-		{
-		if(!isset($_FILES['upload_image']['name'])){
-			$imgext = 'default.jpg';
-			//Папка для загрузки
-			$uploaddir = './uploads_images/';
-			//Новое название файла
-			$newfilename = $imgext;
-			//Путь к файлу (папка,файл)
-			$uploadfile = $uploaddir.$newfilename;
-			echo 'Файл :' . $newfilename;
-		}else{
-			$imgext = strtolower(preg_replace("#.+\.([a-z]+)$#i", "$1", $_FILES['upload_image']['name']));
-			//Папка для загрузки
-			$uploaddir = './uploads_images/';
-			//Новое название файла
-			$newfilename = rand(10,100).'.'.$imgext;
-			//Путь к файлу (папка,файл)
-			$uploadfile = $uploaddir.$newfilename;
-		}
-		//Загружаем файл
-		if(move_uploaded_file($_FILES['upload_image']['tmp_name'], $uploadfile))
-		{
-			$sql = mysqli_query($link, "INSERT INTO user (second_name, first_name, last_name, email, phone, login, pass, access, img, department) VALUES('$surname', '$name', '$patronymic', '$email', '$phone', '$login', '$pass', '$access', '$newfilename', '$department')")or die("Ошибка запроса регистрации(Пользователь не создан)!");
-			
-			
-			if($sql == true)
+			if($_FILES["upload_image"]["tmp_name"] !== "")
 			{
-				$_SESSION['msg'] = "<p align='left' class='form-success'>Новый пользователь успешно создан!</p>";
-				header("Location: ./setting.php");
-			} else {
-			 $_SESSION['msg'] = "<p align='left' class='form-error'>Ошибка!</p>";
+			 if($_FILES['upload_image']['type'] == 'image/jpeg' || $_FILES['upload_image']['type'] == 'image/jpg' || $_FILES['upload_image']['type'] == 'image/png')
+			   {
+	
+					$tmp_name = strtolower(preg_replace("#.+\.([a-z]+)$#i", "$1", $_FILES['upload_image']['name']));
+					//Папка для загрузки
+					$uploaddir = './uploads_images/';
+					//Новое название файла
+					$newfilename = rand(10,100).'.'.$tmp_name;
+					//Путь к файлу (папка,файл)
+					$uploadfile = $uploaddir.$newfilename;
+			
+					if(move_uploaded_file($_FILES['upload_image']['tmp_name'], $uploadfile))
+					{
+						$sql = mysqli_query($link, "INSERT INTO user (second_name, first_name, last_name, email, phone, login, pass, access, img, department) VALUES('$surname', '$name', '$patronymic', '$email', '$phone', '$login', '$pass', '$access', '$newfilename', '$department')")or die("Ошибка запроса регистрации(Пользователь не создан)!");
+		
+						if($sql)
+						{
+							$_SESSION['msg'] = "<p align='left' class='form-succes'>Новый пользователь успешно создан!</p>";
+							
+							
+							
+						} else {
+						 $_SESSION['msg'] = "<p align='left' class='form-error'>Ошибка!</p>";
+						}
+					}
+					 else {
+						 $_SESSION['msg'] = "<p align='left' class='form-error'>Ошибка!</p>";
+						  }
+			     }//ф
+					else {$_SESSION['msg'] = "<p align='left' class='form-error'>Ошибка!Неверный формат изображения!(jpeg, jpg, png)</p>";}
+			}
+			else //No Img
+			{
+				$filename="default.jpg";
+				$sql = mysqli_query($link, "INSERT INTO user (second_name, first_name, last_name, email, phone, login, pass, access, img, department) VALUES('$surname', '$name', '$patronymic', '$email', '$phone', '$login', '$pass', '$access', '$filename', '$department')")or die("Ошибка запроса регистрации(Пользователь не создан)!");
+				
+				if($sql)
+				{
+					$_SESSION['msg'] = "<p align='left' class='form-succes'>Новый пользователь успешно создан!</p>";
+					//header("Location: ./setting.php");
+				} else {
+				 $_SESSION['msg'] = "<p align='left' class='form-error'>Ошибка!</p>";
+				}
+			}
 			}
 		}
-		}else
-		{
-			$error_img[] = 'Допустимые расширения: jpeg, jpg, png';
-		}
 	}
-	}
-	}
-	}
-	}
+}
 	
 	$users = mysqli_query($link, "SELECT * FROM user WHERE access = 2");
 			while($rule = mysqli_fetch_array($users)){
 					$user = $rule["id_user"];
 					$sql2 = mysqli_query($link, "INSERT INTO performer (first_name, last_name, user) VALUES('{$rule["first_name"]}', '{$rule["second_name"]}', '{$rule["id_user"]}')");
 			}
+			
+	if(@$access == 3)
+		{
+			$sqlManager = mysqli_query($link, "SELECT * FROM user WHERE access = '$access'") or die("Ошибка вывода диспетчера!");
+			$rowMan = mysqli_fetch_array($sqlManager);
+			do{
+				$crManager = mysqli_query($link, "INSERT INTO manager (user, first_name, second_name) VALUES('{$rowMan["id_user"]}', '$name', '$surname')")or die("Ошибка запроса регистрации(Пользователь не создан)!");
+			}
+			while($rowMan = mysqli_fetch_array($sqlManager));
+		}		
 ?>
 
 	<div class="registration">
@@ -136,6 +134,14 @@ if (isset($_POST["CR_submit"])){
 			unset($_SESSION['msg']);
 		}
 	?>
+	
+<script>
+	$(document).ready(function(){
+		$("#form-success").hide();
+	});
+	setTimeout(function() { $(".form-error").slideUp(); }, 3500);
+	setTimeout(function() { $(".form-succes").slideUp(); }, 3500);
+</script>
 	<div class="registration__grid">
 	<div class="registration__left">
 		<div  class="registration__img">
@@ -208,7 +214,7 @@ if (isset($_POST["CR_submit"])){
 					<label for="info_phone">Изображение</label>
 					<span>*</span>
 					<input type="hidden" name="MAX_FILE_SIZE" value="5000000"/>
-					<input type="file" name="upload_image" />
+					<input class="prMF" type="file" name="upload_image" />
 				</div>	
 				</li>
 			
@@ -265,9 +271,3 @@ if (isset($_POST["CR_submit"])){
 ?>
 </body>
 </html>
-<?php
-/* }else
-{
-	header("Location: auth/login.php");
-} */
-?>

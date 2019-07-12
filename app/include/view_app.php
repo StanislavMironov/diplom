@@ -35,8 +35,8 @@ if(isset($_POST["num"]))
 		
 		$arr[]=$row;
 	}
-	echo json_encode($arr, JSON_UNESCAPED_UNICODE);
-	
 	$_SESSION["id_app"] = $id_app;
+	echo json_encode($arr, JSON_UNESCAPED_UNICODE);
 }
+
 ?>

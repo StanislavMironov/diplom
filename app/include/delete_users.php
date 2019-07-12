@@ -7,7 +7,6 @@ if(isset($_POST["num"]))
 	
 	$sql = mysqli_query($link, "DELETE FROM user WHERE id_user = '{$id_app}'") or die("Ошибка удаления пользователя!");
 	
-	sessi
 	if ($sql)
 	{
 		echo "ok";

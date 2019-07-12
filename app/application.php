@@ -1,7 +1,7 @@
 <?php
-session_start();
+include("./include/view_app.php");
 define( '_JEXEC', 1 );
-
+if(isset($_SESSION['auth'])) {
 if($_SESSION['auth'] == "yes_auth"){	
 if(isset($_GET["logout"]))
 {
@@ -9,9 +9,9 @@ if(isset($_GET["logout"]))
 	unset($_SESSION['auth_name']);
 	header("Location: auth/login.php");
 }
-include ("include/header.php");
-include ("functions/functions.php");
-include ('/include/rule.php');
+include ("./include/header.php");
+include ("./functions/functions.php");
+include ('./include/rule.php');
 ?>
 
 <div class="application">
@@ -298,22 +298,52 @@ if($temp == "Исполнитель"){
 	<div>
 		<span>Отдел:</span>
 	</div>	
-	<div>
-		Отдел кадров
+	<div id="depApp">
 	</div>
     </li>
 	<li>
-		<span>Статус:</span> <div class="statusCH"><?php echo $_SESSION["statusApp"];?></div>
-		<div>
+	
+		<span>Статус:</span>
+		<div id="sApp">
+		</div>
+	
+		<div class="wrapMF">
 			<div class="center-on-page statusMF">
 			  <div class="select">
 				<select name="sitetime" id="sitetime" onchange="document.getElementById('rezStatus').value=value">
 				  <option value="" >Выберите статус</option>
-				  <option value="0" >Открыта</option>
-				  <option value="1" >Назначен исполнитель</option>
-				  <option value="2" >Исполняется</option>
-				  <option value="3" >На проверке</option>
-				  <option value="4" >Закрыта</option>
+				  <?php 
+				  
+				  switch($temp){
+					case "Пользователь":
+						echo '
+							<option value="0" >Открыта</option>
+							<option value="4" >Закрыта</option>
+						';
+					break;
+					case "Диспетчер":
+						echo '
+							<option value="0" >Открыта</option>
+							<option value="1" >Назначен исполнитель</option>
+							<option value="4" >Закрыта</option>
+						';
+					break;
+					case "Исполнитель":
+						echo '
+							<option value="0" >Открыта</option>
+							<option value="2" >Исполняется</option>
+							<option value="3" >На проверке</option>
+							<option value="4" >Закрыта</option>
+						';
+					break;
+					
+				  }
+	
+					?>
+					
+				  
+				  
+				  
 				</select>
 			  </div>
 			</div>
@@ -321,46 +351,20 @@ if($temp == "Исполнитель"){
 		</div>
 	</li>
 	<?php
-		
-	$result = mysqli_query($link, "SELECT * FROM application WHERE id_application= '{$_SESSION["id_app"]}'") or die("Ошибка вывода исполнителей!");
-	$IssetPerf = mysqli_fetch_array($result);
+
 	if($temp == "Диспетчер"){
 	echo 	'<li>
 			<span>
 				Исполнитель:
 			</span>
 			<div id="newPerf">
-			';
-			
-			echo	'
-			</div>
-			<div>
-			<div class="center-on-page">
-			<div class="select">
-			<select name="sitetime" id="sitetime" onchange="document.getElementById(\'rezP\').value=value">
-			'; 
-			if(mysqli_num_rows($sqlPerf) > 0){
-			do {	
-				echo   '<option value="" >Выберите шаблон</option>
-						<option value="'.$rowPerf["id_performer"].'" >'.$rowPerf["first_name"].'</option>';
-				}
-			while($rowPerf = mysqli_fetch_array($sql));
-			}else
-			{
-				echo '<option value="" >Исполнителей нет!</option>';
-			}
-				echo '  
-			</select>
-			</div>
-			</div>
-			<input type="text" id="rezP" name="rezP"/>
 			</div>
 			</li>			
 			';
 	}		
 	?>
     <li>
-	<div>
+	<div id="nameMF">
         <label for="title_app">Название:*</label>
         <input id="title_app" type="text" name="title_app"  />
 	</div>	
@@ -438,7 +442,7 @@ if($temp == "Исполнитель"){
 				
 				<li class="categoryApps">
 				<span>Категория сложности:</span>
-				<div class="center-on-page" id="categoryTask">
+				<div class="center-on-page wrapMF" id="categoryTask">
 				  <div class="select">
 					<select name="sitetime" id="sitetime" onchange="document.getElementById(\'categoryApp\').value=value">
 					  <option value="" >Выберите категорию</option>
@@ -457,12 +461,19 @@ if($temp == "Исполнитель"){
 				</div>
 				<input type=\'text\' id=\'categoryApp\' name=\'categoryApp\'/>
 				</li>
-	
-				<li>
-				<label for="deadline">Дата завершения: </label>
-				<input type="datetime-local" id="deadline" name="date_app" disabled />
-				</li>
+	';
+
+			if($row["status"] == 3) {
+				echo '
+					<li>
+					<label for="deadline">Дата завершения: </label>
+					<input type="datetime-local" id="deadline" name="date_app" disabled />
+					</li>
+				';
+			}
+		
 				
+		echo '		
 				<li class="prBr">
 				<div>Прогресс:</div>
 					<div class="progress">
@@ -502,10 +513,16 @@ if($temp == "Исполнитель"){
 			}
 		}
 		if($temp == "Пользователь"){
-			echo '				
+			echo '			
+				
+				<li>
+				<label for="date">Время на выполнение: </label>
+				<input  type="time" id="lastDate" name="lastDate" value="00:00" min="00:00" max="24:00" disabled/>
+				</li>
+				
 				<li> 
 				   <label for="time">Время: </label>
-				   <p><input id="spent_time" type="time" name="time" value="13:30" min="00:00" max="24:00"></p>
+				   <p><input id="spent_time" type="time" name="time" value="13:30" min="00:00" max="24:00" disabled ></p>
 				</li>
 			
 				<li>
@@ -530,7 +547,7 @@ if($temp == "Исполнитель"){
 		</textarea>
 	</li>
 	<li>
-	<div>
+	<div id="commentMF">
         <label for="add_app">Добавить комментарий:</label>
         <input id="add_app" type="text" name="add_app" />
 	</div>	
@@ -574,10 +591,14 @@ parent.appendChild(newObj);
 </script>
 </body>
 </html>
-
 <?php
 }else
 {
-	header("Location: auth/login.php");
+ header("Location: auth/login.php");
+}
+}
+else
+{
+	 header("Location: auth/login.php");
 }
 ?>

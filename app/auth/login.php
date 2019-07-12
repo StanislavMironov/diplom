@@ -1,6 +1,7 @@
 <?php
 session_start();
 define( '_JEXEC', 1 );
+include('functions/functions.php');
 ?>
 
 <!DOCTYPE html>
@@ -41,17 +42,17 @@ define( '_JEXEC', 1 );
 				
 						<form class="login100-form validate-form" method="post" id="formAuth" action="javascript:void(null);" onsubmit="callauth()">
 					<span class="login100-form-title p-b-33">
-						SmartAssistant
+						Smart Assistant
 					</span>
 					<p id="message-auth">Неверный логин и(или) Пароль</p>
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" placeholder="Email" id="auth_login" name="login">
+					<div class="wrap-input100">
+						<input class="input100" type="text" placeholder="Логин" id="auth_login" name="login">
 						<span class="focus-input100-1"></span>
 						<span class="focus-input100-2"></span>
 					</div>
 
-					<div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" placeholder="Password" id="auth_pass" name="pass">
+					<div class="wrap-input100">
+						<input class="input100" type="password" placeholder="Пароль" id="auth_pass" name="pass">
 						<span class="focus-input100-1"></span>
 						<span class="focus-input100-2"></span>
 					</div>
@@ -62,7 +63,7 @@ define( '_JEXEC', 1 );
 					
 					<div class="container-login100-form-btn m-t-20">
 						<button class="login100-form-btn" id="button-auth">
-							Sign in
+							Войти
 						</button>
 					</div>
 				</form>
@@ -74,13 +75,11 @@ define( '_JEXEC', 1 );
 <h3 class="block-remind__title">Восстановление пароля</h3>
 <p id="message-remind" class="message-remind-success"></p>
 <center><input type="text" class="block-remind__input" id="remind-email" placeholder="Ваш E-mail"/></center>
-<p align="right" id="button-remind"><a>Готово</a></p>
+<center>
+<p align="right" id="button-remind"><a id="remind" href="javascript:void(0);">Готово</a></p>
+</center>
 <div id="popap-close"></div>
 </div>
-
-
-
-
 </div>	
 <!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>

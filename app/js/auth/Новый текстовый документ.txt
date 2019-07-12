@@ -1,0 +1,9 @@
+<div class="container">
+	<div>
+		<form>
+			<input type="text" placeholder="Логин">
+			<input type="password">
+			<input type="submit" value="Авторизация">
+		</form>
+	</div>
+</div>

@@ -14,7 +14,7 @@ switch ($temp) {
 	break;
 	
 	case "Исполнитель":
-		$getApp = mysqli_query($link, "SELECT * FROM application WHERE performers =  '{$_SESSION["auth_name"]}' AND NOT status = 3") or die();
+		$getApp = mysqli_query($link, "SELECT * FROM application WHERE performers =  '{$_SESSION["auth_name"]}' AND NOT status = 4") or die();
 		if(mysqli_num_rows($getApp) > 0){
 		while($row = mysqli_fetch_array($getApp)){
 		echo '

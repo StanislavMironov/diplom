@@ -65,7 +65,7 @@
     margin: 0px; }
     @media screen and (max-width: 600px) {
       .profile__list {
-        padding: 0px; } }
+        padding: 10px; } }
     .profile__list li:not(:last-child) {
       margin-bottom: 10px; }
     .profile__list li:last-child {

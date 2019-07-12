@@ -54,7 +54,7 @@ $cl_str = mysqli_real_escape_string($link, $cl_str);
 $cl_str = trim($cl_str);
 return $cl_str;
 }
-/* 
+
 function fungenpass(){
 $number = 7;
 $arr = array('a','b','c','d','e','f',
@@ -67,7 +67,7 @@ $arr = array('a','b','c','d','e','f',
 //Генерируеи пароль
 	$pass = "";
 	
-	for ($i = 0; $i < $number; i++;)
+	for ($i = 0; $i < $number; $i++)
 	{
 		//Вычисляем случайный индекс массива
 		$index = rand(0, count($arr) - 1);
@@ -77,7 +77,8 @@ $arr = array('a','b','c','d','e','f',
 	return $pass;
 }
 
-function send_mail($from, $to, $subject, $body)
+
+/* function send_mail($from, $to, $subject, $body)
 {
 	$charset = 'utf-8';
 	mb_language("ru");
@@ -91,4 +92,15 @@ function send_mail($from, $to, $subject, $body)
 	mail($to,$subject,$body,$headers)
 } */
 
+function send_mail()
+{
+$to  = "<Alsagarr@yandex.ru>, " ; 
+$to .= "Alsagarr@yandex.ru>"; 
+$subject = "Заголовок письма"; 
+$message = ' <p>Текст письма</p> </br> <b>1-ая строчка </b> </br><i>2-ая строчка </i> </br>';
+$headers  = "Content-type: text/html; charset=windows-1251 \r\n"; 
+$headers .= "From: От кого письмо <from@example.com>\r\n"; 
+$headers .= "Reply-To: reply-to@example.com\r\n"; 
+mail($to, $subject, $message, $headers); 
+}
 ?>

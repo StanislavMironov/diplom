@@ -30,6 +30,9 @@
     margin-left: -9px;
     border-top: 3px solid;
     background-image: url(../img/bg3.png); }
+    @media screen and (max-width: 768px) {
+      .info-header:after {
+        margin-left: 0px; } }
     @media screen and (max-width: 500px) {
       .info-header:after {
         width: 102%; } }

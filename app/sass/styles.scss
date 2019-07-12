@@ -428,8 +428,12 @@ a {
     min-height: 100%;
 
     @media screen and (max-width: 1024px) {
-          height: auto;
-        }
+        height: auto;
+    }
+    @media screen and (max-width: 500px) {
+        margin-top: -85px;
+    }
+
 
 	nav {
 		justify-content: flex-end;
@@ -508,9 +512,10 @@ a {
 
     &__container {
         padding: 0px 30px 0px;
-        line-height: 1.6;
-        text-indent: 20px;
         overflow-y: scroll;
+        min-height: 180px;
+        display: flex;
+        flex-direction: column;
     }
 
     &__popup {
@@ -524,6 +529,10 @@ a {
         left: 0;
         margin: 0 auto;
         outline: 4px solid #666;
+
+        @media screen and (max-width: 768px) {
+            width: calc(100% - 20px);
+        }
 
         h2 {
             text-align: center;
@@ -1122,3 +1131,4 @@ select::-ms-expand {
     & ~ .progress-bg .progress-bar { width: $i * 1% }
   }
 }
+

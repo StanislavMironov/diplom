@@ -180,12 +180,53 @@
     font-weight: bold;
 }
 
+.form-succes {
+    background-color: rgba(78, 139, 55, 0.2);
+    padding: 10px;
+    color: #41403e;
+    font-weight: bold;
+}
+
 .form-error {
     background-color: rgba(240, 10, 10, 0.5) !important;
     padding: 10px;
     color: white;
     font-weight: bold;
 }
+
+#popup-closes {
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    cursor: pointer;
+
+    @media screen and (max-width: 600px){
+      right: 25px;
+    }
+
+    &:after, &:before {
+      content: "";
+      height: 20px;
+      background-color: black;
+      width: 2px;
+      position: absolute;
+      right: 0px;
+      left: 9px;
+      top: 1px;
+      bottom: 0;
+    }
+
+    &:after {
+      transform: rotate(-45deg);
+    }
+
+    &:before {
+      transform: rotate(45deg);
+    }
+    }
 
 #popup-close {
     height: 20px;
@@ -195,6 +236,10 @@
     top: 5px;
     right: 8px;
     cursor: pointer;
+
+    @media screen and (max-width: 600px){
+      right: 25px;
+    }
 
     &:after, &:before {
       content: "";
@@ -251,6 +296,10 @@
     .statusMF {
       display: block !important;
 
+      @media screen and (max-width: 600px){
+        width: 100%;
+     }
+
       select {
         color: white;
         padding: 5px 10px 5px 5px;
@@ -263,6 +312,11 @@
 
     .statusCH {
       margin-right: 28px;
+
+      @media screen and (max-width: 600px){
+        margin-right: 0px;
+        margin-bottom: 10px;
+     }
     }
 
     #rezStatus {
@@ -292,7 +346,7 @@
         box-shadow: 0px 10px 8px;
         word-break: break-all;
         outline: 4px solid #666;
-        margin-bottom: 30px;
+        margin-bottom: 25px;
     }
 
     .uplImg {
@@ -378,7 +432,6 @@
 
 #archiveApp {
     overflow-y: auto;
-    overflow-x: hidden;
     height: 300px;
 }
 
@@ -403,6 +456,11 @@
     padding: 3px;
     font-weight: bold;
     margin-right: 20px;
+
+    @media screen and (max-width: 600px){
+      width: auto;
+      margin-right: 0px;
+    }
   }
 
   a {
@@ -427,6 +485,10 @@
       bottom: 0;
       top: 0;
       width: 700px;
+
+      @media screen and (max-width: 768px){
+        width: calc(100% - 30px);
+      }
     }
 }
 
@@ -484,4 +546,69 @@
 
 #newPerf {
   cursor: pointer;
+}
+
+.wrapMF {
+    display: flex;
+    margin-left: auto;
+
+    @media screen and (max-width: 600px){
+      width: 100%;
+    }
+}
+
+#nameMF {
+  @media screen and (max-width: 600px){
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+#commentMF {
+  @media screen and (max-width: 600px){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 20px);
+  }
+}
+
+.prMF {
+  @media screen and (max-width: 768px){
+    width: 280px !important;
+  }
+}
+
+.center-on-page {
+  @media screen and (max-width: 768px){
+    width: 405px;
+  }
+  @media screen and (max-width: 600px){
+    width: 100%;
+  }
+}
+
+#imgNews {
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-y: 60%;
+  height: 80px;
+  width: 100%;
+  background-image: url("../img/news.jpg");
+  margin-bottom: 10px;
+}
+
+#descNews {
+  text-indent: 24px;
+  line-height: 1.5;
+}
+
+
+#dateNews {
+  display: flex;
+  margin-top: auto;
 }

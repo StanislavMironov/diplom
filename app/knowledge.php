@@ -1,10 +1,19 @@
 <?php
-	session_start();
-	include ("include/header.php");
-	include ("include/db_connect.php");
-	
-	$sql = mysqli_query($link, "SELECT * FROM knowledge ") or die();
-	$sqlKn = mysqli_query($link, "SELECT * FROM knowledge_category ") or die();
+session_start();
+define( '_JEXEC', 1 );
+if(isset($_SESSION['auth'])) {
+if($_SESSION['auth'] == "yes_auth"){	
+if(isset($_GET["logout"]))
+{
+	unset($_SESSION['auth']);
+	unset($_SESSION['auth_name']);
+	header("Location: auth/login.php");
+}
+include ("include/header.php");
+include ("include/db_connect.php");
+
+$sql = mysqli_query($link, "SELECT * FROM knowledge ") or die();
+$sqlKn = mysqli_query($link, "SELECT * FROM knowledge_category ") or die();
 ?>
 <div class="knowledge">
 	<div class="knowledge__block">
@@ -44,3 +53,14 @@
 ?>
 </body>
 </html>
+<?php 
+}else
+{
+ header("Location: auth/login.php");
+}
+}
+else
+{
+	 header("Location: auth/login.php");
+}
+?>

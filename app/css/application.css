@@ -123,8 +123,8 @@
                 box-shadow: 2px 8px 4px -6px rgba(0, 0, 0, 0.3); }
   .application__popup {
     width: 500px;
-    height: -webkit-calc(100% - 35px);
-    height: calc(100% - 35px);
+    height: 500px;
+    min-height: 520px;
     position: absolute;
     z-index: 999999;
     outline: 5px solid #495057;
@@ -136,7 +136,10 @@
     top: 0; }
     @media screen and (max-width: 600px) {
       .application__popup {
-        width: 300px; } }
+        width: -webkit-calc(100% - 30px);
+        width: calc(100% - 30px);
+        height: -webkit-calc(100% - 25px);
+        height: calc(100% - 25px); } }
     .application__popup :-moz-placeholder {
       color: blue; }
     .application__popup ::-webkit-input-placeholder {
@@ -163,6 +166,27 @@
       padding: 12px;
       border-bottom: 1px solid #eee;
       position: relative; }
+      @media screen and (max-width: 600px) {
+        .application__popup .editApp_form li {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -webkit-flex-direction: column;
+              -ms-flex-direction: column;
+                  flex-direction: column;
+          -webkit-box-pack: center;
+          -webkit-justify-content: center;
+              -ms-flex-pack: center;
+                  justify-content: center;
+          -webkit-box-align: center;
+          -webkit-align-items: center;
+              -ms-flex-align: center;
+                  align-items: center;
+          width: -webkit-calc(100% - 20px);
+          width: calc(100% - 20px); } }
     .application__popup .editApp_form li:first-child, .application__popup .contact_form li:last-child {
       border-bottom: 1px solid #777; }
     .application__popup .editApp_form li:nth-of-type(1), .application__popup .editApp_form li:nth-of-type(2), .application__popup .editApp_form li:nth-of-type(3) {
@@ -177,6 +201,9 @@
               align-items: center; }
       .application__popup .editApp_form li:nth-of-type(2) span {
         margin-right: 86px; }
+        @media screen and (max-width: 600px) {
+          .application__popup .editApp_form li:nth-of-type(2) span {
+            margin-right: 0px; } }
     .application__popup .editApp_form li:nth-of-type(3) {
       -webkit-box-align: center;
       -webkit-align-items: center;
@@ -184,6 +211,9 @@
               align-items: center; }
       .application__popup .editApp_form li:nth-of-type(3) span {
         margin-right: 39px; }
+        @media screen and (max-width: 600px) {
+          .application__popup .editApp_form li:nth-of-type(3) span {
+            margin-right: 0px; } }
     .application__popup .editApp_form li:nth-of-type(8) {
       display: -webkit-inline-box;
       display: -webkit-inline-flex;
@@ -205,13 +235,26 @@
       padding: 3px;
       font-weight: bold;
       margin-right: 20px; }
+      @media screen and (max-width: 600px) {
+        .application__popup .editApp_form label {
+          margin-right: 0px;
+          width: auto;
+          margin-bottom: 10px; } }
     .application__popup .editApp_form input {
       height: 20px;
-      width: 300px;
+      width: 307px;
       padding: 5px 8px; }
+      @media screen and (max-width: 600px) {
+        .application__popup .editApp_form input {
+          width: -webkit-calc(100% - 20px);
+          width: calc(100% - 20px); } }
     .application__popup .editApp_form textarea {
       padding: 8px;
-      width: 300px; }
+      width: 307px; }
+      @media screen and (max-width: 600px) {
+        .application__popup .editApp_form textarea {
+          width: -webkit-calc(100% - 20px);
+          width: calc(100% - 20px); } }
     .application__popup .editApp_form button {
       margin-left: 156px; }
     .application__popup .editApp_form .form_hint {
@@ -242,11 +285,20 @@
       -webkit-justify-content: center;
           -ms-flex-pack: center;
               justify-content: center; }
+      @media screen and (max-width: 500px) {
+        .application__popup .Btn {
+          width: auto;
+          text-align: center; } }
     .application__popup textarea {
       resize: none; }
     .application__popup span {
       font-weight: bold;
       margin-right: 91px; }
+      @media screen and (max-width: 600px) {
+        .application__popup span {
+          margin-right: 0px;
+          margin-bottom: 10px;
+          display: block; } }
     .application__popup #resStatus {
       border-bottom: 1px solid #777;
       padding: 12px; }
@@ -262,6 +314,9 @@
       display: none; }
     .application__popup .select {
       width: 200px; }
+      @media screen and (max-width: 600px) {
+        .application__popup .select {
+          width: 100% !important; } }
     .application__popup #addPerformer {
       margin-right: 15px;
       -webkit-transition: .3s;
@@ -281,7 +336,8 @@
       right: 0;
       bottom: 0;
       top: 0;
-      width: 640px;
+      width: -webkit-calc(100% - -90px);
+      width: calc(100% - -90px);
       height: 300px;
       position: absolute;
       z-index: 4;
@@ -290,6 +346,17 @@
       outline: 5px solid #495057;
       background-color: #eee;
       background-image: url(../img/bg3.png); }
+      @media screen and (max-width: 768px) {
+        .application__popup #viewPerform {
+          width: -webkit-calc(100% - -28px);
+          width: calc(100% - -28px);
+          right: -60px; } }
+      @media screen and (max-width: 600px) {
+        .application__popup #viewPerform {
+          width: -webkit-calc(100% - 100px);
+          width: calc(100% - 100px);
+          right: 0px;
+          left: 0; } }
       .application__popup #viewPerform .table {
         overflow-y: scroll;
         overflow-x: hidden;
@@ -299,6 +366,21 @@
           max-width: 20%;
           min-width: 20%;
           padding: 10px; }
+          @media screen and (max-width: 600px) {
+            .application__popup #viewPerform .table__column {
+              width: 90%;
+              max-width: 90%;
+              min-width: 20%;
+              padding: 10px;
+              -webkit-box-align: center;
+              -webkit-align-items: center;
+                  -ms-flex-align: center;
+                      align-items: center;
+              -webkit-box-pack: center;
+              -webkit-justify-content: center;
+                  -ms-flex-pack: center;
+                      justify-content: center;
+              margin: 0 auto; } }
     .application__popup h2 {
       padding: 10px;
       background-color: white;
@@ -401,3 +483,6 @@
     .application .prBr > div:first-child {
       margin-right: 85px;
       font-weight: bold; }
+      @media screen and (max-width: 600px) {
+        .application .prBr > div:first-child {
+          margin-right: 0px; } }

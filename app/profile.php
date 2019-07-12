@@ -1,18 +1,14 @@
 <?php
 session_start();
 define( '_JEXEC', 1 );
-//global $lastname;
-$newpass = '';
-
+if(isset($_SESSION['auth'])) {
 if($_SESSION['auth'] == "yes_auth"){	
-
-if(isset($_GET["logout"]))
-{
-	unset($_SESSION['auth']);
-	unset($_SESSION['auth_name']);
-	header("Location: auth/login.php");
-}
-
+	if(isset($_GET["logout"]))
+	{
+		unset($_SESSION['auth']);
+		unset($_SESSION['auth_name']);
+		header("Location: auth/login.php");
+	}
 include ("include/header.php");
 include ("functions/functions.php");
 
@@ -117,26 +113,45 @@ if(empty($_POST['rez'])){
 		$_POST['rez'] = $_SESSION['auth_access'];
 	}
 	
-	if($_FILES['upload_image']['tmp_name'] === '' ){
-	 $lastname = 'default.jpg';
-	 $uploaddir = './uploads_images/';
-		//Путь к файлу (папка,файл)
-		$uploadfile = $uploaddir.$lastname;
+	
+	if($_FILES["upload_image"]["tmp_name"] !== ""){
+	
+	if($_FILES['upload_image']['type'] == 'image/jpeg' || $_FILES['upload_image']['type'] == 'image/jpg' || $_FILES['upload_image']['type'] == 'image/png')
+		{
+			$tmp_name = strtolower(preg_replace("#.+\.([a-z]+)$#i", "$1", $_FILES['upload_image']['name']));
+			//Папка для загрузки
+			$uploaddir = './uploads_images/';
+			//Новое название файла
+			$newfilename = rand(10,100).'.'.$tmp_name;
+			//Путь к файлу (папка,файл)
+			$uploadfile = $uploaddir.$newfilename;
+		
+			if(move_uploaded_file($_FILES['upload_image']['tmp_name'], $uploadfile))
+			{
+					$insert_path="UPDATE user SET img = '$newfilename', second_name = '{$_POST["info_surname"]}', login = '{$_POST["info_login"]}', first_name = '{$_POST["info_name"]}', last_name = '{$_POST["info_patronymic"]}', email = '{$_POST["info_email"]}', phone = '{$_POST["info_phone"]}', access = '{$_POST['rez']}'  WHERE login = '{$_SESSION['auth_login']}'";
+				$var=mysqli_query($link, $insert_path);
+				if(!$var)
+				{
+					die('Could not enter data: ' . mysql_error());
+				}
+			}
+		}
 	}
-	if(move_uploaded_file($_FILES['upload_image']['tmp_name'], $uploadfile))
+	else
 	{
-		$dataquery = @$newpassquery."second_name='".$_POST["info_surname"]."',img='{$lastname}',login='".$_POST["info_login"]."',first_name='".$_POST["info_name"]."',last_name='".$_POST["info_patronymic"]."',email='".$_POST["info_email"]."',phone='".$_POST["info_phone"]."',access='".$_POST['rez']."',img='{$lastname}'";
-	$update = mysqli_query($link, "UPDATE user SET $dataquery WHERE login ='{$_SESSION['auth_login']}'")or die("Ошибка");
-		$_SESSION['auth_surname'] = $_POST["info_surname"];
-		$_SESSION['auth_name'] = $_POST["info_name"];
-		$_SESSION['auth_patronymic'] = $_POST["info_patronymic"];
-		$_SESSION['auth_email'] = $_POST["info_email"];
-		$_SESSION['auth_phone'] = $_POST["info_phone"];
-		$_SESSION['auth_login'] = $_POST["info_login"];
-		$_SESSION['auth_access'] = $_POST['rez'];
+		//$filename="default.jpg";
+		//$insert_path="UPDATE user SET img = '$filename.', email = '{$_POST["info_email"]}' WHERE login = '{$_SESSION['auth_login']}'";
+		
+		$insert_path="UPDATE user SET second_name = '{$_POST["info_surname"]}', login = '{$_POST["info_login"]}', first_name = '{$_POST["info_name"]}', last_name = '{$_POST["info_patronymic"]}', email = '{$_POST["info_email"]}', phone = '{$_POST["info_phone"]}', access = '{$_POST['rez']}'  WHERE login = '{$_SESSION['auth_login']}'";
+		
+		$var=mysqli_query($link, $insert_path);
+		if(!$var)
+		{
+			die('Could not enter data: ' . mysql_error());
+		}
 	}
-
-	if($newpass){ $_SESSION['auth_pass'] = $newpass;} 
+	
+	if(isset($newpass)){ $_SESSION['auth_pass'] = $newpass;} 
 
 		$_SESSION['auth_surname'] = $_POST["info_surname"];
 		$_SESSION['auth_name'] = $_POST["info_name"];
@@ -148,6 +163,9 @@ if(empty($_POST['rez'])){
 	}
 }
 ?>
+<script>
+	setTimeout(function() { $("#form-success").slideUp(); }, 3500);
+</script>
 	<div class="profile">
 	<h3>Изменение профиля</h3>
 	
@@ -237,7 +255,7 @@ if(empty($_POST['rez'])){
 					<label for="info_phone">Изображение</label>
 					<span>*</span>
 					<input type="hidden" name="MAX_FILE_SIZE" value="5000000"/>
-					<input type="file" name="upload_image" />
+					<input  type="file" name="upload_image" />
 				</div>	
 				</li>
 				
@@ -272,6 +290,11 @@ if(empty($_POST['rez'])){
 <?php
 }else
 {
-	header("Location: auth/login.php");
+ header("Location: auth/login.php");
+}
+}
+else
+{
+	 header("Location: auth/login.php");
 }
 ?>

@@ -143,7 +143,8 @@ input[type = "submit"], input[type = "reset"] {
 
 &__popup {
   width: 500px;
-  height: calc(100% - 35px);
+  height: 500px;
+  min-height: 520px;
   position: absolute;
   z-index: 999999;
   outline: 5px solid #495057;
@@ -155,7 +156,8 @@ input[type = "submit"], input[type = "reset"] {
   top: 0;
 
   @media screen and (max-width: 600px){
-    width: 300px;
+    width: calc(100% - 30px);
+    height: calc(100% - 25px);
   }
 
 :-moz-placeholder {
@@ -191,6 +193,14 @@ input[type = "submit"], input[type = "reset"] {
     padding:12px;
     border-bottom:1px solid #eee;
     position:relative;
+
+    @media screen and (max-width: 600px){
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: calc(100% - 20px);
+    }
 }
 
 .editApp_form li:first-child, .contact_form li:last-child {
@@ -206,6 +216,10 @@ input[type = "submit"], input[type = "reset"] {
 
   span {
     margin-right: 86px;
+
+    @media screen and (max-width: 600px){
+      margin-right: 0px;
+    }
   }
 }
 
@@ -214,6 +228,11 @@ input[type = "submit"], input[type = "reset"] {
 
   span {
     margin-right: 39px;
+
+    @media screen and (max-width: 600px){
+      margin-right: 0px;
+    }
+
   }
 }
 
@@ -241,15 +260,31 @@ input[type = "submit"], input[type = "reset"] {
     padding:3px;
     font-weight: bold;
     margin-right: 20px;
+
+    @media screen and (max-width: 600px){
+      margin-right: 0px;
+      width: auto;
+      margin-bottom: 10px;
+   }
 }
 
 .editApp_form input {
     height:20px;
-    width:300px;
+    width:307px;
     padding:5px 8px;
+
+    @media screen and (max-width: 600px){
+      width: calc(100% - 20px);
+    }
 }
 
-.editApp_form textarea {padding:8px; width:300px;}
+.editApp_form textarea {
+  padding:8px; width:307px;
+
+  @media screen and (max-width: 600px){
+      width: calc(100% - 20px);
+  }
+}
 .editApp_form button {margin-left:156px;}
 
 .editApp_form .form_hint {
@@ -274,6 +309,12 @@ input[type = "submit"], input[type = "reset"] {
     align-self: center;
     max-width: 90px;
     justify-content: center;
+
+    @media screen and (max-width: 500px)
+    {
+      width: auto;
+      text-align: center;
+    }
 }
 
 textarea {
@@ -283,8 +324,13 @@ textarea {
 span {
   font-weight: bold;
   margin-right: 91px;
-}
 
+  @media screen and (max-width: 600px){
+      margin-right: 0px;
+      margin-bottom: 10px;
+      display: block;
+  }
+}
 #resStatus {
     border-bottom: 1px solid #777;
     padding: 12px;
@@ -305,7 +351,11 @@ span {
 }
 
 .select {
-  width: 200px
+  width: 200px;
+
+  @media screen and (max-width: 600px){
+    width: 100% !important;
+  }
 }
 
 #addPerformer {
@@ -333,7 +383,7 @@ span {
     right: 0;
     bottom: 0;
     top: 0;
-    width: 640px;
+    width: calc(100% - -90px);
     height: 300px;
     position: absolute;
     z-index: 4;
@@ -341,6 +391,16 @@ span {
     outline: 5px solid #495057;
     background-color: #eee;
     background-image: url(../img/bg3.png);
+
+    @media screen and (max-width: 768px){
+      width: calc(100% - -28px);
+      right: -60px;
+    }
+    @media screen and (max-width: 600px){
+      width: calc(100% - 100px);
+      right: 0px;
+      left: 0;
+    }
 
  .table {
   overflow-y: scroll;
@@ -352,6 +412,16 @@ span {
   max-width: 20%;
   min-width: 20%;
   padding: 10px;
+
+  @media screen and (max-width: 600px){
+    width: 90%;
+    max-width: 90%;
+    min-width: 20%;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
   }
  }   
 }
@@ -486,6 +556,10 @@ select::-ms-expand {
   & > div:first-child {
     margin-right: 85px;
     font-weight: bold;
+
+  @media screen and (max-width: 600px){
+    margin-right: 0px;
+  }
   }
 }
 }
